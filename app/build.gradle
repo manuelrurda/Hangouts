@@ -2,6 +2,10 @@ plugins {
     id 'com.android.application'
 }
 
+def apikeyPropertiesFile = rootProject.file("apikey.properties")
+def apikeyProperties = new Properties()
+apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
+
 android {
     compileSdk 32
 
@@ -13,6 +17,10 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "PARSE_APP_ID", apikeyProperties['PARSE_APP_ID']
+        buildConfigField "String", "PARSE_CLIENT_KEY", apikeyProperties['PARSE_CLIENT_KEY']
+        buildConfigField "String", "PARSE_SERVER_URL", apikeyProperties['PARSE_SERVER_URL']
     }
 
     buildTypes {
