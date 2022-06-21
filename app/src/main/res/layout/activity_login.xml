@@ -34,116 +34,22 @@
         android:id="@+id/ivLoginGrapgic"
         android:layout_width="322dp"
         android:layout_height="200dp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvGetStarted"
         app:srcCompat="@drawable/ic_undraw_tasting_re_3k5a" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainer"
+        android:name="com.example.hangouts.Fragments.LoginFragment"
         android:layout_width="0dp"
-        android:layout_height="450dp"
+        android:layout_height="0dp"
         android:background="@drawable/backcard"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivLoginGrapgic" />
 
-        <TextView
-            android:id="@+id/tvLoginLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/backcard_content_padding"
-            android:layout_marginTop="@dimen/backcard_content_padding"
-            android:fontFamily="@font/roboto_bold"
-            android:text="@string/log_in_label"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/itLayoutUsername"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_top_login_backcard_content"
-            android:layout_marginEnd="@dimen/backcard_content_padding"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tvLoginLabel"
-            app:layout_constraintTop_toBottomOf="@+id/tvLoginLabel">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/itUsername"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/username_hint" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/itLayoutPassword"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_top_login_backcard_content"
-            android:layout_marginEnd="@dimen/backcard_content_padding"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tvLoginLabel"
-            app:layout_constraintTop_toBottomOf="@+id/itLayoutUsername">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/itPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/password_hint"
-                android:inputType="textPassword" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/btnLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_top_login_backcard_content"
-            android:backgroundTint="@color/orange"
-            android:elevation="20dp"
-            android:fontFamily="@font/roboto_bold"
-            android:paddingHorizontal="30dp"
-            android:paddingVertical="10dp"
-            android:text="@string/log_in_label"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/itLayoutPassword"
-            app:layout_constraintStart_toStartOf="@+id/itLayoutPassword"
-            app:layout_constraintTop_toBottomOf="@+id/itLayoutPassword" />
-
-        <TextView
-            android:id="@+id/tvDontHaveaCcc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_top_login_backcard_content"
-            android:fontFamily="@font/roboto"
-            android:text="@string/don_t_have_an_account"
-            android:textColor="@color/black_50"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/itLayoutPassword" />
-
-        <TextView
-            android:id="@+id/tvSignup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="15dp"
-            android:text="@string/sign_up_label"
-            android:textColor="@color/hyperlink_blue"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/tvDontHaveaCcc"
-            app:layout_constraintStart_toEndOf="@+id/tvDontHaveaCcc"
-            app:layout_constraintTop_toTopOf="@+id/tvDontHaveaCcc" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
