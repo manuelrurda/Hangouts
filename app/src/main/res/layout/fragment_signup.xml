@@ -1,14 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".Fragments.SignupFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/tvSignupLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/backcard_content_padding"
+        android:layout_marginTop="@dimen/backcard_content_padding"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/sign_up_label"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/tvNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_login_backcard_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/name_label"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/itNameLayout"
+        app:layout_constraintTop_toBottomOf="@+id/tvSignupLabel" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/itNameLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="155dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/tvSignupLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tvNameLabel">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/itName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/name_label" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tvLastNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/last_name_label"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/itLastNameLayout"
+        app:layout_constraintTop_toTopOf="@+id/tvNameLabel" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/itLastNameLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="155dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/itSignupLayoutUsername"
+        app:layout_constraintTop_toTopOf="@+id/itNameLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/itLastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/last_name_label" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tvUsernameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_login_backcard_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/username_hint"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/tvSignupLabel"
+        app:layout_constraintTop_toBottomOf="@+id/itNameLayout" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/itSignupLayoutUsername"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="@dimen/backcard_content_padding"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvSignupLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tvUsernameLabel">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/itSignupUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/username_hint" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tvPasswordLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_login_backcard_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/password_hint"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/tvSignupLabel"
+        app:layout_constraintTop_toBottomOf="@+id/itSignupLayoutUsername" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/itSignupLayoutPassword"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/backcard_content_padding"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvSignupLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tvPasswordLabel">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/itSignupPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password_hint"
+            android:inputType="textPassword" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnSignup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/margin_top_login_backcard_content"
+        android:backgroundTint="@color/orange"
+        android:elevation="20dp"
+        android:fontFamily="@font/roboto_bold"
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="10dp"
+        android:text="@string/sign_up_label"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/itSignupLayoutPassword"
+        app:layout_constraintStart_toStartOf="@+id/itSignupLayoutPassword"
+        app:layout_constraintTop_toBottomOf="@+id/itSignupLayoutPassword" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

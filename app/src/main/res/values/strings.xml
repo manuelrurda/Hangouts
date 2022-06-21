@@ -6,7 +6,8 @@
     <string name="don_t_have_an_account">Don\'t have an account?</string>
     <string name="get_started_label">Get Started...</string>
     <string name="hangouts_label_caps">HANGOUTS</string>
-    <string name="sign_up_label"><u>Sign up</u></string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sign_up_label">Sign up</string>
+    <string name="sign_up_label_u"><u>Sign up</u></string>
+    <string name="name_label">Name</string>
+    <string name="last_name_label">Last Name</string>
 </resources>
