@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_sun_tornado_background"
+    tools:context=".LoginActivity">
+
+    <TextView
+        android:id="@+id/tvHangouts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_top_login_backcard_content"
+        android:layout_marginTop="@dimen/margin_top_login_backcard_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/hangouts_label_caps"
+        android:textColor="@color/white"
+        android:textSize="34sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvGetStarted"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/get_started_label"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/tvHangouts"
+        app:layout_constraintTop_toBottomOf="@+id/tvHangouts" />
+
+    <ImageView
+        android:id="@+id/ivLoginGrapgic"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:scaleType="fitEnd"
+        app:layout_constraintBottom_toTopOf="@id/fragmentContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvGetStarted"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/ic_undraw_tasting_re_3k5a" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainer"
+        android:name="com.example.hangouts.fragments.LoginFragment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/backcard"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
