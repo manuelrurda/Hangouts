@@ -42,7 +42,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainer"
-        android:name="com.example.hangouts.Fragments.LoginFragment"
+        android:name="com.example.hangouts.fragments.LoginFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/backcard"

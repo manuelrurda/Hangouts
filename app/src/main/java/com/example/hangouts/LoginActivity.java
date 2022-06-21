@@ -6,15 +6,16 @@ import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
-import com.example.hangouts.Fragments.LoginFragment;
+import com.example.hangouts.fragments.LoginFragment;
 import com.example.hangouts.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
+    private TextView tvSignup;
 
     private FragmentContainerView fragmentContainer;
 

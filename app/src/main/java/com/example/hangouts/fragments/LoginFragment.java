@@ -1,4 +1,4 @@
-package com.example.hangouts.Fragments;
+package com.example.hangouts.fragments;
 
 import android.os.Bundle;
 
