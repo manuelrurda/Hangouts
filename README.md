@@ -74,8 +74,8 @@ Original App Design Project
     * ...
 
 ## Wireframes
-[Add picture of your hand sketched wireframes in this section]
-<img src="YOUR_WIREFRAME_IMAGE_URL" width=600>
+
+<img src="https://imgur.com/gallery/DBVVfQh" width=400>
 
 ### [BONUS] Digital Wireframes & Mockups
 
