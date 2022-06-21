@@ -82,7 +82,7 @@ public class SignupFragment extends Fragment {
     private void signupUser(String name, String lastName, String username, String password) {
         User user = new User();
         user.setUsername(username);
-        user.setUsername(password);
+        user.setPassword(password);
         user.put(User.KEY_NAME, name);
         user.put(User.KEY_LASTNAME, lastName);
 
@@ -91,6 +91,8 @@ public class SignupFragment extends Fragment {
             public void done(ParseException e) {
                 if(e != null){
                     Log.e(TAG, "Error signing up user: ", e);
+                }else{
+                    Log.d(TAG, "Signup Successful");
                 }
             }
         });
