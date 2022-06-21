@@ -75,7 +75,7 @@ Original App Design Project
 
 ## Wireframes
 
-<img src="https://imgur.com/gallery/DBVVfQh" width=400>
+<img src="https://i.imgur.com/zgRksuo.jpg" width=400>
 
 ### [BONUS] Digital Wireframes & Mockups
 
