@@ -15,7 +15,6 @@ import com.example.hangouts.databinding.ActivityLoginBinding;
 public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
-    private TextView tvSignup;
 
     public FragmentContainerView fragmentContainer;
 

@@ -72,13 +72,6 @@ public class SignupFragment extends Fragment {
         });
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Log.d(TAG, "onDestroyView: JFADLSKFJALDKSJFKLASDJFKLAJSKLD");
-        binding = null;
-    }
-
     private void signupUser(String name, String lastName, String username, String password) {
         User user = new User();
         user.setUsername(username);
@@ -91,6 +84,9 @@ public class SignupFragment extends Fragment {
             public void done(ParseException e) {
                 if(e != null){
                     Log.e(TAG, "Error signing up user: ", e);
+                    Toast.makeText(
+                            getContext(), "Error signing up, try different username",
+                            Toast.LENGTH_LONG).show();
                 }else{
                     Log.d(TAG, "Signup Successful");
                 }
@@ -98,4 +94,9 @@ public class SignupFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }
