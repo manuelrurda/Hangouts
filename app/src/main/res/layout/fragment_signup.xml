@@ -34,8 +34,14 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/itNameLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="155dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        android:minWidth="120dp"
+        app:hintEnabled="false"
+        app:layout_constraintEnd_toStartOf="@+id/itLastNameLayout"
+        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="@+id/tvSignupLabel"
         app:layout_constraintTop_toBottomOf="@+id/tvNameLabel">
 
@@ -61,9 +67,12 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/itLastNameLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="155dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="@+id/itSignupLayoutUsername"
+        app:layout_constraintStart_toEndOf="@+id/itNameLayout"
         app:layout_constraintTop_toTopOf="@+id/itNameLayout">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -94,6 +103,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="@dimen/backcard_content_padding"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvSignupLabel"
         app:layout_constraintTop_toBottomOf="@+id/tvUsernameLabel">
@@ -123,7 +133,9 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="@dimen/backcard_content_padding"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvSignupLabel"
         app:layout_constraintTop_toBottomOf="@+id/tvPasswordLabel">

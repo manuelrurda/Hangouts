@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.hangouts.R;
 import com.example.hangouts.databinding.FragmentSignupBinding;
 import com.example.hangouts.models.User;
 import com.google.android.material.textfield.TextInputEditText;
@@ -37,9 +38,6 @@ public class SignupFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_signup, container, false);
-
         binding = FragmentSignupBinding.inflate(getLayoutInflater());
         return binding.getRoot();
     }
@@ -54,21 +52,31 @@ public class SignupFragment extends Fragment {
 
         btnSignup = binding.btnSignup;
         btnSignup.setOnClickListener(new View.OnClickListener() {
-            final String name = itName.getText().toString();
-            final String lastName = itLastName.getText().toString();
-            final String username = itUsername.getText().toString();
-            final String password = itPassword.getText().toString();
             @Override
             public void onClick(View v) {
+                final String name = itName.getText().toString();
+                final String lastName = itLastName.getText().toString();
+                final String username = itUsername.getText().toString();
+                final String password = itPassword.getText().toString();
                 if(name.isEmpty() || lastName.isEmpty() ||
                         username.isEmpty() || password.isEmpty()){
                     Toast.makeText(
                             getContext(), "All fields are required", Toast.LENGTH_LONG).show();
                 }else{
                     signupUser(name, lastName, username, password);
+                    getParentFragmentManager().beginTransaction()
+                            .replace(R.id.fragmentContainer, new LoginFragment())
+                            .commit();
                 }
             }
         });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d(TAG, "onDestroyView: JFADLSKFJALDKSJFKLASDJFKLAJSKLD");
+        binding = null;
     }
 
     private void signupUser(String name, String lastName, String username, String password) {
@@ -83,11 +91,9 @@ public class SignupFragment extends Fragment {
             public void done(ParseException e) {
                 if(e != null){
                     Log.e(TAG, "Error signing up user: ", e);
-                }else{
-
                 }
             }
         });
-
     }
+
 }

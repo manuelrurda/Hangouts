@@ -36,7 +36,7 @@ Hangouts is an event/social planner app that allows users to create events or "H
 * Users can set hangout properties like: type of hangout, location, location range (max distance).
 * Users can share a link for other users to join the event.
 * User data will be collected in a Tinder swipe style sequence.
-* The app will provide recomendations based the event member's preferences.
+* The app will provide recommendations based the event member's preferences.
 
 **Optional Nice-to-have Stories**
 

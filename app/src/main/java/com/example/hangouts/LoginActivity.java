@@ -17,7 +17,7 @@ public class LoginActivity extends AppCompatActivity {
     private ActivityLoginBinding binding;
     private TextView tvSignup;
 
-    private FragmentContainerView fragmentContainer;
+    public FragmentContainerView fragmentContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,18 +27,11 @@ public class LoginActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+        // Initial fragment
         fragmentContainer = binding.fragmentContainer;
-
-        final FragmentManager fragmentManager = getSupportFragmentManager();
-        final Fragment loginFragment = new LoginFragment();
-        replaceFragment(fragmentManager, fragmentContainer, loginFragment);
-
-    }
-
-    private void replaceFragment(FragmentManager fragmentManager,
-                                 FragmentContainerView fragmentContainer, Fragment fragment) {
-        fragmentManager.beginTransaction()
-                .replace(fragmentContainer.getId(), fragment)
+        getSupportFragmentManager().beginTransaction()
+                .replace(fragmentContainer.getId(), new LoginFragment())
                 .commit();
+
     }
 }

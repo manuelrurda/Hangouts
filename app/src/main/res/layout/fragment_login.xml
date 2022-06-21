@@ -52,7 +52,7 @@
         android:layout_marginEnd="@dimen/backcard_content_padding"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvLoginLabel"
-        app:layout_constraintTop_toBottomOf="@+id/itLayoutUsername">
+        app:layout_constraintTop_toBottomOf="@+id/itLoginLayoutUsername">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/itLoginPassword"
@@ -76,20 +76,22 @@
         android:text="@string/log_in_label"
         android:textColor="@color/white"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/itLayoutPassword"
-        app:layout_constraintStart_toStartOf="@+id/itLayoutPassword"
-        app:layout_constraintTop_toBottomOf="@+id/itLayoutPassword" />
+        app:layout_constraintEnd_toEndOf="@+id/itLoginLayoutPassword"
+        app:layout_constraintStart_toStartOf="@+id/itLoginLayoutPassword"
+        app:layout_constraintTop_toBottomOf="@+id/itLoginLayoutPassword" />
 
     <TextView
         android:id="@+id/tvLoginDontHaveaCcc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
+        android:layout_marginBottom="@dimen/margin_top_login_backcard_content"
         android:fontFamily="@font/roboto"
         android:text="@string/don_t_have_an_account"
         android:textColor="@color/black_50"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/itLayoutPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/itLoginLayoutPassword"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
     <TextView
