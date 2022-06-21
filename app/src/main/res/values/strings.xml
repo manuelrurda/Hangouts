@@ -4,4 +4,7 @@
     <string name="username_hint">Username</string>
     <string name="password_hint">Password</string>
     <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="get_started_label">Get Started...</string>
+    <string name="hangouts_label_caps">HANGOUTS</string>
+    <string name="sign_up_label"><u>Sign up</u></string>
 </resources>

@@ -4,16 +4,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/midnight_blue"
+    android:background="@drawable/ic_sun_tornado_background"
     tools:context=".LoginActivity">
 
+    <TextView
+        android:id="@+id/tvHangouts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_login_backcard_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/hangouts_label_caps"
+        android:textColor="@color/white"
+        android:textSize="34sp"
+        app:layout_constraintStart_toStartOf="@+id/tvGetStarted"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvGetStarted"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/get_started_label"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/ivLoginGrapgic"
+        app:layout_constraintTop_toBottomOf="@+id/tvHangouts" />
+
+    <ImageView
+        android:id="@+id/ivLoginGrapgic"
+        android:layout_width="322dp"
+        android:layout_height="200dp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_undraw_tasting_re_3k5a" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="0dp"
         android:layout_height="450dp"
         android:background="@drawable/backcard"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
@@ -73,6 +106,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_top_login_backcard_content"
+            android:backgroundTint="@color/orange"
+            android:elevation="20dp"
             android:fontFamily="@font/roboto_bold"
             android:paddingHorizontal="30dp"
             android:paddingVertical="10dp"
@@ -87,13 +122,27 @@
             android:id="@+id/tvDontHaveaCcc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_top_login_backcard_content"
+            android:layout_marginBottom="@dimen/margin_top_login_backcard_content"
             android:fontFamily="@font/roboto"
             android:text="@string/don_t_have_an_account"
             android:textColor="@color/black_50"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/itLayoutPassword"
-            app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/itLayoutPassword" />
+
+        <TextView
+            android:id="@+id/tvSignup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="15dp"
+            android:text="@string/sign_up_label"
+            android:textColor="@color/hyperlink_blue"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvDontHaveaCcc"
+            app:layout_constraintStart_toEndOf="@+id/tvDontHaveaCcc"
+            app:layout_constraintTop_toTopOf="@+id/tvDontHaveaCcc" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
