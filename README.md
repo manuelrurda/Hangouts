@@ -11,7 +11,8 @@ Original App Design Project
 
 ## Overview
 ### Description
-[Description of your app]
+
+Hangouts is an event/social planner app that allows users to create events or "Hangouts" and share them with other users. Then, said users can join the event and rank their top picks for meal selection. The app then will run an algorithm to process each members preferences and calculate which restaurants might be a good fit for te member's current cravings. Finally the app will display those restaurants on a map so participants can make a decision on where to go.
 
 ### App Evaluation
 
@@ -35,7 +36,7 @@ Original App Design Project
 * Users can set hangout properties like: type of hangout, location, location range (max distance).
 * Users can share a link for other users to join the event.
 * User data will be collected in a Tinder swipe style sequence.
-* The app will provide recomendations based the event member's preferences.
+* The app will provide recommendations based the event member's preferences.
 
 **Optional Nice-to-have Stories**
 
@@ -47,14 +48,49 @@ Original App Design Project
 ### 2. Screen Archetypes
 
 * Log in Screen
-    * Users can log in or signup
-    * Text fields to enter username and password
-    * Button to sign up screen if user doesn't have an account.
-    * SVG graphic for more polished ui
+  * Users can log in or signup
+  * Text fields to enter username and password
+  * Button to sign up screen if user doesn't have an account.
+  * SVG graphic for more polished ui
 
-* [list second screen here]
-    * [list associated required story here]
-    * ...
+* Signup
+  * Signup using Parse
+  * Text fields for name, last name, username and password
+  * Button to signup and return to login
+  * Null detection for all fields.
+
+* Onboarding (preference capture)
+  * Tinder like sequence
+  * Swipe cards
+  * Card must have a picture and title
+  * Buttons to like or dislike for automatic swipe
+
+* Dashboard (home screen)
+  * See current open events
+  * See past events
+  * Buttons to create or join event
+
+* Event Creation screen
+  * Ask for event name/alias
+  * Button to select location
+  * Set distance radius (maybe stretch)
+  * Date and Time for deadline
+  * Button to start and create event
+
+* Location selections screen (maps -> Uber like)
+  * Map screen
+  * Type address
+  * Set pin on map
+
+* Event Detail screen
+  * Opens when event is tapped in home screen
+
+* Ranking screen - after joining event
+  * Ask for users to rank current cravings for algorithm input
+  * Drag and Drop to rank
+
+* Final results screen - map with restaurants listed Decision/voting screen (stretch)
+
 
 ### 3. Navigation
 
@@ -67,15 +103,15 @@ Original App Design Project
 **Flow Navigation** (Screen to Screen)
 
 * [list first screen here]
-    * [list screen navigation here]
-    * ...
+  * [list screen navigation here]
+  * ...
 * [list second screen here]
-    * [list screen navigation here]
-    * ...
+  * [list screen navigation here]
+  * ...
 
 ## Wireframes
-[Add picture of your hand sketched wireframes in this section]
-<img src="YOUR_WIREFRAME_IMAGE_URL" width=600>
+
+<img src="https://i.imgur.com/zgRksuo.jpg" width=400>
 
 ### [BONUS] Digital Wireframes & Mockups
 
