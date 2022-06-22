@@ -12,7 +12,11 @@ Original App Design Project
 ## Overview
 ### Description
 
+<<<<<<< HEAD
 Hangouts is an event/social planner app that allows users to create events or "Hangouts" and share them with other users. Then, said users can join the event and rank their top picks for meal selection. The app then will run an algorithm to process each members preferences and calculate which restaurants might be a good fit for te member's current cravings. Finally the app will display those restaurants on a map so participants can make a decision on where to go.
+=======
+Hangouts is an event/social planner app that allows users to create events or "Hangouts" and share them with other users. Then, said users can join the event and rank their top picks for meal selection. The app then will run an algorithm to process each members preferences and calculate which restaurants might be a good fit for te member's current cravings. Finally the app will display those restaurants on a map so participants can make a decision on where to go.  
+>>>>>>> 090449180a3643d2a4ac3cbd1b8df071ccac639b
 
 ### App Evaluation
 
