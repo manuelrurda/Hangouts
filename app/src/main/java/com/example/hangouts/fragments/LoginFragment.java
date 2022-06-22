@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.hangouts.LoginActivity;
 import com.example.hangouts.MainActivity;
+import com.example.hangouts.OnboardingActivity;
 import com.example.hangouts.R;
 import com.example.hangouts.databinding.ActivityLoginBinding;
 import com.example.hangouts.databinding.FragmentLoginBinding;
@@ -84,13 +85,13 @@ public class LoginFragment extends Fragment {
                     Toast.makeText(getContext(), "Invalid Credentials", Toast.LENGTH_LONG).show();
                     return;
                 }
-                goMainActivity();
+                goOnboardingActivity();
             }
         });
     }
 
-    private void goMainActivity() {
-        Intent intent = new Intent(getContext(), MainActivity.class);
+    private void goOnboardingActivity() {
+        Intent intent = new Intent(getContext(), OnboardingActivity.class);
         startActivity(intent);
     }
 

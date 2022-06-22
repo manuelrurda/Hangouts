@@ -10,4 +10,6 @@
     <string name="sign_up_label_u"><u>Sign up</u></string>
     <string name="name_label">Name</string>
     <string name="last_name_label">Last Name</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
