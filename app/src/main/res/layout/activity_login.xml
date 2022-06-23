@@ -37,7 +37,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
         android:scaleType="fitEnd"
-        app:layout_constraintBottom_toTopOf="@id/fragmentContainer"
+        app:layout_constraintBottom_toTopOf="@id/loginFragmentContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvGetStarted"
@@ -45,7 +45,7 @@
         app:srcCompat="@drawable/ic_undraw_tasting_re_3k5a" />
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainer"
+        android:id="@+id/loginFragmentContainer"
         android:name="com.example.hangouts.fragments.LoginFragment"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
