@@ -115,13 +115,22 @@ Hangouts is an event/social planner app that allows users to create events or "H
 
 ### [BONUS] Digital Wireframes & Mockups
 
-### [BONUS] Interactive Prototype
+
 
 ## Schema
 [This section will be completed in Unit 9]
 ### Models
-[Add table of models]
+
+<img src="https://i.imgur.com/WJCihTT.png" width=400>
+
 ### Networking
 - [Add list of network requests by screen ]
 - [Create basic snippets for each Parse network request]
 - [OPTIONAL: List endpoints if using existing API such as Yelp]
+
+### Dependencies and API's
+
+* Glide: image loading. https://bumptech.github.io/glide/
+* Parse: Database. https://www.back4app.com/docs/get-started/welcome
+* SwipeCards: Third party card view with swiping capabilities. https://github.com/Diolor/Swipecards
+* Yelp API: Api for fetching millions of businesses reviews and content. https://www.yelp.com/developers/documentation/v3/get_started 

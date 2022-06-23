@@ -6,7 +6,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentContainerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hangouts.LoginActivity;
-import com.example.hangouts.MainActivity;
+import com.example.hangouts.OnboardingActivity;
 import com.example.hangouts.R;
 import com.example.hangouts.databinding.ActivityLoginBinding;
 import com.example.hangouts.databinding.FragmentLoginBinding;
@@ -58,7 +57,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 getParentFragmentManager().beginTransaction()
-                        .replace(R.id.fragmentContainer, new SignupFragment())
+                        .replace(R.id.loginFragmentContainer, new SignupFragment())
                         .addToBackStack("")
                         .commit();
             }
@@ -84,13 +83,13 @@ public class LoginFragment extends Fragment {
                     Toast.makeText(getContext(), "Invalid Credentials", Toast.LENGTH_LONG).show();
                     return;
                 }
-                goMainActivity();
+                goOnboardingActivity();
             }
         });
     }
 
-    private void goMainActivity() {
-        Intent intent = new Intent(getContext(), MainActivity.class);
+    private void goOnboardingActivity() {
+        Intent intent = new Intent(getContext(), OnboardingActivity.class);
         startActivity(intent);
     }
 

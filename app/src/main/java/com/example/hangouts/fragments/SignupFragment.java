@@ -18,7 +18,6 @@ import com.example.hangouts.databinding.FragmentSignupBinding;
 import com.example.hangouts.models.User;
 import com.google.android.material.textfield.TextInputEditText;
 import com.parse.ParseException;
-import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
 public class SignupFragment extends Fragment {
@@ -65,7 +64,7 @@ public class SignupFragment extends Fragment {
                 }else{
                     signupUser(name, lastName, username, password);
                     getParentFragmentManager().beginTransaction()
-                            .replace(R.id.fragmentContainer, new LoginFragment())
+                            .replace(R.id.loginFragmentContainer, new LoginFragment())
                             .commit();
                 }
             }

@@ -16,7 +16,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
 
-    public FragmentContainerView fragmentContainer;
+    public FragmentContainerView loginFragmentContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +27,9 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(view);
 
         // Initial fragment
-        fragmentContainer = binding.fragmentContainer;
+        loginFragmentContainer = binding.loginFragmentContainer;
         getSupportFragmentManager().beginTransaction()
-                .replace(fragmentContainer.getId(), new LoginFragment())
+                .replace(loginFragmentContainer.getId(), new LoginFragment())
                 .commit();
 
     }
