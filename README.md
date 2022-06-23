@@ -23,8 +23,6 @@ Hangouts is an event/social planner app that allows users to create events or "H
 - **Scope:** MVP: Users can sign-up, create a hangout, share it and join hangouts. The app will make basic recommendations based on user data and display a map view with places to go to. V2: Better recommendations, better ui, Facebook signup.
 - **Complexity Aspects:** Algorithm for suggestions: Input -> user preferences on one category (give categories weight)(e.g Cousine: Italian, Chinese, Japanese, Mexican etc. Type of food: Non-vegan, vegan, vegetarian, non-vegetarian) -> [algorithm] -> Output -> a list of restaurants that will satisfy the group's preference on a certain level and display them on a map.
 
-
-
 ## Product Spec
 
 ### 1. User Stories (Required and Optional)
@@ -94,28 +92,32 @@ Hangouts is an event/social planner app that allows users to create events or "H
 
 ### 3. Navigation
 
-**Tab Navigation** (Tab to Screen)
-
-* [fill out your first tab]
-* [fill out your second tab]
-* [fill out your third tab]
-
 **Flow Navigation** (Screen to Screen)
 
-* [list first screen here]
-  * [list screen navigation here]
-  * ...
-* [list second screen here]
-  * [list screen navigation here]
-  * ...
+* Login Screen
+  * Login Button -> Onboarding Screen if first time login -> Home Screen
+  * Signup Button -> Signup Screen -> Back to Login Screen
+* Onboarding Screen
+  * Gather preferences -> Home Screen
+* Home Screen
+  * Create Button -> Event Creation Screen
+  * Join Button -> Code Input Screen
+  * Tap on current/past event -> Event Details Screen
+* Event Creation Screen
+  * Select Location Button -> Map Screen -> Back to Event Creation Screen
+  * Create Button -> Code Generation -> Home Screen, new event added.
+* Code Input Screen
+  * Enter event code -> Back to Home Screen, new event added.
+* Event Details Screen
+  * Map with recommendations. 
 
 ## Wireframes
 
 <img src="https://i.imgur.com/zgRksuo.jpg" width=400>
 
-### [BONUS] Digital Wireframes & Mockups
+### [BONUS] Digital Wireframes & Mockups (Work in Progress)
 
-
+<img src="https://i.imgur.com/5RXKBnT.png" width=400>
 
 ## Schema
 [This section will be completed in Unit 9]
@@ -124,9 +126,15 @@ Hangouts is an event/social planner app that allows users to create events or "H
 <img src="https://i.imgur.com/WJCihTT.png" width=400>
 
 ### Networking
-- [Add list of network requests by screen ]
+- Signup Screen
+  - Parse call to signup user
+- Login Screen 
+  - Parse call to start user session
+- Location Selection
+  - Google Maps API to select location or place pin on map
+- Event details Screen
+  - Yelp API call to fetch restaurants depending on suggestions output.
 - [Create basic snippets for each Parse network request]
-- [OPTIONAL: List endpoints if using existing API such as Yelp]
 
 ### Dependencies and API's
 
