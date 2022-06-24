@@ -69,7 +69,8 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 final String username = itLoginUsername.getText().toString();
                 final String password = itLoginPassword.getText().toString();
-                loginUser(username, password);
+//                loginUser(username, password);
+                goOnboardingActivity();
             }
         });
     }
