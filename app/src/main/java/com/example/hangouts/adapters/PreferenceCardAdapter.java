@@ -1,11 +1,19 @@
 package com.example.hangouts.adapters;
 
+import android.content.ClipData;
+import android.content.ClipDescription;
 import android.content.Context;
+import android.util.Log;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hangouts.PreferenceCard;
@@ -14,6 +22,8 @@ import com.example.hangouts.databinding.PreferenceCardBinding;
 import java.util.List;
 
 public class PreferenceCardAdapter extends RecyclerView.Adapter<PreferenceCardAdapter.ViewHolder> {
+
+    public static final String TAG = "CardAdapter";
 
     private Context context;
     private List<PreferenceCard> preferenceCards;
@@ -46,14 +56,35 @@ public class PreferenceCardAdapter extends RecyclerView.Adapter<PreferenceCardAd
     protected class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvStringValue;
+        private ConstraintLayout dragView;
 
         public ViewHolder(@NonNull PreferenceCardBinding binding) {
             super(binding.getRoot());
             tvStringValue = binding.tvStringValue;
+            dragView = binding.dragView;
         }
 
         public void bind(PreferenceCard preferenceCard) {
             tvStringValue.setText(preferenceCard.getStringValue());
+
+            dragView.setOnLongClickListener(view -> {
+                int clipAdapterPosition = this.getAbsoluteAdapterPosition();
+                String clipValueText = tvStringValue.getText().toString();
+                ClipData.Item item = new ClipData.Item(clipValueText);
+
+                ClipData dragData = new ClipData(clipValueText,
+                        new String[] {ClipDescription.MIMETYPE_TEXT_PLAIN}, item);
+
+                View.DragShadowBuilder shadow = new View.DragShadowBuilder(dragView);
+
+                view.startDragAndDrop(dragData, shadow, null, 0);
+                return true;
+            });
+
+
         }
+
+
+
     }
 }
