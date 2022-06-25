@@ -70,14 +70,13 @@ public class PreferenceCardAdapter extends RecyclerView.Adapter<PreferenceCardAd
             dragView.setOnLongClickListener(view -> {
                 int clipAdapterPosition = this.getAbsoluteAdapterPosition();
                 String clipValueText = tvStringValue.getText().toString();
-                ClipData.Item item = new ClipData.Item(clipValueText);
-
+                ClipData.Item valueText = new ClipData.Item(clipValueText);
                 ClipData dragData = new ClipData(clipValueText,
-                        new String[] {ClipDescription.MIMETYPE_TEXT_PLAIN}, item);
+                        new String[] {ClipDescription.MIMETYPE_TEXT_PLAIN}, valueText);
 
                 View.DragShadowBuilder shadow = new View.DragShadowBuilder(dragView);
-
                 view.startDragAndDrop(dragData, shadow, null, 0);
+                view.setVisibility(View.INVISIBLE);
                 return true;
             });
 

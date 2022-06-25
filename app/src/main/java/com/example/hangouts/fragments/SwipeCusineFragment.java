@@ -54,6 +54,7 @@ public class SwipeCusineFragment extends Fragment {
         csPreferenceCards = binding.csPreferenceCards;
 
         List<PreferenceCard> preferenceCards = new ArrayList<>();
+        // Temporary
         preferenceCards.add(new PreferenceCard("Italian"));
         preferenceCards.add(new PreferenceCard("Mexican"));
         preferenceCards.add(new PreferenceCard("Chinese"));
@@ -62,9 +63,6 @@ public class SwipeCusineFragment extends Fragment {
         PreferenceCardAdapter adapter = new PreferenceCardAdapter(getContext(), preferenceCards);
         csPreferenceCards.setLayoutManager(getStackLayoutManager());
         csPreferenceCards.setAdapter(adapter);
-
-//        ItemTouchHelper itemTouchHelper = getItemTouchHelper();
-//        itemTouchHelper.attachToRecyclerView(csPreferenceCards);
 
         clDragDropLayout = binding.clDragDropLayout;
         clDragDropLayout.setOnDragListener((v, event) ->{
@@ -87,53 +85,14 @@ public class SwipeCusineFragment extends Fragment {
                     Log.d(TAG, "bind: DROP");
                     ClipData.Item item = event.getClipData().getItemAt(0);
                     String dragText = item.getText().toString();
-                    Toast.makeText(getContext(), dragText, Toast.LENGTH_LONG).show();
-                        ViewGroup owner = (ViewGroup) view.getParent();
-                        Log.d(TAG, "bind: " + view.toString());
-                        Log.d(TAG, "bind: " + owner.toString());
-//                        owner.removeView(view);
+                    Toast.makeText(getContext(), dragText, Toast.LENGTH_SHORT).show();
+                    preferenceCards.remove(0);
+                    adapter.notifyItemRemoved(0);
                     return true;
             }
             return true;
         });
     }
-
-//    private ItemTouchHelper getItemTouchHelper() {
-//        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(
-//                new ItemTouchHelper.SimpleCallback(
-//                        ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT
-//                                | ItemTouchHelper.RIGHT, 0) {
-//
-//                    @Override
-//                    public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder,
-//                                          @NonNull RecyclerView.ViewHolder target) {
-//                        int startPosition  = viewHolder.getAbsoluteAdapterPosition();
-//                        int endPosition = target.getAbsoluteAdapterPosition();
-//                        Toast.makeText(getContext(), "MOVED", Toast.LENGTH_SHORT).show();
-//                        return true;
-//                    }
-//
-//                    @Override
-//                    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {}
-//
-//                    @Override
-//                    public void onSelectedChanged(@Nullable RecyclerView.ViewHolder viewHolder, int actionState) {
-//                        switch (actionState){
-//                            case ItemTouchHelper.ACTION_STATE_IDLE:
-//                                // The user used onMove()
-////                                Toast.makeText(getContext(), "Dragging & Dropping are over", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {    //called when you dropped the item
-//                        super.clearView(recyclerView, viewHolder);
-//
-//                        Toast.makeText(recyclerView.getContext(), "Item dropped on position: " + viewHolder.getLayoutPosition(), Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//        return itemTouchHelper;
-//    }
 
     private RecyclerView.LayoutManager getStackLayoutManager() {
         CardStackLayoutManager cardStackLayoutManager = new CardStackLayoutManager(getContext());
