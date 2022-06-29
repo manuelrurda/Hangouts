@@ -4,7 +4,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.hangouts.repositories.CuisineTypeRepository;
+import com.example.hangouts.models.PreferenceCard;
+import com.example.hangouts.repositories.CuisinePreferenceCardRepository;
 
 import java.util.List;
 
@@ -12,18 +13,18 @@ public class DragDropCuisineViewModel extends ViewModel {
 
     public static final String TAG = "DragDropCuisineViewModel";
 
-    private MutableLiveData<List<String>> cuisineTypes;
-    private CuisineTypeRepository repo;
+    private MutableLiveData<List<PreferenceCard>> cuisinePreferenceCards;
+    private CuisinePreferenceCardRepository repo;
 
     public void init(){
-        if(cuisineTypes != null){
+        if(cuisinePreferenceCards != null){
             return;
         }
-        repo = CuisineTypeRepository.getInstance();
-        cuisineTypes = repo.getCuisineTypes();
+        repo = CuisinePreferenceCardRepository.getInstance();
+        cuisinePreferenceCards = repo.getCuisineTypes();
     }
 
-    public LiveData<List<String>> getCuisineTypes(){
-        return cuisineTypes;
+    public LiveData<List<PreferenceCard>> getCuisinePreferenceCards(){
+        return cuisinePreferenceCards;
     }
 }
