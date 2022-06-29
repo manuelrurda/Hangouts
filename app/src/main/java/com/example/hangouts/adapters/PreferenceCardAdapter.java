@@ -1,11 +1,15 @@
 package com.example.hangouts.adapters;
 
+import android.content.ClipData;
+import android.content.ClipDescription;
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hangouts.databinding.PreferenceCardBinding;
@@ -52,25 +56,27 @@ public class PreferenceCardAdapter extends RecyclerView.Adapter<PreferenceCardAd
     protected class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvCardValue;
+        private CardView cvCard;
 
         public ViewHolder(@NonNull PreferenceCardBinding binding) {
             super(binding.getRoot());
             tvCardValue = binding.tvCardValue;
+            cvCard = binding.cvCard;
         }
 
         public void bind(PreferenceCard preferenceCard) {
-            tvCardValue.setText(preferenceCard.getValue());
-//            dragView.setOnLongClickListener(view -> {
-//                String clipValueText = tvStringValue.getText().toString();
-//                ClipData.Item valueText = new ClipData.Item(clipValueText);
-//                ClipData dragData = new ClipData(clipValueText,
-//                        new String[] {ClipDescription.MIMETYPE_TEXT_PLAIN}, valueText);
-//
-//                View.DragShadowBuilder shadow = new View.DragShadowBuilder(dragView);
-//                view.startDragAndDrop(dragData, shadow, null, 0);
-//                view.setVisibility(View.INVISIBLE);
-//                return true;
-//            });
+            String cardValue = preferenceCard.getValue();
+            tvCardValue.setText(cardValue);
+            cvCard.setOnLongClickListener(view -> {
+                ClipData.Item valueText = new ClipData.Item(cardValue);
+                ClipData dragData = new ClipData(cardValue,
+                        new String[] {ClipDescription.MIMETYPE_TEXT_PLAIN}, valueText);
+
+                View.DragShadowBuilder shadow = new View.DragShadowBuilder(cvCard);
+                view.startDragAndDrop(dragData, shadow, null, 0);
+                view.setVisibility(View.INVISIBLE);
+                return true;
+            });
         }
     }
 

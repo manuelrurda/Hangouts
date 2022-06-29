@@ -46,7 +46,7 @@ public class DragDropCuisineFragment extends Fragment {
 
         initRecyclerView();
 
-        dragDropCuisineViewModel = new ViewModelProvider(this).get(DragDropCuisineViewModel.class);
+        dragDropCuisineViewModel = new ViewModelProvider(getActivity()).get(DragDropCuisineViewModel.class);
         dragDropCuisineViewModel.init();
         dragDropCuisineViewModel.getCuisinePreferenceCards().observe(getViewLifecycleOwner(),
                 new Observer<List<PreferenceCard>>() {
