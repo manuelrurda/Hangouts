@@ -129,7 +129,7 @@ Hangouts is an event/social planner app that allows users to create events or "H
 | lastName          | String         | User's last name                                                     |
 | username          | String         | User's unique username for authentication                            |
 | password          | String         | User's password for authentication                                   |
-| cusinePreferences | Array<String>  | Array to store user's cusine type  preferences                       |
+| cuisinePreferences | Array<String>  | Array to store user's cuisine type  preferences                       |
 | activeHangouts    | Array<Hangout> | Array to store currently active Hangouts  the user is taking part of |
 | pastHangouts      | Array<Hangout> | Array to store Hangouts  the user has taken part of in the past      |
 
