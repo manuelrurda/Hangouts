@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,9 +27,12 @@ public class DropZoneAdapter extends RecyclerView.Adapter<DropZoneAdapter.ViewHo
     private Context context;
     public List<DropZone> dropZones;
 
-    public DropZoneAdapter(Context context, List<DropZone> dropZones) {
+    private DragDropCuisineViewModel viewModel;
+
+    public DropZoneAdapter(Context context, List<DropZone> dropZones, DragDropCuisineViewModel viewModel) {
         this.context = context;
         this.dropZones = dropZones;
+        this.viewModel = viewModel;
     }
 
     @NonNull
@@ -82,6 +86,7 @@ public class DropZoneAdapter extends RecyclerView.Adapter<DropZoneAdapter.ViewHo
                         String dragText = item.getText().toString();
                         Toast.makeText(context, dragText+" AT DROP ZONE "
                                + dropValueText , Toast.LENGTH_SHORT).show();
+                        viewModel.removeFirstPreferenceCard();
                     case DragEvent.ACTION_DRAG_LOCATION:
                         return true;
                 }

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.hangouts.adapters.DropZoneAdapter;
 import com.example.hangouts.adapters.PreferenceCardAdapter;
@@ -49,8 +50,8 @@ public class DragDropCuisineFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initPreferenceCardRV();
-        initDropZoneRV();
         initViewModel();
+        initDropZoneRV();
 //        initDropZones();
     }
 
@@ -66,7 +67,7 @@ public class DragDropCuisineFragment extends Fragment {
         rvDropZones = binding.rvDropZones;
         rvDropZones.setLayoutManager(new GridLayoutManager(getContext(), 2));
         rvDropZones.setHasFixedSize(true);
-        dropZoneAdapter = new DropZoneAdapter(getContext(), dropZones);
+        dropZoneAdapter = new DropZoneAdapter(getContext(), dropZones, dragDropCuisineViewModel);
         rvDropZones.setAdapter(dropZoneAdapter);
 
 
@@ -87,6 +88,7 @@ public class DragDropCuisineFragment extends Fragment {
                 new Observer<List<PreferenceCard>>() {
                     @Override
                     public void onChanged(List<PreferenceCard> preferenceCards) {
+                        Toast.makeText(getContext(), "CHANGE OBSERVED", Toast.LENGTH_SHORT).show();
                         preferenceCardAdapter.setPreferenceCards(preferenceCards);
                     }
                 });

@@ -52,7 +52,7 @@ public class PreferenceCardAdapter extends RecyclerView.Adapter<PreferenceCardAd
 
     public void setPreferenceCards(List<PreferenceCard> preferenceCards) {
         this.preferenceCards = preferenceCards;
-        notifyDataSetChanged();
+        this.notifyItemRemoved(0);
     }
 
     protected class ViewHolder extends RecyclerView.ViewHolder {

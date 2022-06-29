@@ -32,9 +32,9 @@ public class DragDropCuisineViewModel extends ViewModel {
         return cuisinePreferenceCards;
     }
 
-    public void removeFirstPreferenceCard(int index){
+    public void removeFirstPreferenceCard(){
         List<PreferenceCard> currentPreferenceCards = cuisinePreferenceCards.getValue();
-        currentPreferenceCards.remove(index);
+        currentPreferenceCards.remove(0);
         cuisinePreferenceCards.postValue(currentPreferenceCards);
     }
 
