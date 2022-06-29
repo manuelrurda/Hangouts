@@ -109,7 +109,7 @@ Hangouts is an event/social planner app that allows users to create events or "H
 * Code Input Screen
   * Enter event code -> Back to Home Screen, new event added.
 * Event Details Screen
-  * Map with recommendations. 
+  * Map with recommendations.
 
 ## Wireframes
 
@@ -120,7 +120,30 @@ Hangouts is an event/social planner app that allows users to create events or "H
 <img src="https://i.imgur.com/5RXKBnT.png" width=400>
 
 ## Schema
-[This section will be completed in Unit 9]
+
+#### User
+| **Property**      | **Type**       | **Description**                                                      |
+|-------------------|----------------|----------------------------------------------------------------------|
+| objectId          | String         | Unique string to identify the object within the database             |
+| name              | String         | User's name                                                          |
+| lastName          | String         | User's last name                                                     |
+| username          | String         | User's unique username for authentication                            |
+| password          | String         | User's password for authentication                                   |
+| cusinePreferences | Array<String>  | Array to store user's cusine type  preferences                       |
+| activeHangouts    | Array<Hangout> | Array to store currently active Hangouts  the user is taking part of |
+| pastHangouts      | Array<Hangout> | Array to store Hangouts  the user has taken part of in the past      |
+
+#### Hangout
+| **Property**      | **Type**          | **Description**                                                                 |
+|-------------------|-------------------|---------------------------------------------------------------------------------|
+| objectId          | String            | Unique string to identify the object within the database                        |
+| alias             | String            | Alias for users to easily identify Hangouts                                     |
+| members           | Array<User>       | Array to store the Hangout participants                                         |
+| locationLatitude  | Double            | Latitude coordinate for event location                                          |
+| locationLongitude | Double            | Longitude coordinate for event location                                         |
+| deadline          | Date              | Deadline for users to join the event                                            |
+| recommendations   | Array<JSONObject> | Array of API responses containing the output from the recommendations algorithm |
+
 ### Models
 
 <img src="https://i.imgur.com/WJCihTT.png" width=400>
@@ -128,7 +151,7 @@ Hangouts is an event/social planner app that allows users to create events or "H
 ### Networking
 - Signup Screen
   - Parse call to signup user
-- Login Screen 
+- Login Screen
   - Parse call to start user session
 - Location Selection
   - Google Maps API to select location or place pin on map
@@ -141,4 +164,34 @@ Hangouts is an event/social planner app that allows users to create events or "H
 * Glide: image loading. https://bumptech.github.io/glide/
 * Parse: Database. https://www.back4app.com/docs/get-started/welcome
 * SwipeCards: Third party card view with swiping capabilities. https://github.com/Diolor/Swipecards
-* Yelp API: Api for fetching millions of businesses reviews and content. https://www.yelp.com/developers/documentation/v3/get_started 
+* Yelp API: Api for fetching millions of businesses reviews and content. https://www.yelp.com/developers/documentation/v3/get_started
+
+## Weekly Plan
+
+Plan:
+
+#### W1
+- [x] sign-in/signout
+- [x] Parse setup/model setup
+
+#### W2
+- [ ] Onboarding -> In progress
+- [ ] Yelp API/ display swipe UI
+- [ ] Dashboard
+
+#### W3
+- [ ] Event creation
+- [ ] Location selection
+
+#### W4
+- [ ] Ranking screen
+- [ ] Event Detail screen
+
+#### W5
+- [ ] Suggestions algo
+- [ ] Final results screen
+
+#### W6
+- [ ] Store prev events
+- [ ] Offline capabilities(stretch goal)
+- [ ] decision/voting screen
