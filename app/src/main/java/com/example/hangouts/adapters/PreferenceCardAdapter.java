@@ -3,10 +3,12 @@ package com.example.hangouts.adapters;
 import android.content.ClipData;
 import android.content.ClipDescription;
 import android.content.Context;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -22,7 +24,7 @@ public class PreferenceCardAdapter extends RecyclerView.Adapter<PreferenceCardAd
     public static final String TAG = "CardAdapter";
 
     private Context context;
-    public List<PreferenceCard> PreferenceCards;
+    public List<PreferenceCard> preferenceCards;
 
     public PreferenceCardAdapter(Context context) {
         this.context = context;
@@ -39,17 +41,17 @@ public class PreferenceCardAdapter extends RecyclerView.Adapter<PreferenceCardAd
 
     @Override
     public int getItemCount() {
-        return PreferenceCards.size();
+        return preferenceCards.size();
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        PreferenceCard preferenceCard = PreferenceCards.get(position);
+        PreferenceCard preferenceCard = preferenceCards.get(position);
         holder.bind(preferenceCard);
     }
 
     public void setPreferenceCards(List<PreferenceCard> preferenceCards) {
-        this.PreferenceCards = preferenceCards;
+        this.preferenceCards = preferenceCards;
         notifyDataSetChanged();
     }
 
@@ -77,6 +79,7 @@ public class PreferenceCardAdapter extends RecyclerView.Adapter<PreferenceCardAd
                 view.setVisibility(View.INVISIBLE);
                 return true;
             });
+
         }
     }
 

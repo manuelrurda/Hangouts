@@ -8,11 +8,25 @@
     tools:context=".fragments.DragDropCuisineFragment" >
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvDropZones"
+        android:layout_width="387dp"
+        android:layout_height="488dp"
+        app:layout_constraintBottom_toTopOf="@+id/rvPreferenceCards"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/drop_zone" >
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPreferenceCards"
         android:layout_width="wrap_content"
         android:layout_height="300dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:listitem="@layout/preference_card" />
+        tools:listitem="@layout/preference_card" >
+
+    </androidx.recyclerview.widget.RecyclerView>
 </androidx.constraintlayout.widget.ConstraintLayout>

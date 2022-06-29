@@ -1,7 +1,9 @@
 package com.example.hangouts.repositories;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.hangouts.models.DropZone;
 import com.example.hangouts.models.PreferenceCard;
 
 import java.util.ArrayList;
@@ -11,7 +13,8 @@ import java.util.List;
 public class CuisinePreferenceCardRepository {
 
     private static CuisinePreferenceCardRepository instance;
-    private ArrayList<PreferenceCard> dataset = new ArrayList<>();
+    private ArrayList<PreferenceCard> preferenceCards = new ArrayList<>();
+    private ArrayList<DropZone> dropZones = new ArrayList<>();
 
     public static CuisinePreferenceCardRepository getInstance(){
         if (instance == null){
@@ -20,23 +23,30 @@ public class CuisinePreferenceCardRepository {
         return instance;
     }
 
-    public MutableLiveData<List<PreferenceCard>> getCuisineTypes(){
+    public MutableLiveData<List<PreferenceCard>> getPreferenceCards(){
         setCuisineTypes();
         MutableLiveData<List<PreferenceCard>> data = new MutableLiveData<>();
-        data.setValue(dataset);
+        data.setValue(preferenceCards);
 
         return data;
     }
 
+//    public MutableLiveData<List<DropZone>> getDropZones(){
+//        setDropZones();
+//        MutableLiveData<List<DropZone>> data = new MutableLiveData<>();
+//        data.setValue(dropZones);
+//        return data;
+//    }
+
     private void setCuisineTypes(){
-        dataset.add(new PreferenceCard("Italian"));
-        dataset.add(new PreferenceCard("Mexican"));
-        dataset.add(new PreferenceCard("Chinese"));
-        dataset.add(new PreferenceCard("Japanese"));
-        dataset.add(new PreferenceCard("Thai"));
-        dataset.add(new PreferenceCard("Spanish"));
-        dataset.add(new PreferenceCard("Indian"));
-        dataset.add(new PreferenceCard("Greek"));
-        dataset.add(new PreferenceCard("French"));
+        preferenceCards.add(new PreferenceCard("Italian"));
+        preferenceCards.add(new PreferenceCard("Mexican"));
+        preferenceCards.add(new PreferenceCard("Chinese"));
+        preferenceCards.add(new PreferenceCard("Japanese"));
+        preferenceCards.add(new PreferenceCard("Thai"));
+        preferenceCards.add(new PreferenceCard("Spanish"));
+        preferenceCards.add(new PreferenceCard("Indian"));
+        preferenceCards.add(new PreferenceCard("Greek"));
+        preferenceCards.add(new PreferenceCard("French"));
     }
 }
