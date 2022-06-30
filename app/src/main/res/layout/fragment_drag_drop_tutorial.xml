@@ -7,37 +7,73 @@
     android:background="@drawable/ic_sun_tornado_background"
     tools:context=".fragments.DragDropTutorialFragment">
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="307dp"
         android:layout_height="wrap_content"
-        android:rotation="-26"
-        android:src="@drawable/ic_hand"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
-        android:elevation="10dp"
-        android:src="@drawable/ic_dropzone"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/side_card_left"
+        android:elevation="20dp"
+        android:fontFamily="@font/roboto_bold"
+        android:paddingHorizontal="@dimen/button_padding_horizontal"
+        android:paddingVertical="@dimen/button_padding_vertical"
+        android:text="@string/let_us_know_you_better_label"
+        android:textColor="@color/black"
+        android:textSize="34sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/ivHand"
+        android:layout_width="50dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="-15dp"
+        android:elevation="20dp"
+        android:rotation="-43"
+        android:src="@drawable/ic_hand"
+        app:layout_constraintEnd_toEndOf="@+id/ivPreferenceCard"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/ivPreferenceCard"
+        app:layout_constraintTop_toBottomOf="@+id/ivPreferenceCard" />
+
+    <ImageView
+        android:id="@+id/ivDropZone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:elevation="10dp"
+        android:src="@drawable/ic_dropzone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <ImageView
+        android:id="@+id/ivPreferenceCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="116dp"
         android:elevation="10dp"
         android:src="@drawable/ic_preferencecard"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintEnd_toEndOf="@+id/ivDropZone"
+        app:layout_constraintStart_toStartOf="@+id/ivDropZone"
+        app:layout_constraintTop_toBottomOf="@+id/ivDropZone" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="56dp"
+        android:fontFamily="@font/roboto_bold"
+        android:paddingHorizontal="@dimen/button_padding_horizontal"
+        android:paddingVertical="@dimen/button_padding_vertical"
+        android:text="@string/next_label"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:iconTint="@color/midnight_blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:rippleColor="@color/midnight_blue" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
