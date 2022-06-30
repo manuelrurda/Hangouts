@@ -1,9 +1,5 @@
 package com.example.hangouts.models;
 
-import android.view.LayoutInflater;
-
-import com.example.hangouts.databinding.PreferenceCardViewBinding;
-
 import java.util.List;
 
 public class DropZone {

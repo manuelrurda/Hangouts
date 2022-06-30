@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,13 +30,16 @@ import java.util.List;
 
 public class DragDropCuisineFragment extends Fragment {
 
+    public static final String TAG = "DnDFragment";
+
     private FragmentDragDropCuisineBinding binding;
     private DragDropCuisineViewModel dragDropCuisineViewModel;
-    private PreferenceCardView pfPreferenceCard;
     private FrameLayout flPreferenceCardContainer;
 
     private RecyclerView rvDropZones;
     private DropZoneAdapter dropZoneAdapter;
+
+    private List<DropZone> dropZones;
 
     public DragDropCuisineFragment() {}
 
@@ -49,21 +53,24 @@ public class DragDropCuisineFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initDropZoneArray();
         initViewModel();
         initDropZoneRV();
 
         flPreferenceCardContainer = binding.flPreferenceCardContainer;
     }
 
-    private void initDropZoneRV() {
-        List<DropZone> dropZones = new ArrayList<DropZone>();
+    private void initDropZoneArray() {
+        dropZones = new ArrayList<>();
         dropZones.add(new DropZone(0, new ArrayList<>()));
         dropZones.add(new DropZone(1, new ArrayList<>()));
         dropZones.add(new DropZone(2, new ArrayList<>()));
         dropZones.add(new DropZone(3, new ArrayList<>()));
         dropZones.add(new DropZone(4, new ArrayList<>()));
         dropZones.add(new DropZone(5, new ArrayList<>()));
+    }
 
+    private void initDropZoneRV() {
         rvDropZones = binding.rvDropZones;
         rvDropZones.setLayoutManager(new GridLayoutManager(getContext(), 2));
         rvDropZones.setHasFixedSize(true);
@@ -84,6 +91,9 @@ public class DragDropCuisineFragment extends Fragment {
                             PreferenceCard nextCard = preferenceCards.get(0);
                             flPreferenceCardContainer.addView(new PreferenceCardView(getContext(),
                                     nextCard.getValue()));
+                        }
+                        for (DropZone dz: dropZones) {
+                            Log.d(TAG, "onChanged: " + String.valueOf(dz.getDropValue()) +": " + dz.getContent().toString());
                         }
                     }
                 });

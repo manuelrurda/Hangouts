@@ -38,8 +38,4 @@ public class DragDropCuisineViewModel extends ViewModel {
         cuisinePreferenceCards.postValue(currentPreferenceCards);
     }
 
-    public LiveData<List<DropZone>> getDropZones(){
-        return dropZones;
-    }
-
 }
