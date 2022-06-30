@@ -5,7 +5,6 @@
     android:id="@+id/cvCard"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
     app:cardCornerRadius="@dimen/backcard_corner_radius"
     app:cardElevation="5dp">
 

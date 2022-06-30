@@ -9,14 +9,14 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvDropZones"
-        android:layout_width="392dp"
-        android:layout_height="440dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
         app:layout_constraintBottom_toTopOf="@+id/rvPreferenceCards"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.078"
+        app:layout_constraintVertical_bias="0"
         tools:listitem="@layout/drop_zone">
 
     </androidx.recyclerview.widget.RecyclerView>

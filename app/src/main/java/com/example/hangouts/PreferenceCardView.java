@@ -58,20 +58,36 @@ public class PreferenceCardView extends CardView {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.preference_card_view, this, true);
 
+        setViewParams();
+        setCardParams();
+    }
+
+    private void setViewParams() {
         // No view background
         this.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.transparent));
         // Center view in layout
-        int dimensionInDp = (int) getResources().getDimension(R.dimen.drag_drop_card_size);
-        CardView.LayoutParams params = new CardView.LayoutParams(
-                dimensionInDp, dimensionInDp);
-        params.gravity = Gravity.CENTER;
+        CardView.LayoutParams viewParams = new CardView.LayoutParams(
+                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        viewParams.gravity = Gravity.CENTER;
+        this.setLayoutParams(viewParams);
+    }
 
-        this.setLayoutParams(params);
-
+    private void setCardParams() {
         tvCardValue = findViewById(R.id.tvCardValue);
         tvCardValue.setText(cardValue);
 
         cvCard = findViewById(R.id.cvCard);
+
+        int cardDimenDp = (int) getResources().getDimension(R.dimen.drag_drop_card_size);
+        CardView.LayoutParams cardParams = new CardView.LayoutParams(
+                cardDimenDp, cardDimenDp);
+
+        int cardMarginDp = (int) getResources().getDimension(R.dimen.drag_drop_card_margin);
+        cardParams.bottomMargin = cardMarginDp;
+        cardParams.topMargin = cardMarginDp;
+        cardParams.leftMargin = cardMarginDp;
+        cardParams.rightMargin = cardMarginDp;
+        cvCard.setLayoutParams(cardParams);
         cvCard.setOnLongClickListener(view -> {
             ClipData.Item valueText = new ClipData.Item(cardValue);
             ClipData dragData = new ClipData(cardValue,
@@ -83,4 +99,7 @@ public class PreferenceCardView extends CardView {
             return true;
         });
     }
+
+
+
 }

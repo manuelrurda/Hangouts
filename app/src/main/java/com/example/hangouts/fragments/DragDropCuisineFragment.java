@@ -34,12 +34,8 @@ public class DragDropCuisineFragment extends Fragment {
     private PreferenceCardView pfPreferenceCard;
     private FrameLayout flPreferenceCardContainer;
 
-    private RecyclerView rvPreferenceCards;
     private RecyclerView rvDropZones;
-//    private ConstraintLayout clDropZoneLayout;
     private DropZoneAdapter dropZoneAdapter;
-//    private PreferenceCardAdapter preferenceCardAdapter;
-    private OrientedViewPager vpViewPager;
 
     public DragDropCuisineFragment() {}
 
@@ -53,7 +49,6 @@ public class DragDropCuisineFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        initPreferenceCardRV();
         initViewModel();
         initDropZoneRV();
 
@@ -75,14 +70,6 @@ public class DragDropCuisineFragment extends Fragment {
         dropZoneAdapter = new DropZoneAdapter(getContext(), dropZones, dragDropCuisineViewModel);
         rvDropZones.setAdapter(dropZoneAdapter);
     }
-
-//    private void initPreferenceCardRV() {
-//        rvPreferenceCards = binding.rvPreferenceCards;
-//        rvPreferenceCards.setLayoutManager(new LinearLayoutManager(getContext()));
-//        rvPreferenceCards.setHasFixedSize(true);
-//        preferenceCardAdapter = new PreferenceCardAdapter(getContext());
-//        rvPreferenceCards.setAdapter(preferenceCardAdapter);
-//    }
 
     private void initViewModel() {
         dragDropCuisineViewModel = new ViewModelProvider(getActivity()).get(DragDropCuisineViewModel.class);

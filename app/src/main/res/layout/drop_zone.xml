@@ -4,17 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/clDropZone"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="@drawable/drop_zone_bg"
+    android:elevation="7dp">
 
     <TextView
         android:id="@+id/tvDropZoneValue"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/black_20"
         android:fontFamily="@font/roboto_bold"
         android:gravity="center"
         android:textAlignment="gravity"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/glDropZoneGrid"
         app:layout_constraintEnd_toEndOf="@+id/glDropZoneGrid"
