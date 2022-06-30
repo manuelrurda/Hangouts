@@ -9,13 +9,15 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvDropZones"
-        android:layout_width="387dp"
-        android:layout_height="488dp"
+        android:layout_width="392dp"
+        android:layout_height="440dp"
         app:layout_constraintBottom_toTopOf="@+id/rvPreferenceCards"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/drop_zone" >
+        app:layout_constraintVertical_bias="0.078"
+        tools:listitem="@layout/drop_zone">
 
     </androidx.recyclerview.widget.RecyclerView>
 
@@ -23,10 +25,21 @@
         android:id="@+id/rvPreferenceCards"
         android:layout_width="wrap_content"
         android:layout_height="300dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:listitem="@layout/preference_card" >
+        tools:listitem="@layout/preference_card_view">
 
     </androidx.recyclerview.widget.RecyclerView>
+
+    <FrameLayout
+        android:id="@+id/flPreferenceCardContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rvDropZones" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

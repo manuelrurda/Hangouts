@@ -8,20 +8,21 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.example.hangouts.PreferenceCardView;
 import com.example.hangouts.adapters.DropZoneAdapter;
-import com.example.hangouts.adapters.PreferenceCardAdapter;
 import com.example.hangouts.databinding.FragmentDragDropCuisineBinding;
 import com.example.hangouts.models.DropZone;
 import com.example.hangouts.models.PreferenceCard;
 import com.example.hangouts.viewmodels.DragDropCuisineViewModel;
+import com.stack.viewpager.OrientedViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,12 +31,15 @@ public class DragDropCuisineFragment extends Fragment {
 
     private FragmentDragDropCuisineBinding binding;
     private DragDropCuisineViewModel dragDropCuisineViewModel;
+    private PreferenceCardView pfPreferenceCard;
+    private FrameLayout flPreferenceCardContainer;
 
     private RecyclerView rvPreferenceCards;
     private RecyclerView rvDropZones;
 //    private ConstraintLayout clDropZoneLayout;
     private DropZoneAdapter dropZoneAdapter;
-    private PreferenceCardAdapter preferenceCardAdapter;
+//    private PreferenceCardAdapter preferenceCardAdapter;
+    private OrientedViewPager vpViewPager;
 
     public DragDropCuisineFragment() {}
 
@@ -49,10 +53,11 @@ public class DragDropCuisineFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initPreferenceCardRV();
+//        initPreferenceCardRV();
         initViewModel();
         initDropZoneRV();
-//        initDropZones();
+
+        flPreferenceCardContainer = binding.flPreferenceCardContainer;
     }
 
     private void initDropZoneRV() {
@@ -69,17 +74,15 @@ public class DragDropCuisineFragment extends Fragment {
         rvDropZones.setHasFixedSize(true);
         dropZoneAdapter = new DropZoneAdapter(getContext(), dropZones, dragDropCuisineViewModel);
         rvDropZones.setAdapter(dropZoneAdapter);
-
-
     }
 
-    private void initPreferenceCardRV() {
-        rvPreferenceCards = binding.rvPreferenceCards;
-        rvPreferenceCards.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvPreferenceCards.setHasFixedSize(true);
-        preferenceCardAdapter = new PreferenceCardAdapter(getContext());
-        rvPreferenceCards.setAdapter(preferenceCardAdapter);
-    }
+//    private void initPreferenceCardRV() {
+//        rvPreferenceCards = binding.rvPreferenceCards;
+//        rvPreferenceCards.setLayoutManager(new LinearLayoutManager(getContext()));
+//        rvPreferenceCards.setHasFixedSize(true);
+//        preferenceCardAdapter = new PreferenceCardAdapter(getContext());
+//        rvPreferenceCards.setAdapter(preferenceCardAdapter);
+//    }
 
     private void initViewModel() {
         dragDropCuisineViewModel = new ViewModelProvider(getActivity()).get(DragDropCuisineViewModel.class);
@@ -89,7 +92,13 @@ public class DragDropCuisineFragment extends Fragment {
                     @Override
                     public void onChanged(List<PreferenceCard> preferenceCards) {
                         Toast.makeText(getContext(), "CHANGE OBSERVED", Toast.LENGTH_SHORT).show();
-                        preferenceCardAdapter.setPreferenceCards(preferenceCards);
+                        if(preferenceCards.isEmpty()){
+
+                        }else{
+                            PreferenceCard nextCard = preferenceCards.get(0);
+                            flPreferenceCardContainer.addView(new PreferenceCardView(getContext(),
+                                    nextCard.getValue()));
+                        }
                     }
                 });
     }
