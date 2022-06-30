@@ -175,9 +175,9 @@ Plan:
 - [x] Parse setup/model setup
 
 #### W2
-- [ ] Onboarding -> In progress
-- [ ] Yelp API/ display swipe UI
-- [ ] Dashboard
+- [x] Onboarding
+- [x] Drag and Drop UI
+- [ ] Dashboard -> In progress
 
 #### W3
 - [ ] Event creation
