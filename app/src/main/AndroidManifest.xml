@@ -18,13 +18,13 @@
         android:theme="@style/Theme.Hangouts"
         tools:targetApi="31">
         <activity
-            android:name=".OnboardingActivity"
+            android:name=".onboarding.OnboardingActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".loginSignup.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

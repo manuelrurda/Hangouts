@@ -1,4 +1,4 @@
-package com.example.hangouts.fragments;
+package com.example.hangouts.onboarding.fragments;
 
 import android.os.Bundle;
 
@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,15 +17,13 @@ import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
-import com.example.hangouts.PreferenceCardView;
-import com.example.hangouts.adapters.DropZoneAdapter;
 import com.example.hangouts.databinding.FragmentDragDropCuisineBinding;
-import com.example.hangouts.models.DropZone;
-import com.example.hangouts.models.PreferenceCard;
-import com.example.hangouts.viewmodels.DragDropCuisineViewModel;
-import com.stack.viewpager.OrientedViewPager;
+import com.example.hangouts.onboarding.DragDropCuisineViewModel;
+import com.example.hangouts.onboarding.DropZoneAdapter;
+import com.example.hangouts.onboarding.PreferenceCardView;
+import com.example.hangouts.onboarding.models.DropZone;
+import com.example.hangouts.onboarding.models.PreferenceCard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +62,7 @@ public class DragDropCuisineFragment extends Fragment {
         btnNext = binding.btnNext;
     }
 
-    // TODO: this should be in viewmodel
+    // TODO: this should probably be in viewmodel
     private void initDropZoneArray() {
         dropZones = new ArrayList<>();
         dropZones.add(new DropZone(0, new ArrayList<>()));
@@ -90,6 +87,8 @@ public class DragDropCuisineFragment extends Fragment {
         dragDropCuisineViewModel.getCuisinePreferenceCards().observe(getViewLifecycleOwner(),
                 new Observer<List<PreferenceCard>>() {
             // TODO: Undo button, handle 'next' button when undo las element
+
+            // TODO: Handle card dropped outside any dropzone
                     @Override
                     public void onChanged(List<PreferenceCard> preferenceCards) {
                         if(preferenceCards.isEmpty()){

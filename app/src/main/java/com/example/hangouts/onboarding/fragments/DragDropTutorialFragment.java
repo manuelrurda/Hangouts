@@ -1,4 +1,4 @@
-package com.example.hangouts.fragments;
+package com.example.hangouts.onboarding.fragments;
 
 import android.os.Bundle;
 
@@ -11,11 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnticipateInterpolator;
-import android.view.animation.Interpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.hangouts.R;
 import com.example.hangouts.databinding.FragmentDragDropTutorialBinding;

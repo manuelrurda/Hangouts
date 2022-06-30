@@ -1,4 +1,4 @@
-package com.example.hangouts;
+package com.example.hangouts.onboarding;
 
 import android.content.ClipData;
 import android.content.ClipDescription;
@@ -16,6 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
+
+import com.example.hangouts.R;
 
 
 public class PreferenceCardView extends CardView {

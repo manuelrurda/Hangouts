@@ -1,4 +1,4 @@
-package com.example.hangouts.fragments;
+package com.example.hangouts.loginSignup;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,11 +15,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.hangouts.LoginActivity;
-import com.example.hangouts.OnboardingActivity;
-import com.example.hangouts.R;
 import com.example.hangouts.databinding.ActivityLoginBinding;
 import com.example.hangouts.databinding.FragmentLoginBinding;
+import com.example.hangouts.onboarding.OnboardingActivity;
+import com.example.hangouts.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
@@ -29,7 +28,7 @@ public class LoginFragment extends Fragment {
 
     private static final String TAG = "LoginFragment";
     FragmentLoginBinding binding;
-    ActivityLoginBinding loginBinding;
+//    ActivityLoginBinding loginBinding;
 
     private TextInputEditText itLoginUsername;
     private TextInputEditText itLoginPassword;

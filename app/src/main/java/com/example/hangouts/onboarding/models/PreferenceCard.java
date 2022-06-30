@@ -1,4 +1,4 @@
-package com.example.hangouts.models;
+package com.example.hangouts.onboarding.models;
 
 public class PreferenceCard {
 

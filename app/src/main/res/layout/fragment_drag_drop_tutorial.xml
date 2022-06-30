@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ic_sun_tornado_background"
-    tools:context=".fragments.DragDropTutorialFragment">
+    tools:context=".onboarding.fragments.DragDropTutorialFragment">
 
     <TextView
         android:id="@+id/textView"

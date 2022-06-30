@@ -1,4 +1,4 @@
-package com.example.hangouts.models;
+package com.example.hangouts.onboarding.models;
 
 import java.util.List;
 
@@ -16,17 +16,8 @@ public class DropZone {
         return dropValue;
     }
 
-    public void setDropValue(int dropValue) {
-        this.dropValue = dropValue;
-    }
-
     public List<String> getContent() {
         return content;
-    }
-
-    public void setContent(List<String> content) {
-        this.content = content;
-
     }
 
     public void storeValue(String value){
