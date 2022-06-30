@@ -14,6 +14,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -35,6 +38,7 @@ public class DragDropCuisineFragment extends Fragment {
     private FragmentDragDropCuisineBinding binding;
     private DragDropCuisineViewModel dragDropCuisineViewModel;
     private FrameLayout flPreferenceCardContainer;
+    private Button btnNext;
 
     private RecyclerView rvDropZones;
     private DropZoneAdapter dropZoneAdapter;
@@ -58,8 +62,10 @@ public class DragDropCuisineFragment extends Fragment {
         initDropZoneRV();
 
         flPreferenceCardContainer = binding.flPreferenceCardContainer;
+        btnNext = binding.btnNext;
     }
 
+    // TODO: this should be in viewmodel
     private void initDropZoneArray() {
         dropZones = new ArrayList<>();
         dropZones.add(new DropZone(0, new ArrayList<>()));
@@ -83,20 +89,31 @@ public class DragDropCuisineFragment extends Fragment {
         dragDropCuisineViewModel.init();
         dragDropCuisineViewModel.getCuisinePreferenceCards().observe(getViewLifecycleOwner(),
                 new Observer<List<PreferenceCard>>() {
+            // TODO: Undo button, handle 'next' button when undo las element
                     @Override
                     public void onChanged(List<PreferenceCard> preferenceCards) {
                         if(preferenceCards.isEmpty()){
+                            // make next button appear
+                            showNextButton();
 
                         }else{
                             PreferenceCard nextCard = preferenceCards.get(0);
                             flPreferenceCardContainer.addView(new PreferenceCardView(getContext(),
                                     nextCard.getValue()));
                         }
-                        for (DropZone dz: dropZones) {
-                            Log.d(TAG, "onChanged: " + String.valueOf(dz.getDropValue()) +": " + dz.getContent().toString());
-                        }
                     }
                 });
+    }
+
+    private void showNextButton() {
+        ScaleAnimation anim = new ScaleAnimation(0f, 1f, 0f,
+                1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
+                0.5f);
+        int animDurationMs = 200;
+        anim.setDuration(animDurationMs);
+        anim.setFillAfter(true);
+        btnNext.startAnimation(anim);
+        btnNext.setVisibility(View.VISIBLE);
     }
 
 

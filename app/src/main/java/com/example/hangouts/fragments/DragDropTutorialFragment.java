@@ -12,6 +12,8 @@ import com.example.hangouts.R;
 
 public class DragDropTutorialFragment extends Fragment {
 
+
+
     public DragDropTutorialFragment() {
         // Required empty public constructor
     }
