@@ -78,7 +78,6 @@ public class DragDropCuisineFragment extends Fragment {
                 new Observer<List<PreferenceCard>>() {
                     @Override
                     public void onChanged(List<PreferenceCard> preferenceCards) {
-                        Toast.makeText(getContext(), "CHANGE OBSERVED", Toast.LENGTH_SHORT).show();
                         if(preferenceCards.isEmpty()){
 
                         }else{

@@ -3,11 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/clDropZone"
-    android:layout_width="wrap_content"
+    android:layout_width="@dimen/drag_drop_card_container"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:background="@drawable/drop_zone_bg"
-    android:elevation="7dp">
+    android:elevation="7dp"
+    android:minHeight="@dimen/drag_drop_card_container">
 
     <TextView
         android:id="@+id/tvDropZoneValue"
@@ -18,16 +19,16 @@
         android:textAlignment="gravity"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/glDropZoneGrid"
-        app:layout_constraintEnd_toEndOf="@+id/glDropZoneGrid"
-        app:layout_constraintStart_toStartOf="@+id/glDropZoneGrid"
-        app:layout_constraintTop_toTopOf="@+id/glDropZoneGrid"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="0" />
 
     <androidx.gridlayout.widget.GridLayout
         android:id="@+id/glDropZoneGrid"
-        android:layout_width="@dimen/drag_drop_card_container"
-        android:layout_height="@dimen/drag_drop_card_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

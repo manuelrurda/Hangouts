@@ -7,6 +7,9 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -43,6 +46,17 @@ public class PreferenceCardView extends CardView {
         setCardValue(cardValue);
     }
 
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        ScaleAnimation anim = new ScaleAnimation(0f, 1f, 0f,
+                1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
+                0.5f);
+        int animDurationMs = 100;
+        anim.setDuration(animDurationMs);
+        anim.setFillAfter(true);
+        this.startAnimation(anim);
+    }
 
     public void setCardValue(String cardValue){
         this.cardValue = cardValue;
@@ -65,9 +79,11 @@ public class PreferenceCardView extends CardView {
     private void setViewParams() {
         // No view background
         this.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.transparent));
+
+        int cardDimenDp = (int) getResources().getDimension(R.dimen.preference_card_size);
+        LayoutParams viewParams = new LayoutParams(
+                cardDimenDp, cardDimenDp);
         // Center view in layout
-        CardView.LayoutParams viewParams = new CardView.LayoutParams(
-                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         viewParams.gravity = Gravity.CENTER;
         this.setLayoutParams(viewParams);
     }
@@ -78,11 +94,9 @@ public class PreferenceCardView extends CardView {
 
         cvCard = findViewById(R.id.cvCard);
 
-        int cardDimenDp = (int) getResources().getDimension(R.dimen.drag_drop_card_size);
-        CardView.LayoutParams cardParams = new CardView.LayoutParams(
-                cardDimenDp, cardDimenDp);
-
         int cardMarginDp = (int) getResources().getDimension(R.dimen.drag_drop_card_margin);
+        CardView.LayoutParams cardParams = new CardView.LayoutParams(
+                LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         cardParams.bottomMargin = cardMarginDp;
         cardParams.topMargin = cardMarginDp;
         cardParams.leftMargin = cardMarginDp;

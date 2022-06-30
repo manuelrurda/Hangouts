@@ -5,17 +5,17 @@ import android.content.ClipDescription;
 import android.content.Context;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.gridlayout.widget.GridLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.hangouts.PreferenceCardView;
+import com.example.hangouts.R;
 import com.example.hangouts.databinding.DropZoneBinding;
 import com.example.hangouts.models.DropZone;
 import com.example.hangouts.viewmodels.DragDropCuisineViewModel;
@@ -60,17 +60,25 @@ public class DropZoneAdapter extends RecyclerView.Adapter<DropZoneAdapter.ViewHo
 
         private TextView tvDropZoneValue;
         private ConstraintLayout clDropZone;
+        private GridLayout glDropZoneGrid;
 
 
         public ViewHolder(@NonNull DropZoneBinding binding) {
             super(binding.getRoot());
             tvDropZoneValue = binding.tvDropZoneValue;
             clDropZone = binding.clDropZone;
+            glDropZoneGrid = binding.glDropZoneGrid;
         }
 
         public void bind(DropZone dropZone) {
             String dropValueText = String.valueOf(dropZone.getDropValue());
             tvDropZoneValue.setText(dropValueText);
+            glDropZoneGrid.setColumnCount(2);
+            setDragListener(dropZone);
+
+        }
+
+        private void setDragListener(DropZone dropZone) {
             clDropZone.setOnDragListener((v, event) ->{
                 switch (event.getAction()){
                     case DragEvent.ACTION_DRAG_STARTED:
@@ -82,16 +90,38 @@ public class DropZoneAdapter extends RecyclerView.Adapter<DropZoneAdapter.ViewHo
                         return true;
 
                     case DragEvent.ACTION_DROP:
-                        ClipData.Item item = event.getClipData().getItemAt(0);
-                        String dragText = item.getText().toString();
-                        Toast.makeText(context, dragText+" AT DROP ZONE "
-                               + dropValueText , Toast.LENGTH_SHORT).show();
-                        viewModel.removeFirstPreferenceCard();
+                        dropCard(event, dropZone);
                     case DragEvent.ACTION_DRAG_LOCATION:
                         return true;
                 }
                 return true;
             });
         }
+
+        private void dropCard(DragEvent event, DropZone dropZone) {
+            // Unpack clip data
+            ClipData.Item item = event.getClipData().getItemAt(0);
+            String dragValue = item.getText().toString();
+            dropZone.storeValue(dragValue);
+
+            viewModel.removeFirstPreferenceCard();
+
+            // Add preference card view and set params
+            PreferenceCardView preferenceCardView = new PreferenceCardView(context, dragValue);
+            int cardDimenDp = (int) context.getResources()
+                    .getDimension(R.dimen.dropzone_preference_card_size);
+
+            CardView.LayoutParams preferenceCardViewParams = new CardView.LayoutParams(
+                    cardDimenDp, cardDimenDp);
+
+            preferenceCardView.setCardValue(preferenceCardView.getCardValue().substring(0, 1));
+
+            preferenceCardView.setLayoutParams(preferenceCardViewParams);
+            glDropZoneGrid.addView(preferenceCardView);
+        }
+    }
+
+    public static String getEmojiByUnicode(int unicode){
+        return new String(Character.toChars(unicode));
     }
 }
