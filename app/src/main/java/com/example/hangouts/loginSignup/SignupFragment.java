@@ -1,4 +1,4 @@
-package com.example.hangouts.fragments;
+package com.example.hangouts.loginSignup;
 
 import android.os.Bundle;
 

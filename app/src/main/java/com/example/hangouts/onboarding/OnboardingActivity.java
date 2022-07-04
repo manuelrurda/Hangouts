@@ -1,4 +1,4 @@
-package com.example.hangouts;
+package com.example.hangouts.onboarding;
 
 import androidx.appcompat.app.AppCompatActivity;
 

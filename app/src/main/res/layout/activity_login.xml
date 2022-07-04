@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ic_sun_tornado_background"
-    tools:context=".LoginActivity">
+    tools:context=".loginSignup.LoginActivity">
 
     <TextView
         android:id="@+id/tvHangouts"
@@ -46,7 +46,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/loginFragmentContainer"
-        android:name="com.example.hangouts.fragments.LoginFragment"
+        android:name="com.example.hangouts.loginSignup.LoginFragment"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/backcard"

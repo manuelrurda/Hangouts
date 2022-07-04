@@ -1,16 +1,11 @@
-package com.example.hangouts;
+package com.example.hangouts.loginSignup;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
-import androidx.fragment.app.FragmentManager;
+import com.example.hangouts.databinding.ActivityLoginBinding;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
-
-import com.example.hangouts.fragments.LoginFragment;
-import com.example.hangouts.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
 

@@ -3,4 +3,10 @@
     <dimen name="backcard_corner_radius">20dp</dimen>
     <dimen name="backcard_content_padding">40dp</dimen>
     <dimen name="margin_top_login_backcard_content">30dp</dimen>
+    <dimen name="preference_card_size">120dp</dimen>
+    <dimen name="dropzone_preference_card_size">50dp</dimen>
+    <dimen name="drag_drop_card_margin">10dp</dimen>
+    <dimen name="drag_drop_card_container">120dp</dimen>
+    <dimen name="button_padding_horizontal">25dp</dimen>
+    <dimen name="button_padding_vertical">10dp</dimen>
 </resources>

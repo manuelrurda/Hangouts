@@ -9,7 +9,7 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintHorizontal_bias="0.0"
     app:layout_constraintStart_toStartOf="parent"
-    tools:context=".fragments.LoginFragment">
+    tools:context=".loginSignup.LoginFragment">
 
     <TextView
         android:id="@+id/tvLoginLabel"
@@ -71,8 +71,8 @@
         android:backgroundTint="@color/orange"
         android:elevation="20dp"
         android:fontFamily="@font/roboto_bold"
-        android:paddingHorizontal="30dp"
-        android:paddingVertical="10dp"
+        android:paddingHorizontal="@dimen/button_padding_horizontal"
+        android:paddingVertical="@dimen/button_padding_vertical"
         android:text="@string/log_in_label"
         android:textColor="@color/white"
         android:textSize="16sp"
