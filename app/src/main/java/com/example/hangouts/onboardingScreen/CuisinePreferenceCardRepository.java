@@ -30,13 +30,6 @@ public class CuisinePreferenceCardRepository {
         return data;
     }
 
-//    public MutableLiveData<List<DropZone>> getDropZones(){
-//        setDropZones();
-//        MutableLiveData<List<DropZone>> data = new MutableLiveData<>();
-//        data.setValue(dropZones);
-//        return data;
-//    }
-
     private void setCuisineTypes(){
         preferenceCards.add(new PreferenceCard("Italian"));
         preferenceCards.add(new PreferenceCard("Mexican"));

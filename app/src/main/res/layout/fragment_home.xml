@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ic_sun_tornado_background"
-    tools:context=".homeScreen.homeFragment">
+    tools:context=".homeScreen.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clHomeTopCard"

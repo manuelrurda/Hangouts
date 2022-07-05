@@ -1,5 +1,6 @@
 package com.example.hangouts.loginScreen;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.hangouts.databinding.FragmentLoginBinding;
 import com.example.hangouts.homeScreen.MainActivity;
+import com.example.hangouts.models.User;
 import com.example.hangouts.onboardingScreen.OnboardingActivity;
 import com.example.hangouts.R;
 import com.google.android.material.textfield.TextInputEditText;
@@ -28,7 +30,8 @@ public class LoginFragment extends Fragment {
 
     private static final String TAG = "LoginFragment";
     FragmentLoginBinding binding;
-//    ActivityLoginBinding loginBinding;
+
+    private final LoginActivity activity = (LoginActivity) getActivity();
 
     private TextInputEditText itLoginUsername;
     private TextInputEditText itLoginPassword;
@@ -68,8 +71,7 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 final String username = itLoginUsername.getText().toString();
                 final String password = itLoginPassword.getText().toString();
-//                loginUser(username, password);
-                goOnboardingActivity();
+                loginUser(username, password);
             }
         });
     }
@@ -83,13 +85,25 @@ public class LoginFragment extends Fragment {
                     Toast.makeText(getContext(), "Invalid Credentials", Toast.LENGTH_LONG).show();
                     return;
                 }
-                goOnboardingActivity();
+
+                if(!user.getBoolean(User.KEY_ONBOARDINGCOMPLETED)){
+                    goOnboardingActivity();
+                }else{
+                    goMainActivity();
+                }
+//                getActivity().finish();
             }
         });
     }
 
-    private void goOnboardingActivity() {
+    public void goOnboardingActivity(){
+        Intent intent = new Intent(getContext(), OnboardingActivity.class);
+        startActivity(intent);
+    }
+
+    public void goMainActivity(){
         Intent intent = new Intent(getContext(), MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 
