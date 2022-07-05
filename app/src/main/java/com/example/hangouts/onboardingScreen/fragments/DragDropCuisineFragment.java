@@ -1,6 +1,7 @@
 package com.example.hangouts.onboardingScreen.fragments;
 
 import android.content.ClipDescription;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,11 +25,18 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.hangouts.databinding.FragmentDragDropCuisineBinding;
+import com.example.hangouts.homeScreen.MainActivity;
+import com.example.hangouts.models.User;
 import com.example.hangouts.onboardingScreen.DragDropCuisineViewModel;
 import com.example.hangouts.onboardingScreen.DropZoneAdapter;
 import com.example.hangouts.onboardingScreen.PreferenceCardView;
 import com.example.hangouts.onboardingScreen.models.DropZone;
 import com.example.hangouts.onboardingScreen.models.PreferenceCard;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
+
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +73,7 @@ public class DragDropCuisineFragment extends Fragment {
         initDropZoneRV();
 
         flPreferenceCardContainer = binding.flPreferenceCardContainer;
-        btnNext = binding.btnNext;
+
         clParentLayout = binding.clParentLayout;
         clParentLayout.setOnDragListener((v, event) ->{
             switch (event.getAction()){
@@ -84,7 +92,39 @@ public class DragDropCuisineFragment extends Fragment {
             return true;
         });
 
+        btnNext = binding.btnNext;
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goMainActivity();
+                setUserPreferences();
+            }
+        });
 
+    }
+
+    private void setUserPreferences() {
+        JSONArray preferenceJsonArray = new JSONArray();
+        for(DropZone dropZone : dropZones){
+            preferenceJsonArray.put(dropZone.getContent());
+        }
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        currentUser.put(User.KEY_CUSINEPREFERENCE, preferenceJsonArray);
+        currentUser.put(User.KEY_ONBOARDINGCOMPLETED, true);
+        currentUser.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e != null){
+                    Log.e(TAG, "done: Error saving user's preferences", e);
+                }
+            }
+        });
+    }
+
+    private void goMainActivity() {
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        startActivity(intent);
+        getActivity().finish();
     }
 
     // TODO: handle drag and drop between dropzones

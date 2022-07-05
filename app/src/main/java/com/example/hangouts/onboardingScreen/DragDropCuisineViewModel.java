@@ -14,7 +14,6 @@ public class DragDropCuisineViewModel extends ViewModel {
     public static final String TAG = "DragDropCuisineViewModel";
 
 
-    private MutableLiveData<List<DropZone>> dropZones;
     private MutableLiveData<List<PreferenceCard>> cuisinePreferenceCards;
     private CuisinePreferenceCardRepository repo;
 
