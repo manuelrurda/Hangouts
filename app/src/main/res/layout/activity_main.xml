@@ -15,4 +15,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:onClick="onClickLogout"
+        app:srcCompat="@android:drawable/btn_dialog"
+        tools:layout_editor_absoluteX="323dp"
+        tools:layout_editor_absoluteY="659dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

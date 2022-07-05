@@ -36,4 +36,9 @@ public class DragDropCuisineViewModel extends ViewModel {
         cuisinePreferenceCards.postValue(currentPreferenceCards);
     }
 
+    public PreferenceCard getTopCard(){
+        List<PreferenceCard> currentPreferenceCards = cuisinePreferenceCards.getValue();
+        return currentPreferenceCards.get(0);
+    }
+
 }

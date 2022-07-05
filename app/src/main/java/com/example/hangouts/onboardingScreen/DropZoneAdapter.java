@@ -5,6 +5,7 @@ import android.content.ClipDescription;
 import android.content.Context;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -113,7 +114,6 @@ public class DropZoneAdapter extends RecyclerView.Adapter<DropZoneAdapter.ViewHo
                     cardDimenDp, cardDimenDp);
 
             preferenceCardView.setCardValue(preferenceCardView.getCardValue().substring(0, 1));
-
             preferenceCardView.setLayoutParams(preferenceCardViewParams);
             glDropZoneGrid.addView(preferenceCardView);
         }

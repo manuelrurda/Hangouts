@@ -1,15 +1,19 @@
 package com.example.hangouts.onboardingScreen.fragments;
 
+import android.content.ClipDescription;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +21,7 @@ import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.example.hangouts.databinding.FragmentDragDropCuisineBinding;
 import com.example.hangouts.onboardingScreen.DragDropCuisineViewModel;
@@ -33,6 +38,7 @@ public class DragDropCuisineFragment extends Fragment {
     public static final String TAG = "DnDFragment";
 
     private FragmentDragDropCuisineBinding binding;
+    private ConstraintLayout clParentLayout;
     private DragDropCuisineViewModel dragDropCuisineViewModel;
     private FrameLayout flPreferenceCardContainer;
     private Button btnNext;
@@ -60,6 +66,32 @@ public class DragDropCuisineFragment extends Fragment {
 
         flPreferenceCardContainer = binding.flPreferenceCardContainer;
         btnNext = binding.btnNext;
+        clParentLayout = binding.clParentLayout;
+        clParentLayout.setOnDragListener((v, event) ->{
+            switch (event.getAction()){
+                case DragEvent.ACTION_DRAG_STARTED:
+                    return event.getClipDescription().hasMimeType(
+                            ClipDescription.MIMETYPE_TEXT_PLAIN);
+                case DragEvent.ACTION_DRAG_ENTERED:
+                case DragEvent.ACTION_DRAG_EXITED:
+                    v.invalidate();
+                    return true;
+                case DragEvent.ACTION_DROP:
+                    restoreCard();
+                case DragEvent.ACTION_DRAG_LOCATION:
+                    return true;
+            }
+            return true;
+        });
+
+
+    }
+
+    // TODO: handle drag and drop between dropzones
+    private void restoreCard() {
+        PreferenceCard preferenceCard = dragDropCuisineViewModel.getTopCard();
+        flPreferenceCardContainer.removeViewAt(0);
+        flPreferenceCardContainer.addView(new PreferenceCardView(getContext(), preferenceCard.getValue()));
     }
 
     // TODO: this should probably be in viewmodel

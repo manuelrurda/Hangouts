@@ -115,6 +115,10 @@ public class PreferenceCardView extends CardView {
         });
     }
 
-
-
+    @Override
+    public String toString() {
+        return "PreferenceCardView{" +
+                "cardValue='" + cardValue + '\'' +
+                '}';
+    }
 }

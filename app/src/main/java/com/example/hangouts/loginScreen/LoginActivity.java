@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentContainerView;
 import com.example.hangouts.databinding.ActivityLoginBinding;
 import com.example.hangouts.homeScreen.MainActivity;
+import com.example.hangouts.models.User;
 import com.parse.ParseUser;
 
 import android.content.Intent;
@@ -20,7 +21,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(ParseUser.getCurrentUser() != null){
+        if(ParseUser.getCurrentUser() != null &&
+                ParseUser.getCurrentUser().getBoolean(User.KEY_ONBOARDINGCOMPLETED)){
             Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);

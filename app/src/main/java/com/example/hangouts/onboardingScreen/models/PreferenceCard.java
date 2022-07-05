@@ -11,4 +11,11 @@ public class PreferenceCard {
     public String getValue() {
         return value;
     }
+
+    @Override
+    public String toString() {
+        return "PreferenceCard{" +
+                "value='" + value + '\'' +
+                '}';
+    }
 }

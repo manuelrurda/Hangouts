@@ -51,6 +51,8 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        ParseUser.logOutInBackground();
+
         itLoginUsername = binding.itLoginUsername;
         itLoginPassword = binding.itLoginPassword;
 
