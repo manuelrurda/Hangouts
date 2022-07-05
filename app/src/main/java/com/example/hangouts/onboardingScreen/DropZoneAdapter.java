@@ -1,4 +1,4 @@
-package com.example.hangouts.onboarding;
+package com.example.hangouts.onboardingScreen;
 
 import android.content.ClipData;
 import android.content.ClipDescription;
@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hangouts.R;
 import com.example.hangouts.databinding.DropZoneBinding;
-import com.example.hangouts.onboarding.models.DropZone;
+import com.example.hangouts.onboardingScreen.models.DropZone;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.hangouts.onboarding.models;
+package com.example.hangouts.onboardingScreen.models;
 
 import java.util.List;
 

@@ -14,4 +14,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="next_label">Next</string>
     <string name="let_us_know_you_better_label">Let us know you better...</string>
+    <string name="create_label">Create</string>
+    <string name="join_label">Join</string>
 </resources>

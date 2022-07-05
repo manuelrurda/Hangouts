@@ -1,4 +1,4 @@
-package com.example.hangouts.loginSignup;
+package com.example.hangouts.loginScreen;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,9 +15,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.hangouts.databinding.ActivityLoginBinding;
 import com.example.hangouts.databinding.FragmentLoginBinding;
-import com.example.hangouts.onboarding.OnboardingActivity;
+import com.example.hangouts.homeScreen.MainActivity;
+import com.example.hangouts.onboardingScreen.OnboardingActivity;
 import com.example.hangouts.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.parse.LogInCallback;
@@ -89,7 +89,7 @@ public class LoginFragment extends Fragment {
     }
 
     private void goOnboardingActivity() {
-        Intent intent = new Intent(getContext(), OnboardingActivity.class);
+        Intent intent = new Intent(getContext(), MainActivity.class);
         startActivity(intent);
     }
 

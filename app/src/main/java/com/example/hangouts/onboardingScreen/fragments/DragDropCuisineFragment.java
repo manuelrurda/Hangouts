@@ -1,4 +1,4 @@
-package com.example.hangouts.onboarding.fragments;
+package com.example.hangouts.onboardingScreen.fragments;
 
 import android.os.Bundle;
 
@@ -19,11 +19,11 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.example.hangouts.databinding.FragmentDragDropCuisineBinding;
-import com.example.hangouts.onboarding.DragDropCuisineViewModel;
-import com.example.hangouts.onboarding.DropZoneAdapter;
-import com.example.hangouts.onboarding.PreferenceCardView;
-import com.example.hangouts.onboarding.models.DropZone;
-import com.example.hangouts.onboarding.models.PreferenceCard;
+import com.example.hangouts.onboardingScreen.DragDropCuisineViewModel;
+import com.example.hangouts.onboardingScreen.DropZoneAdapter;
+import com.example.hangouts.onboardingScreen.PreferenceCardView;
+import com.example.hangouts.onboardingScreen.models.DropZone;
+import com.example.hangouts.onboardingScreen.models.PreferenceCard;
 
 import java.util.ArrayList;
 import java.util.List;

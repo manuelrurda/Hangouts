@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".onboarding.OnboardingActivity">
+    tools:context=".onboardingScreen.OnboardingActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/onboardingFragmentContainer"
-        android:name="com.example.hangouts.onboarding.fragments.DragDropTutorialFragment"
+        android:name="com.example.hangouts.onboardingScreen.fragments.DragDropTutorialFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

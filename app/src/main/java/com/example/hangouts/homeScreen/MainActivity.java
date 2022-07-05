@@ -1,8 +1,10 @@
-package com.example.hangouts;
+package com.example.hangouts.homeScreen;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.hangouts.R;
 
 public class MainActivity extends AppCompatActivity {
 

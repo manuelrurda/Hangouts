@@ -1,11 +1,11 @@
-package com.example.hangouts.onboarding;
+package com.example.hangouts.onboardingScreen;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.hangouts.onboarding.models.DropZone;
-import com.example.hangouts.onboarding.models.PreferenceCard;
+import com.example.hangouts.onboardingScreen.models.DropZone;
+import com.example.hangouts.onboardingScreen.models.PreferenceCard;
 
 import java.util.List;
 
