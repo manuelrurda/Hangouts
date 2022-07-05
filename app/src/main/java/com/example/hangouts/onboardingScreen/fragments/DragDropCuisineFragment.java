@@ -159,8 +159,6 @@ public class DragDropCuisineFragment extends Fragment {
         dragDropCuisineViewModel.getCuisinePreferenceCards().observe(getViewLifecycleOwner(),
                 new Observer<List<PreferenceCard>>() {
             // TODO: Undo button, handle 'next' button when undo las element
-
-            // TODO: Handle card dropped outside any dropzone
                     @Override
                     public void onChanged(List<PreferenceCard> preferenceCards) {
                         if(preferenceCards.isEmpty()){

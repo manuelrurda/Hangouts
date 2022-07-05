@@ -119,7 +119,4 @@ public class DropZoneAdapter extends RecyclerView.Adapter<DropZoneAdapter.ViewHo
         }
     }
 
-    public static String getEmojiByUnicode(int unicode){
-        return new String(Character.toChars(unicode));
-    }
 }
