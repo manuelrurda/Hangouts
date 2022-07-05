@@ -29,9 +29,7 @@ import com.parse.ParseUser;
 public class LoginFragment extends Fragment {
 
     private static final String TAG = "LoginFragment";
-    FragmentLoginBinding binding;
-
-    private final LoginActivity activity = (LoginActivity) getActivity();
+    private FragmentLoginBinding binding;
 
     private TextInputEditText itLoginUsername;
     private TextInputEditText itLoginPassword;

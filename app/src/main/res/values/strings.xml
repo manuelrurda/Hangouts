@@ -16,4 +16,6 @@
     <string name="let_us_know_you_better_label">Let us know you better...</string>
     <string name="create_label">Create</string>
     <string name="join_label">Join</string>
+    <string name="active_hangouts_label">Active Hangouts</string>
+    <string name="past_hangouts_label">Past Hangouts</string>
 </resources>
