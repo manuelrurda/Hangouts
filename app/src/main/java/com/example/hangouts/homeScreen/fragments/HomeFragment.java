@@ -1,4 +1,4 @@
-package com.example.hangouts.homeScreen;
+package com.example.hangouts.homeScreen.fragments;
 
 import android.os.Bundle;
 
@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.hangouts.R;
 import com.example.hangouts.databinding.FragmentHomeBinding;
+import com.example.hangouts.homeScreen.UserUI;
 import com.example.hangouts.models.User;
 import com.parse.ParseUser;
 
@@ -21,7 +22,7 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
 
     private TextView tvUserName;
-    private ParseUser currentUser;
+    private UserUI currentUser;
 
     public HomeFragment() {}
 
@@ -37,12 +38,12 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        currentUser = ParseUser.getCurrentUser();
+        currentUser = new UserUI(ParseUser.getCurrentUser());
 
         tvUserName = binding.tvUserName;
         tvUserName.setText(String.format("%s %s.",
-                currentUser.get(User.KEY_NAME).toString(),
-                currentUser.get(User.KEY_LASTNAME).toString().substring(0, 1)));
+                currentUser.getName(),
+                currentUser.getLastInitial()));
     }
 
     @Override

@@ -91,7 +91,6 @@ public class LoginFragment extends Fragment {
                 }else{
                     goMainActivity();
                 }
-//                getActivity().finish();
             }
         });
     }
