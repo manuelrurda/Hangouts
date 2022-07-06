@@ -3,11 +3,14 @@ package com.example.hangouts.homeScreen;
 import com.example.hangouts.models.User;
 import com.parse.ParseUser;
 
-public class UserUI {
+/***
+ * UserUiModel - model for getting User UI data
+ */
+public class UserUiModel {
 
     ParseUser parseUser;
 
-    public UserUI (ParseUser parseUser){
+    public UserUiModel(ParseUser parseUser){
         this.parseUser = parseUser;
     }
 
@@ -20,6 +23,10 @@ public class UserUI {
     }
 
     public String getLastInitial(){
+        if(getLastName().isEmpty()){
+            return "";
+        }
         return getLastName().substring(0, 1);
     }
+
 }

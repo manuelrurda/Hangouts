@@ -162,9 +162,7 @@ public class DragDropCuisineFragment extends Fragment {
                     @Override
                     public void onChanged(List<PreferenceCard> preferenceCards) {
                         if(preferenceCards.isEmpty()){
-                            // make next button appear
                             showNextButton();
-
                         }else{
                             PreferenceCard nextCard = preferenceCards.get(0);
                             flPreferenceCardContainer.addView(new PreferenceCardView(getContext(),
