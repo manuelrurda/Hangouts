@@ -1,15 +1,20 @@
-package com.example.hangouts.onboarding.fragments;
+package com.example.hangouts.onboardingScreen.fragments;
 
+import android.content.ClipDescription;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +22,21 @@ import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.example.hangouts.databinding.FragmentDragDropCuisineBinding;
-import com.example.hangouts.onboarding.DragDropCuisineViewModel;
-import com.example.hangouts.onboarding.DropZoneAdapter;
-import com.example.hangouts.onboarding.PreferenceCardView;
-import com.example.hangouts.onboarding.models.DropZone;
-import com.example.hangouts.onboarding.models.PreferenceCard;
+import com.example.hangouts.homeScreen.MainActivity;
+import com.example.hangouts.models.User;
+import com.example.hangouts.onboardingScreen.DragDropCuisineViewModel;
+import com.example.hangouts.onboardingScreen.DropZoneAdapter;
+import com.example.hangouts.onboardingScreen.PreferenceCardView;
+import com.example.hangouts.onboardingScreen.models.DropZone;
+import com.example.hangouts.onboardingScreen.models.PreferenceCard;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
+
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +46,7 @@ public class DragDropCuisineFragment extends Fragment {
     public static final String TAG = "DnDFragment";
 
     private FragmentDragDropCuisineBinding binding;
+    private ConstraintLayout clParentLayout;
     private DragDropCuisineViewModel dragDropCuisineViewModel;
     private FrameLayout flPreferenceCardContainer;
     private Button btnNext;
@@ -59,7 +73,65 @@ public class DragDropCuisineFragment extends Fragment {
         initDropZoneRV();
 
         flPreferenceCardContainer = binding.flPreferenceCardContainer;
+
+        clParentLayout = binding.clParentLayout;
+        clParentLayout.setOnDragListener((v, event) ->{
+            switch (event.getAction()){
+                case DragEvent.ACTION_DRAG_STARTED:
+                    return event.getClipDescription().hasMimeType(
+                            ClipDescription.MIMETYPE_TEXT_PLAIN);
+                case DragEvent.ACTION_DRAG_ENTERED:
+                case DragEvent.ACTION_DRAG_EXITED:
+                    v.invalidate();
+                    return true;
+                case DragEvent.ACTION_DROP:
+                    restoreCard();
+                case DragEvent.ACTION_DRAG_LOCATION:
+                    return true;
+            }
+            return true;
+        });
+
         btnNext = binding.btnNext;
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goMainActivity();
+                setUserPreferences();
+            }
+        });
+
+    }
+
+    private void setUserPreferences() {
+        JSONArray preferenceJsonArray = new JSONArray();
+        for(DropZone dropZone : dropZones){
+            preferenceJsonArray.put(dropZone.getContent());
+        }
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        currentUser.put(User.KEY_CUSINEPREFERENCE, preferenceJsonArray);
+        currentUser.put(User.KEY_ONBOARDINGCOMPLETED, true);
+        currentUser.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e != null){
+                    Log.e(TAG, "done: Error saving user's preferences", e);
+                }
+            }
+        });
+    }
+
+    private void goMainActivity() {
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        startActivity(intent);
+        getActivity().finish();
+    }
+
+    // TODO: handle drag and drop between dropzones
+    private void restoreCard() {
+        PreferenceCard preferenceCard = dragDropCuisineViewModel.getTopCard();
+        flPreferenceCardContainer.removeViewAt(0);
+        flPreferenceCardContainer.addView(new PreferenceCardView(getContext(), preferenceCard.getValue()));
     }
 
     // TODO: this should probably be in viewmodel
@@ -87,14 +159,10 @@ public class DragDropCuisineFragment extends Fragment {
         dragDropCuisineViewModel.getCuisinePreferenceCards().observe(getViewLifecycleOwner(),
                 new Observer<List<PreferenceCard>>() {
             // TODO: Undo button, handle 'next' button when undo las element
-
-            // TODO: Handle card dropped outside any dropzone
                     @Override
                     public void onChanged(List<PreferenceCard> preferenceCards) {
                         if(preferenceCards.isEmpty()){
-                            // make next button appear
                             showNextButton();
-
                         }else{
                             PreferenceCard nextCard = preferenceCards.get(0);
                             flPreferenceCardContainer.addView(new PreferenceCardView(getContext(),

@@ -1,26 +1,19 @@
-package com.example.hangouts.onboarding;
+package com.example.hangouts.homeScreen;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.hangouts.databinding.ActivityOnboardingBinding;
+import com.example.hangouts.R;
 import com.parse.ParseUser;
 
-public class OnboardingActivity extends AppCompatActivity {
-
-    private ActivityOnboardingBinding binding;
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        binding = ActivityOnboardingBinding.inflate(getLayoutInflater());
-        View view = binding.getRoot();
-        setContentView(view);
-
-
+        setContentView(R.layout.activity_main);
     }
 
     // Temporary logout

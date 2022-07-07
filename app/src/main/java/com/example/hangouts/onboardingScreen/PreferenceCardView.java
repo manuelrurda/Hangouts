@@ -1,4 +1,4 @@
-package com.example.hangouts.onboarding;
+package com.example.hangouts.onboardingScreen;
 
 import android.content.ClipData;
 import android.content.ClipDescription;
@@ -7,7 +7,6 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.TextView;
@@ -116,6 +115,10 @@ public class PreferenceCardView extends CardView {
         });
     }
 
-
-
+    @Override
+    public String toString() {
+        return "PreferenceCardView{" +
+                "cardValue='" + cardValue + '\'' +
+                '}';
+    }
 }

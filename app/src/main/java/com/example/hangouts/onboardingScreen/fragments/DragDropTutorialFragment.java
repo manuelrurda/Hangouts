@@ -1,4 +1,4 @@
-package com.example.hangouts.onboarding.fragments;
+package com.example.hangouts.onboardingScreen.fragments;
 
 import android.os.Bundle;
 

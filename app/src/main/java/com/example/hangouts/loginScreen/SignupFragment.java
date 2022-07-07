@@ -1,5 +1,6 @@
-package com.example.hangouts.loginSignup;
+package com.example.hangouts.loginScreen;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,9 +14,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.hangouts.R;
 import com.example.hangouts.databinding.FragmentSignupBinding;
+import com.example.hangouts.homeScreen.MainActivity;
 import com.example.hangouts.models.User;
+import com.example.hangouts.onboardingScreen.OnboardingActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.parse.ParseException;
 import com.parse.SignUpCallback;
@@ -24,6 +26,8 @@ public class SignupFragment extends Fragment {
 
     private static final String TAG = "SignupFragment";
     FragmentSignupBinding binding;
+
+    final LoginActivity activity = (LoginActivity) getActivity();
 
     private TextInputEditText itName;
     private TextInputEditText itLastName;
@@ -63,9 +67,6 @@ public class SignupFragment extends Fragment {
                             getContext(), "All fields are required", Toast.LENGTH_LONG).show();
                 }else{
                     signupUser(name, lastName, username, password);
-                    getParentFragmentManager().beginTransaction()
-                            .replace(R.id.loginFragmentContainer, new LoginFragment())
-                            .commit();
                 }
             }
         });
@@ -88,9 +89,16 @@ public class SignupFragment extends Fragment {
                             Toast.LENGTH_LONG).show();
                 }else{
                     Log.d(TAG, "Signup Successful");
+                    goOnboardingActivity();
                 }
             }
         });
+    }
+
+    public void goOnboardingActivity(){
+        Intent intent = new Intent(getContext(), OnboardingActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
     @Override

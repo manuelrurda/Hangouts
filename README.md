@@ -117,7 +117,7 @@ Hangouts is an event/social planner app that allows users to create events or "H
 
 ### [BONUS] Digital Wireframes & Mockups (Work in Progress)
 
-<img src="https://i.imgur.com/5RXKBnT.png" width=400>
+<img src="https://i.imgur.com/cSUGiDH.png" width=400>
 
 ## Schema
 
@@ -177,10 +177,10 @@ Plan:
 #### W2
 - [x] Onboarding
 - [x] Drag and Drop UI
-- [ ] Dashboard -> In progress
+- [x] Dashboard
 
 #### W3
-- [ ] Event creation
+- [x] Event creation -> In progress
 - [ ] Location selection
 
 #### W4

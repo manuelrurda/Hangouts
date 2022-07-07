@@ -1,10 +1,11 @@
-package com.example.hangouts.onboarding;
+package com.example.hangouts.onboardingScreen;
 
 import android.content.ClipData;
 import android.content.ClipDescription;
 import android.content.Context;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -16,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hangouts.R;
 import com.example.hangouts.databinding.DropZoneBinding;
-import com.example.hangouts.onboarding.models.DropZone;
+import com.example.hangouts.onboardingScreen.models.DropZone;
 
 import java.util.List;
 
@@ -113,13 +114,9 @@ public class DropZoneAdapter extends RecyclerView.Adapter<DropZoneAdapter.ViewHo
                     cardDimenDp, cardDimenDp);
 
             preferenceCardView.setCardValue(preferenceCardView.getCardValue().substring(0, 1));
-
             preferenceCardView.setLayoutParams(preferenceCardViewParams);
             glDropZoneGrid.addView(preferenceCardView);
         }
     }
 
-    public static String getEmojiByUnicode(int unicode){
-        return new String(Character.toChars(unicode));
-    }
 }
