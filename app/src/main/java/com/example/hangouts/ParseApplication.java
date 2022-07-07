@@ -22,6 +22,5 @@ public class ParseApplication extends Application {
                 .server(BuildConfig.PARSE_SERVER_URL)
                 .build()
         );
-        Log.d(TAG, "onCreate: Parse Initialized");
     }
 }

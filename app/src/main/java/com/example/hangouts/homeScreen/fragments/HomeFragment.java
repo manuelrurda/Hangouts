@@ -9,20 +9,26 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.hangouts.R;
 import com.example.hangouts.databinding.FragmentHomeBinding;
 import com.example.hangouts.homeScreen.UserUiModel;
+import com.example.hangouts.loginScreen.SignupFragment;
 import com.parse.ParseUser;
 
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
+    private final UserUiModel currentUser;
 
     private TextView tvUserName;
-    private UserUiModel currentUser;
+    private Button btnHomeCreate;
 
-    public HomeFragment() {}
+    public HomeFragment() {
+        currentUser = new UserUiModel(ParseUser.getCurrentUser());
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,12 +42,21 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        currentUser = new UserUiModel(ParseUser.getCurrentUser());
-
         tvUserName = binding.tvUserName;
         tvUserName.setText(String.format("%s %s.",
                 currentUser.getName(),
                 currentUser.getLastInitial()));
+
+        btnHomeCreate = binding.btnHomeCreate;
+        btnHomeCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.homeFragmentContainer, new CreateHangoutFragment())
+                        .addToBackStack("")
+                        .commit();
+            }
+        });
     }
 
     @Override
