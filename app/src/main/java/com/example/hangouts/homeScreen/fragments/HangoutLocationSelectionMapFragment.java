@@ -34,9 +34,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.model.TypeFilter;
@@ -58,6 +57,7 @@ public class HangoutLocationSelectionMapFragment extends Fragment implements OnM
     private FusedLocationProviderClient fusedLocationClient;
 
     private GoogleMap map;
+    private Marker marker;
 
     private final ActivityResultLauncher<String[]> requestPermissionLauncher = registerForActivityResult(
             new ActivityResultContracts.RequestMultiplePermissions(), new ActivityResultCallback<Map<String, Boolean>>() {
@@ -70,11 +70,13 @@ public class HangoutLocationSelectionMapFragment extends Fragment implements OnM
                 }
             });
 
+
     private void requestPermissions() {
         requestPermissionLauncher.launch( new String[]{
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION});
     }
+
 
     @Nullable
     @Override
@@ -85,6 +87,7 @@ public class HangoutLocationSelectionMapFragment extends Fragment implements OnM
         return binding.getRoot();
     }
 
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -92,6 +95,7 @@ public class HangoutLocationSelectionMapFragment extends Fragment implements OnM
                 .getFusedLocationProviderClient(getActivity());
         initAutocompleteFragment();
     }
+
 
     private void initAutocompleteFragment() {
         Places.initialize(getContext(), BuildConfig.GOOGLE_CLOUD_API_KEY);
@@ -107,12 +111,15 @@ public class HangoutLocationSelectionMapFragment extends Fragment implements OnM
             }
             @Override
             public void onPlaceSelected(@NonNull Place place) {
+                Toast.makeText(getContext(), "Map Cleared", Toast.LENGTH_SHORT).show();
                 final double latitude = place.getLatLng().latitude;
                 final double longitude = place.getLatLng().longitude;
-                Toast.makeText(getContext(), "Lat: " + latitude + " Long: " + longitude, Toast.LENGTH_SHORT).show();
+                setFocusedLocation(latitude, longitude);
+                setMarkerPosition(latitude, longitude);
             }
         });
     }
+
 
     private void initMapFragment() {
         SupportMapFragment mapFragment =
@@ -122,15 +129,18 @@ public class HangoutLocationSelectionMapFragment extends Fragment implements OnM
         }
     }
 
+
     @SuppressLint("MissingPermission")
     private void getLastLocation() {
         if (LocationUtils.isLocationEnabled(getContext())) {
             fusedLocationClient.getLastLocation()
                     .addOnCompleteListener(location -> {
                         if(location.getResult() != null){
-                            currentLatitude = location.getResult().getLatitude();
-                            currentLongitude = location.getResult().getLongitude();
-                            addCurrentLocationMarker();
+                            setFocusedLocation(location.getResult().getLatitude(),
+                                    location.getResult().getLongitude());
+                            if(marker == null){
+                                initMarker();
+                            }
                         }else{
                             updateLocation();
                         }
@@ -144,6 +154,13 @@ public class HangoutLocationSelectionMapFragment extends Fragment implements OnM
         }
     }
 
+    private void initMarker() {
+        Toast.makeText(getContext(), "MARKER INITIALIZED", Toast.LENGTH_SHORT).show();
+        LatLng currentLocation = new LatLng(currentLatitude, currentLongitude);
+        marker = map.addMarker(new MarkerOptions().position(currentLocation).draggable(true));
+        map.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 10));
+    }
 
 
     @SuppressLint("MissingPermission")
@@ -158,9 +175,7 @@ public class HangoutLocationSelectionMapFragment extends Fragment implements OnM
         @Override
         public void onLocationResult(LocationResult locationResult) {
             Location lastLocation = locationResult.getLastLocation();
-            currentLatitude = lastLocation.getLatitude();
-            currentLongitude = lastLocation.getLongitude();
-            addCurrentLocationMarker();
+            setFocusedLocation(lastLocation.getLatitude(), lastLocation.getLongitude());
         }
     };
 
@@ -187,14 +202,16 @@ public class HangoutLocationSelectionMapFragment extends Fragment implements OnM
         map = googleMap;
         map.setMyLocationEnabled(true);
         map.getUiSettings().setMyLocationButtonEnabled(true);
-        getLastLocation();
     }
 
-    public void addCurrentLocationMarker(){
-        LatLng currentLocation = new LatLng(currentLatitude, currentLongitude);
-        map.addMarker(new MarkerOptions().position(currentLocation).title("You"));
-        map.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 10));
+    private void setFocusedLocation(double latitude, double longitude){
+        this.currentLatitude = latitude;
+        this.currentLongitude = longitude;
     }
 
+    private void setMarkerPosition(double latitude, double longitude){
+        LatLng location = new LatLng(latitude, longitude);
+        marker.setPosition(location);
+        Toast.makeText(getContext(), "marker location changed " + String.valueOf(marker.getPosition()), Toast.LENGTH_SHORT).show();
+    }
 }
