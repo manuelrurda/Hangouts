@@ -27,8 +27,6 @@ public class SignupFragment extends Fragment {
     private static final String TAG = "SignupFragment";
     FragmentSignupBinding binding;
 
-    final LoginActivity activity = (LoginActivity) getActivity();
-
     private TextInputEditText itName;
     private TextInputEditText itLastName;
     private TextInputEditText itUsername;
@@ -49,7 +47,7 @@ public class SignupFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         itName = binding.itName;
-        itLastName = binding.itName;
+        itLastName = binding.itLastName;
         itUsername = binding.itSignupUsername;
         itPassword = binding.itSignupPassword;
 
