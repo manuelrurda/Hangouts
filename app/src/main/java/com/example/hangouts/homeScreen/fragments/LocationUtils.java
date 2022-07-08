@@ -19,6 +19,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.ActivityOptionsCompat;
 
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.Priority;
 
 import java.security.Permission;
 import java.security.PermissionCollection;
@@ -45,11 +46,10 @@ public class LocationUtils {
     }
 
     static LocationRequest getLocationRequest(){
-        com.google.android.gms.location.LocationRequest locationRequest =
-                new com.google.android.gms.location.LocationRequest();
-        locationRequest.setPriority(com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY);
-        locationRequest.setInterval(5);
-        locationRequest.setFastestInterval(0);
+        LocationRequest locationRequest = LocationRequest.create();
+        locationRequest.setPriority(Priority.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(100);
+        locationRequest.setFastestInterval(50);
         locationRequest.setNumUpdates(1);
         return locationRequest;
     }

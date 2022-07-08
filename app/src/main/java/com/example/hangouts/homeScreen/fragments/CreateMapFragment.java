@@ -86,11 +86,6 @@ public class CreateMapFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
         fusedLocationClient = LocationServices
                 .getFusedLocationProviderClient(getActivity());
-        if(LocationUtils.checkLocationPermissions(getContext())){
-            getLastLocation();
-        }else{
-            requestPermissions();
-        }
 
 //        initAutocompleteFragment();
     }
@@ -133,13 +128,17 @@ public class CreateMapFragment extends Fragment{
     @SuppressLint("MissingPermission")
     private void getLastLocation() {
         if (LocationUtils.isLocationEnabled(getContext())) {
+            updateLocation();
             fusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
                 @Override
                 public void onComplete(@NonNull Task<Location> task) {
                     Location location = task.getResult();
                     if (location == null) {
-                        startLocationUpdates();
+                        Log.d(TAG, "onComplete: Location is null");
                     } else {
+                        Toast.makeText(getContext(), "Lat: " + String.valueOf(location.getLatitude())
+                                + " Long: " + String.valueOf(location.getLongitude()),
+                                Toast.LENGTH_SHORT).show();
                         currentLatitude = location.getLatitude();
                         currentLongitude = location.getLongitude();
                         initMapFragment();
@@ -155,15 +154,12 @@ public class CreateMapFragment extends Fragment{
 
 
     @SuppressLint("MissingPermission")
-    private void startLocationUpdates() {
+    private void updateLocation() {
         LocationRequest locationRequest = LocationUtils.getLocationRequest();
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
         fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
     }
 
-    private void stopLocationUpdates(){
-        fusedLocationClient.removeLocationUpdates(locationCallback);
-    }
 
     private final LocationCallback locationCallback = new LocationCallback() {
         @Override
