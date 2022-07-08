@@ -38,7 +38,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/autocompleteFragment"
-            tools:context=".homeScreen.fragments.CreateMapFragment" />
+            tools:context=".homeScreen.fragments.HangoutLocationSelectionMapFragment" />
 
         <fragment
             android:id="@+id/autocompleteFragment"

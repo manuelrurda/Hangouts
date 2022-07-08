@@ -45,9 +45,9 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 import java.util.Arrays;
 import java.util.Map;
 
-public class CreateMapFragment extends Fragment{
+public class HangoutLocationSelectionMapFragment extends Fragment{
 
-    private static final String TAG = "CreateMapFragment";
+    private static final String TAG = "HangoutLocationSelectionMapFragment";
     private static final String US_COUNTRY_CODE = "US";
 
     private FragmentCreateMapBinding binding;
@@ -56,6 +56,8 @@ public class CreateMapFragment extends Fragment{
     private FusedLocationProviderClient fusedLocationClient;
 
     private OnMapReadyCallback onMapReadyCallback = (googleMap) -> {
+        googleMap.setMyLocationEnabled(true);
+        googleMap.getUiSettings().setMyLocationButtonEnabled(true);
         LatLng currentLocation = new LatLng(currentLatitude, currentLongitude);
         googleMap.addMarker(new MarkerOptions().position(currentLocation).title("You"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
@@ -69,6 +71,7 @@ public class CreateMapFragment extends Fragment{
                     for (Map.Entry<String, Boolean> permissionResult: result.entrySet()) {
                         Log.d(TAG, "onActivityResult: " + permissionResult.getKey() + " VAL: " + permissionResult.getValue());
                     }
+                    getLastLocation();
                 }
             });
 
@@ -86,28 +89,21 @@ public class CreateMapFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
         fusedLocationClient = LocationServices
                 .getFusedLocationProviderClient(getActivity());
-
-//        initAutocompleteFragment();
+        initAutocompleteFragment();
     }
 
     private void initAutocompleteFragment() {
-
         Places.initialize(getContext(), BuildConfig.GOOGLE_CLOUD_API_KEY);
-
         AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
                 getChildFragmentManager().findFragmentById(R.id.autocompleteFragment);
-
         autocompleteFragment.setTypeFilter(TypeFilter.CITIES);
-
         autocompleteFragment.setCountries(US_COUNTRY_CODE);
         autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.LAT_LNG, Place.Field.NAME));
-
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onError(@NonNull Status status) {
                 Log.d(TAG, "onError: " + status.toString());
             }
-
             @Override
             public void onPlaceSelected(@NonNull Place place) {
                 final double latitude = place.getLatLng().latitude;
@@ -135,14 +131,15 @@ public class CreateMapFragment extends Fragment{
                     Location location = task.getResult();
                     if (location == null) {
                         Log.d(TAG, "onComplete: Location is null");
+                        Toast.makeText(getContext(), "Location Null", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getContext(), "Lat: " + String.valueOf(location.getLatitude())
                                 + " Long: " + String.valueOf(location.getLongitude()),
                                 Toast.LENGTH_SHORT).show();
                         currentLatitude = location.getLatitude();
                         currentLongitude = location.getLongitude();
-                        initMapFragment();
                     }
+                    initMapFragment();
                 }
             });
         } else {

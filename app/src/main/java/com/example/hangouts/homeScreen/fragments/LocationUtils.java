@@ -29,8 +29,6 @@ import java.security.Permissions;
  * Util class to get device current location
  */
 public class LocationUtils {
-    private static final int PERMISSION_ID = 99;
-
 
     static boolean isLocationEnabled(Context context) {
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
@@ -53,7 +51,4 @@ public class LocationUtils {
         locationRequest.setNumUpdates(1);
         return locationRequest;
     }
-
-
-
 }

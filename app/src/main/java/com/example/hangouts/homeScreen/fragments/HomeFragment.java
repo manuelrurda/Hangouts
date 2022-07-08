@@ -15,14 +15,7 @@ import android.widget.TextView;
 import com.example.hangouts.R;
 import com.example.hangouts.databinding.FragmentHomeBinding;
 import com.example.hangouts.homeScreen.UserUiModel;
-import com.example.hangouts.loginScreen.SignupFragment;
-import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.api.model.TypeFilter;
-import com.google.android.libraries.places.widget.AutocompleteFragment;
-import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.parse.ParseUser;
-
-import java.util.Arrays;
 
 public class HomeFragment extends Fragment {
 
@@ -58,7 +51,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 getParentFragmentManager().beginTransaction()
-                        .replace(R.id.homeFragmentContainer, new CreateMapFragment())
+                        .replace(R.id.homeFragmentContainer, new HangoutLocationSelectionMapFragment())
                         .addToBackStack("")
                         .commit();
             }
