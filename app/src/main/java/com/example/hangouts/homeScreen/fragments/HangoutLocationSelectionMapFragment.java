@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 import com.example.hangouts.BuildConfig;
 import com.example.hangouts.R;
-import com.example.hangouts.databinding.FragmentCreateMapBinding;
+import com.example.hangouts.databinding.FragmentHangoutLocationSelectionMapBinding;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -30,6 +30,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -45,24 +46,18 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 import java.util.Arrays;
 import java.util.Map;
 
-public class HangoutLocationSelectionMapFragment extends Fragment{
+public class HangoutLocationSelectionMapFragment extends Fragment implements OnMapReadyCallback{
 
     private static final String TAG = "HangoutLocationSelectionMapFragment";
     private static final String US_COUNTRY_CODE = "US";
 
-    private FragmentCreateMapBinding binding;
+    private FragmentHangoutLocationSelectionMapBinding binding;
+
     private double currentLatitude;
     private double currentLongitude;
     private FusedLocationProviderClient fusedLocationClient;
 
-    private OnMapReadyCallback onMapReadyCallback = (googleMap) -> {
-        googleMap.setMyLocationEnabled(true);
-        googleMap.getUiSettings().setMyLocationButtonEnabled(true);
-        LatLng currentLocation = new LatLng(currentLatitude, currentLongitude);
-        googleMap.addMarker(new MarkerOptions().position(currentLocation).title("You"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 10));
-    };
+    private GoogleMap map;
 
     private final ActivityResultLauncher<String[]> requestPermissionLauncher = registerForActivityResult(
             new ActivityResultContracts.RequestMultiplePermissions(), new ActivityResultCallback<Map<String, Boolean>>() {
@@ -71,16 +66,22 @@ public class HangoutLocationSelectionMapFragment extends Fragment{
                     for (Map.Entry<String, Boolean> permissionResult: result.entrySet()) {
                         Log.d(TAG, "onActivityResult: " + permissionResult.getKey() + " VAL: " + permissionResult.getValue());
                     }
-                    getLastLocation();
+                    initMapFragment();
                 }
             });
+
+    private void requestPermissions() {
+        requestPermissionLauncher.launch( new String[]{
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION});
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = FragmentCreateMapBinding.inflate(getLayoutInflater());
+        binding = FragmentHangoutLocationSelectionMapBinding.inflate(getLayoutInflater());
         return binding.getRoot();
     }
 
@@ -117,31 +118,26 @@ public class HangoutLocationSelectionMapFragment extends Fragment{
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mapFragment);
         if (mapFragment != null) {
-            mapFragment.getMapAsync(onMapReadyCallback);
+            mapFragment.getMapAsync(this);
         }
     }
 
     @SuppressLint("MissingPermission")
     private void getLastLocation() {
         if (LocationUtils.isLocationEnabled(getContext())) {
-            updateLocation();
-            fusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-                @Override
-                public void onComplete(@NonNull Task<Location> task) {
-                    Location location = task.getResult();
-                    if (location == null) {
-                        Log.d(TAG, "onComplete: Location is null");
-                        Toast.makeText(getContext(), "Location Null", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getContext(), "Lat: " + String.valueOf(location.getLatitude())
-                                + " Long: " + String.valueOf(location.getLongitude()),
-                                Toast.LENGTH_SHORT).show();
-                        currentLatitude = location.getLatitude();
-                        currentLongitude = location.getLongitude();
-                    }
-                    initMapFragment();
-                }
-            });
+            fusedLocationClient.getLastLocation()
+                    .addOnCompleteListener(location -> {
+                        if(location.getResult() != null){
+                            currentLatitude = location.getResult().getLatitude();
+                            currentLongitude = location.getResult().getLongitude();
+                            addCurrentLocationMarker();
+                        }else{
+                            updateLocation();
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        e.printStackTrace();
+                    });
         } else {
             Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
             startActivity(intent);
@@ -164,6 +160,7 @@ public class HangoutLocationSelectionMapFragment extends Fragment{
             Location lastLocation = locationResult.getLastLocation();
             currentLatitude = lastLocation.getLatitude();
             currentLongitude = lastLocation.getLongitude();
+            addCurrentLocationMarker();
         }
     };
 
@@ -173,6 +170,7 @@ public class HangoutLocationSelectionMapFragment extends Fragment{
         super.onResume();
         if(LocationUtils.checkLocationPermissions(getContext())){
             getLastLocation();
+            initMapFragment();
         }else{
             requestPermissions();
         }
@@ -184,9 +182,19 @@ public class HangoutLocationSelectionMapFragment extends Fragment{
         binding = null;
     }
 
-     private void requestPermissions() {
-        requestPermissionLauncher.launch( new String[]{
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION});
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        map = googleMap;
+        map.setMyLocationEnabled(true);
+        map.getUiSettings().setMyLocationButtonEnabled(true);
+        getLastLocation();
     }
+
+    public void addCurrentLocationMarker(){
+        LatLng currentLocation = new LatLng(currentLatitude, currentLongitude);
+        map.addMarker(new MarkerOptions().position(currentLocation).title("You"));
+        map.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 10));
+    }
+
 }

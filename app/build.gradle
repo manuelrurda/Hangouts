@@ -7,6 +7,10 @@ def apikeyPropertiesFile = rootProject.file("apikey.properties")
 def apikeyProperties = new Properties()
 apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
 
+def localPropertiesFile = rootProject.file("local.properties")
+def localProperties = new Properties()
+localProperties.load(new FileInputStream(localPropertiesFile))
+
 android {
     compileSdk 32
 
@@ -18,11 +22,12 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
+        // apikey.properties
         buildConfigField "String", "PARSE_APP_ID", apikeyProperties['PARSE_APP_ID']
         buildConfigField "String", "PARSE_CLIENT_KEY", apikeyProperties['PARSE_CLIENT_KEY']
         buildConfigField "String", "PARSE_SERVER_URL", apikeyProperties['PARSE_SERVER_URL']
-        buildConfigField "String", "GOOGLE_CLOUD_API_KEY", apikeyProperties['GOOGLE_CLOUD_API_KEY']
+        // local.properties
+        buildConfigField "String", "GOOGLE_CLOUD_API_KEY", localProperties['GOOGLE_CLOUD_API_KEY']
     }
 
     buildTypes {
