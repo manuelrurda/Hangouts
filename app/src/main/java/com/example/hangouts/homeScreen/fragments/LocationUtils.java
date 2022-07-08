@@ -3,12 +3,26 @@ package com.example.hangouts.homeScreen.fragments;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
+import android.util.Log;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.ActivityOptionsCompat;
 
 import com.google.android.gms.location.LocationRequest;
+
+import java.security.Permission;
+import java.security.PermissionCollection;
+import java.security.Permissions;
 
 /***
  * Util class to get device current location
@@ -16,11 +30,6 @@ import com.google.android.gms.location.LocationRequest;
 public class LocationUtils {
     private static final int PERMISSION_ID = 99;
 
-    static void requestPermissions(Activity activity) {
-        ActivityCompat.requestPermissions(activity, new String[]{
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_ID);
-    }
 
     static boolean isLocationEnabled(Context context) {
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
@@ -44,5 +53,7 @@ public class LocationUtils {
         locationRequest.setNumUpdates(1);
         return locationRequest;
     }
+
+
 
 }

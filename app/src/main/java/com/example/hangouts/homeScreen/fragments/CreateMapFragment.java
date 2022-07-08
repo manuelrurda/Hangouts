@@ -1,8 +1,10 @@
 package com.example.hangouts.homeScreen.fragments;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import android.Manifest;
@@ -41,8 +43,9 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 
 import java.util.Arrays;
+import java.util.Map;
 
-public class CreateMapFragment extends Fragment {
+public class CreateMapFragment extends Fragment{
 
     private static final String TAG = "CreateMapFragment";
     private static final String US_COUNTRY_CODE = "US";
@@ -52,13 +55,22 @@ public class CreateMapFragment extends Fragment {
     private double currentLongitude;
     private FusedLocationProviderClient fusedLocationClient;
 
-    private OnMapReadyCallback callback = (googleMap) -> {
+    private OnMapReadyCallback onMapReadyCallback = (googleMap) -> {
         LatLng currentLocation = new LatLng(currentLatitude, currentLongitude);
         googleMap.addMarker(new MarkerOptions().position(currentLocation).title("You"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 10));
     };
 
+    private final ActivityResultLauncher<String[]> requestPermissionLauncher = registerForActivityResult(
+            new ActivityResultContracts.RequestMultiplePermissions(), new ActivityResultCallback<Map<String, Boolean>>() {
+                @Override
+                public void onActivityResult(Map<String, Boolean> result) {
+                    for (Map.Entry<String, Boolean> permissionResult: result.entrySet()) {
+                        Log.d(TAG, "onActivityResult: " + permissionResult.getKey() + " VAL: " + permissionResult.getValue());
+                    }
+                }
+            });
 
     @Nullable
     @Override
@@ -72,12 +84,15 @@ public class CreateMapFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         fusedLocationClient = LocationServices
                 .getFusedLocationProviderClient(getActivity());
+        if(LocationUtils.checkLocationPermissions(getContext())){
+            getLastLocation();
+        }else{
+            requestPermissions();
+        }
 
-        getLastLocation();
-        initAutocompleteFragment();
+//        initAutocompleteFragment();
     }
 
     private void initAutocompleteFragment() {
@@ -111,42 +126,43 @@ public class CreateMapFragment extends Fragment {
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mapFragment);
         if (mapFragment != null) {
-            mapFragment.getMapAsync(callback);
+            mapFragment.getMapAsync(onMapReadyCallback);
         }
     }
 
     @SuppressLint("MissingPermission")
     private void getLastLocation() {
-        if(LocationUtils.checkLocationPermissions(getContext())){
-            if (LocationUtils.isLocationEnabled(getContext())) {
-                fusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Location> task) {
-                        Location location = task.getResult();
-                        if (location == null) {
-                            requestNewLocationData();
-                        } else {
-                            currentLatitude = location.getLatitude();
-                            currentLongitude = location.getLongitude();
-                            initMapFragment();
-                        }
+        if (LocationUtils.isLocationEnabled(getContext())) {
+            fusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                @Override
+                public void onComplete(@NonNull Task<Location> task) {
+                    Location location = task.getResult();
+                    if (location == null) {
+                        startLocationUpdates();
+                    } else {
+                        currentLatitude = location.getLatitude();
+                        currentLongitude = location.getLongitude();
+                        initMapFragment();
                     }
-                });
-            } else {
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivity(intent);
-            }
-        }else{
-            LocationUtils.requestPermissions(getActivity());
+                }
+            });
+        } else {
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivity(intent);
         }
     }
 
 
+
     @SuppressLint("MissingPermission")
-    private void requestNewLocationData() {
+    private void startLocationUpdates() {
         LocationRequest locationRequest = LocationUtils.getLocationRequest();
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
         fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
+    }
+
+    private void stopLocationUpdates(){
+        fusedLocationClient.removeLocationUpdates(locationCallback);
     }
 
     private final LocationCallback locationCallback = new LocationCallback() {
@@ -162,12 +178,22 @@ public class CreateMapFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        getLastLocation();
+        if(LocationUtils.checkLocationPermissions(getContext())){
+            getLastLocation();
+        }else{
+            requestPermissions();
+        }
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+     private void requestPermissions() {
+        requestPermissionLauncher.launch( new String[]{
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION});
     }
 }
