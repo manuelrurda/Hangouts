@@ -111,7 +111,6 @@ public class HangoutLocationSelectionMapFragment extends Fragment implements OnM
             }
             @Override
             public void onPlaceSelected(@NonNull Place place) {
-                Toast.makeText(getContext(), "Map Cleared", Toast.LENGTH_SHORT).show();
                 final double latitude = place.getLatLng().latitude;
                 final double longitude = place.getLatLng().longitude;
                 setFocusedLocation(latitude, longitude);
@@ -155,7 +154,6 @@ public class HangoutLocationSelectionMapFragment extends Fragment implements OnM
     }
 
     private void initMarker() {
-        Toast.makeText(getContext(), "MARKER INITIALIZED", Toast.LENGTH_SHORT).show();
         LatLng currentLocation = new LatLng(currentLatitude, currentLongitude);
         marker = map.addMarker(new MarkerOptions().position(currentLocation).draggable(true));
         map.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
@@ -212,6 +210,7 @@ public class HangoutLocationSelectionMapFragment extends Fragment implements OnM
     private void setMarkerPosition(double latitude, double longitude){
         LatLng location = new LatLng(latitude, longitude);
         marker.setPosition(location);
-        Toast.makeText(getContext(), "marker location changed " + String.valueOf(marker.getPosition()), Toast.LENGTH_SHORT).show();
+        map.animateCamera(CameraUpdateFactory.newLatLng(location));
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 10));
     }
 }
