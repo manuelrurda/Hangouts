@@ -20,14 +20,13 @@ import com.example.hangouts.models.User;
 import com.example.hangouts.onboardingScreen.OnboardingActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.parse.ParseException;
+import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
 public class SignupFragment extends Fragment {
 
     private static final String TAG = "SignupFragment";
     FragmentSignupBinding binding;
-
-    final LoginActivity activity = (LoginActivity) getActivity();
 
     private TextInputEditText itName;
     private TextInputEditText itLastName;
@@ -48,8 +47,11 @@ public class SignupFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        ParseUser.logOutInBackground();
+
         itName = binding.itName;
-        itLastName = binding.itName;
+        itLastName = binding.itLastName;
         itUsername = binding.itSignupUsername;
         itPassword = binding.itSignupPassword;
 
@@ -99,6 +101,7 @@ public class SignupFragment extends Fragment {
         Intent intent = new Intent(getContext(), OnboardingActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+        getActivity().finish();
     }
 
     @Override
