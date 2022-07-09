@@ -18,5 +18,4 @@
     <string name="join_label">Join</string>
     <string name="active_hangouts_label">Active Hangouts</string>
     <string name="past_hangouts_label">Past Hangouts</string>
-    <string name="enter_hangout_location_label">Enter Hangout Location</string>
 </resources>
