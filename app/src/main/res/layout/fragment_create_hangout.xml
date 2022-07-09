@@ -7,7 +7,7 @@
     tools:context=".homeScreen.fragments.CreateHangoutFragment">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/itCreateAlias"
+        android:id="@+id/itCreateFragmentLayoutAlias"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -16,6 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/itCreateFragmentAlias"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Hangout Alias" />
@@ -23,31 +24,35 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/itCreateLocation"
+        android:id="@+id/itCreateFragmentLayoutLocation"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/itCreateAlias"
-        app:layout_constraintStart_toStartOf="@+id/itCreateAlias"
-        app:layout_constraintTop_toBottomOf="@+id/itCreateAlias">
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="@+id/itCreateFragmentLayoutAlias"
+        app:layout_constraintStart_toStartOf="@+id/itCreateFragmentLayoutAlias"
+        app:layout_constraintTop_toBottomOf="@+id/itCreateFragmentLayoutAlias">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <fragment
+            android:id="@+id/autocompleteFragment"
+            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="Location" />
+            android:layout_height="wrap_content" />
+
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/itCreateDate"
+        android:id="@+id/itCreateFragmentLayoutDate"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/itCreateAlias"
-        app:layout_constraintStart_toStartOf="@+id/itCreateAlias"
-        app:layout_constraintTop_toBottomOf="@+id/itCreateLocation">
+        app:layout_constraintEnd_toEndOf="@+id/itCreateFragmentLayoutAlias"
+        app:layout_constraintStart_toStartOf="@+id/itCreateFragmentLayoutAlias"
+        app:layout_constraintTop_toBottomOf="@+id/itCreateFragmentLayoutLocation">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/itCreateFragmentDate"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="mm/dd/yyyy" />
@@ -55,15 +60,16 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/itCreateTime"
+        android:id="@+id/itCreateFragmentLayoutTime"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/itCreateAlias"
-        app:layout_constraintStart_toStartOf="@+id/itCreateAlias"
-        app:layout_constraintTop_toBottomOf="@+id/itCreateDate">
+        app:layout_constraintEnd_toEndOf="@+id/itCreateFragmentLayoutAlias"
+        app:layout_constraintStart_toStartOf="@+id/itCreateFragmentLayoutAlias"
+        app:layout_constraintTop_toBottomOf="@+id/itCreateFragmentLayoutDate">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/itCreateFragmentTime"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="hh:mm" />
@@ -76,7 +82,8 @@
         android:layout_height="wrap_content"
         android:text="Button"
         android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@+id/itCreateTime"
-        tools:layout_editor_absoluteX="161dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/itCreateFragmentLayoutTime" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
