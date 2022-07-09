@@ -51,8 +51,7 @@ public class HangoutLocationSelectionMapFragment extends Fragment implements OnM
 
     private FragmentHangoutLocationSelectionMapBinding binding;
 
-    private double currentLatitude;
-    private double currentLongitude;
+    private LatLng focusedLocation;
     private FusedLocationProviderClient fusedLocationClient;
 
     private GoogleMap map;
@@ -112,8 +111,9 @@ public class HangoutLocationSelectionMapFragment extends Fragment implements OnM
             public void onPlaceSelected(@NonNull Place place) {
                 final double latitude = place.getLatLng().latitude;
                 final double longitude = place.getLatLng().longitude;
-                setFocusedLocation(latitude, longitude);
-                setMarkerPosition(latitude, longitude);
+                LatLng location = new LatLng(latitude, longitude);
+                setFocusedLocation(location);
+                setMarkerPosition(location);
             }
         });
     }
@@ -134,8 +134,9 @@ public class HangoutLocationSelectionMapFragment extends Fragment implements OnM
             fusedLocationClient.getLastLocation()
                     .addOnCompleteListener(location -> {
                         if(location.getResult() != null){
-                            setFocusedLocation(location.getResult().getLatitude(),
+                            LatLng latLngLocation = new LatLng(location.getResult().getLatitude(),
                                     location.getResult().getLongitude());
+                            setFocusedLocation(latLngLocation);
                             if(marker == null){
                                 initMarker();
                             }
@@ -153,10 +154,9 @@ public class HangoutLocationSelectionMapFragment extends Fragment implements OnM
     }
 
     private void initMarker() {
-        LatLng currentLocation = new LatLng(currentLatitude, currentLongitude);
-        marker = map.addMarker(new MarkerOptions().position(currentLocation).draggable(true));
-        map.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 10));
+        marker = map.addMarker(new MarkerOptions().position(focusedLocation).draggable(true));
+        map.moveCamera(CameraUpdateFactory.newLatLng(focusedLocation));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(focusedLocation, 10));
     }
 
 
@@ -172,7 +172,8 @@ public class HangoutLocationSelectionMapFragment extends Fragment implements OnM
         @Override
         public void onLocationResult(LocationResult locationResult) {
             Location lastLocation = locationResult.getLastLocation();
-            setFocusedLocation(lastLocation.getLatitude(), lastLocation.getLongitude());
+            LatLng location = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
+            setFocusedLocation(location);
         }
     };
 
@@ -194,20 +195,27 @@ public class HangoutLocationSelectionMapFragment extends Fragment implements OnM
         binding = null;
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         map = googleMap;
         map.setMyLocationEnabled(true);
         map.getUiSettings().setMyLocationButtonEnabled(true);
+
+        map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng point) {
+                setMarkerPosition(point);
+                setFocusedLocation(point);
+            }
+        });
     }
 
-    private void setFocusedLocation(double latitude, double longitude){
-        this.currentLatitude = latitude;
-        this.currentLongitude = longitude;
+    private void setFocusedLocation(LatLng location){
+        this.focusedLocation = location;
     }
 
-    private void setMarkerPosition(double latitude, double longitude){
-        LatLng location = new LatLng(latitude, longitude);
+    private void setMarkerPosition(LatLng location){
         marker.setPosition(location);
         map.animateCamera(CameraUpdateFactory.newLatLng(location));
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 10));
