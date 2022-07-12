@@ -19,6 +19,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.hangouts.databinding.FragmentCreateHangoutBinding;
+import com.example.hangouts.homeScreen.fragments.CreateHangoutViewModel.Actions;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.SimpleDateFormat;
@@ -80,6 +81,7 @@ public class CreateHangoutFragment extends Fragment {
         viewModel.hangoutLocationDecoded.observe(requireActivity(), this::setLocationText);
         viewModel.hangoutDate.observe(requireActivity(), this::updateDateFieldText);
         viewModel.hangoutTime.observe(requireActivity(), this::updateTimeFieldText);
+        viewModel.actions.observe(requireActivity(), this::handleActions);
 
         itCreateFragmentAlias = binding.itCreateFragmentAlias;
         itCreateFragmentDate = binding.itCreateFragmentDate;
@@ -89,6 +91,22 @@ public class CreateHangoutFragment extends Fragment {
         btnCreateFragmentCreate = binding.btnCreateFragmentCreate;
         btnCreateFragmentCreate.setOnClickListener(this::onCreateClick);
 
+    }
+
+    private void handleActions(Actions actions) {
+        switch (actions){
+            case ERROR_LOCATION_DECODING_FAILED:
+                Toast.makeText(getContext(), "Failed to decode location", Toast.LENGTH_SHORT).show();
+                break;
+            case ERROR_ALL_FIELDS_REQUIRED:
+                Toast.makeText(getContext(), "All fields are required", Toast.LENGTH_SHORT).show();
+                break;
+            case ERROR_SAVING_HANGOUT:
+                Toast.makeText(getContext(), "Network Error", Toast.LENGTH_SHORT).show();
+                break;
+            case SUCCESS_SAVING_HANGOUT:
+                Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void setLocationText(String locationText) {
