@@ -6,6 +6,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -18,10 +19,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.hangouts.BuildConfig;
 import com.example.hangouts.R;
 import com.example.hangouts.databinding.FragmentHangoutLocationSelectionMapBinding;
+import com.example.hangouts.loginScreen.SignupFragment;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -50,31 +54,29 @@ public class HangoutLocationSelectionMapFragment extends Fragment implements OnM
     private static final String US_COUNTRY_CODE = "US";
 
     private FragmentHangoutLocationSelectionMapBinding binding;
+    private Button btnMapFragmentNext;
+    private CreateHangoutViewModel viewModel;
 
-    private LatLng focusedLocation;
     private FusedLocationProviderClient fusedLocationClient;
 
     private GoogleMap map;
     private Marker marker;
 
     private final ActivityResultLauncher<String[]> requestPermissionLauncher = registerForActivityResult(
-            new ActivityResultContracts.RequestMultiplePermissions(), new ActivityResultCallback<Map<String, Boolean>>() {
-                @Override
-                public void onActivityResult(Map<String, Boolean> result) {
-                    for (Map.Entry<String, Boolean> permissionResult: result.entrySet()) {
-                        Log.d(TAG, "onActivityResult: " + permissionResult.getKey() + " VAL: " + permissionResult.getValue());
-                    }
-                    initMapFragment();
-                }
-            });
+            new ActivityResultContracts.RequestMultiplePermissions(), this::handlePermissionResponse);
 
-
-    private void requestPermissions() {
-        requestPermissionLauncher.launch( new String[]{
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION});
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        fusedLocationClient = LocationServices
+                .getFusedLocationProviderClient(getActivity());
+        viewModel = new ViewModelProvider(requireActivity()).get(CreateHangoutViewModel.class);
+        if(LocationUtils.checkLocationPermissions(getContext())){
+            getCurrentLocation();
+        }else{
+            requestPermissions();
+        }
     }
-
 
     @Nullable
     @Override
@@ -85,15 +87,13 @@ public class HangoutLocationSelectionMapFragment extends Fragment implements OnM
         return binding.getRoot();
     }
 
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        fusedLocationClient = LocationServices
-                .getFusedLocationProviderClient(getActivity());
+        btnMapFragmentNext = binding.btnMapFragmentNext;
+        btnMapFragmentNext.setOnClickListener(this::onClickNext);
         initAutocompleteFragment();
     }
-
 
     private void initAutocompleteFragment() {
         Places.initialize(getContext(), BuildConfig.GOOGLE_CLOUD_API_KEY);
@@ -112,12 +112,10 @@ public class HangoutLocationSelectionMapFragment extends Fragment implements OnM
                 final double latitude = place.getLatLng().latitude;
                 final double longitude = place.getLatLng().longitude;
                 LatLng location = new LatLng(latitude, longitude);
-                setFocusedLocation(location);
-                setMarkerPosition(location);
+                viewModel.setHangoutLocation(location);
             }
         });
     }
-
 
     private void initMapFragment() {
         SupportMapFragment mapFragment =
@@ -127,19 +125,21 @@ public class HangoutLocationSelectionMapFragment extends Fragment implements OnM
         }
     }
 
+    private void initMarker(LatLng location) {
+        marker = map.addMarker(new MarkerOptions().position(location));
+        map.moveCamera(CameraUpdateFactory.newLatLng(location));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 10));
+    }
 
     @SuppressLint("MissingPermission")
-    private void getLastLocation() {
+    private void getCurrentLocation() {
         if (LocationUtils.isLocationEnabled(getContext())) {
             fusedLocationClient.getLastLocation()
                     .addOnCompleteListener(location -> {
                         if(location.getResult() != null){
                             LatLng latLngLocation = new LatLng(location.getResult().getLatitude(),
                                     location.getResult().getLongitude());
-                            setFocusedLocation(latLngLocation);
-                            if(marker == null){
-                                initMarker();
-                            }
+                            viewModel.setHangoutLocation(latLngLocation);
                         }else{
                             updateLocation();
                         }
@@ -153,13 +153,6 @@ public class HangoutLocationSelectionMapFragment extends Fragment implements OnM
         }
     }
 
-    private void initMarker() {
-        marker = map.addMarker(new MarkerOptions().position(focusedLocation).draggable(true));
-        map.moveCamera(CameraUpdateFactory.newLatLng(focusedLocation));
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(focusedLocation, 10));
-    }
-
-
     @SuppressLint("MissingPermission")
     private void updateLocation() {
         LocationRequest locationRequest = LocationUtils.getLocationRequest();
@@ -167,33 +160,14 @@ public class HangoutLocationSelectionMapFragment extends Fragment implements OnM
         fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
     }
 
-
     private final LocationCallback locationCallback = new LocationCallback() {
         @Override
         public void onLocationResult(LocationResult locationResult) {
             Location lastLocation = locationResult.getLastLocation();
             LatLng location = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
-            setFocusedLocation(location);
+            viewModel.setHangoutLocation(location);
         }
     };
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if(LocationUtils.checkLocationPermissions(getContext())){
-            getLastLocation();
-            initMapFragment();
-        }else{
-            requestPermissions();
-        }
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
 
     @SuppressLint("MissingPermission")
     @Override
@@ -202,22 +176,65 @@ public class HangoutLocationSelectionMapFragment extends Fragment implements OnM
         map.setMyLocationEnabled(true);
         map.getUiSettings().setMyLocationButtonEnabled(true);
 
+        // TODO: hanlde if clicked in ocean
         map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
-            public void onMapClick(LatLng point) {
-                setMarkerPosition(point);
-                setFocusedLocation(point);
+            public void onMapClick(LatLng location) {
+                viewModel.setHangoutLocation(location);
             }
         });
+
+        viewModel.hangoutLocation.observe(requireActivity(), this::setMarkerPosition);
     }
 
-    private void setFocusedLocation(LatLng location){
-        this.focusedLocation = location;
+    private void handlePermissionResponse(Map<String, Boolean> result){
+        for (Map.Entry<String, Boolean> permissionResult: result.entrySet()) {
+            Log.d(TAG, "handlePermissionResponse: " + permissionResult.getValue());
+            if(permissionResult.getValue()){
+                getCurrentLocation();
+                initMapFragment();
+                return;
+            }
+        }
+        Log.d(TAG, "handlePermissionResponse: Permission Denied");
+    }
+
+    private void requestPermissions() {
+        requestPermissionLauncher.launch( new String[]{
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION});
     }
 
     private void setMarkerPosition(LatLng location){
-        marker.setPosition(location);
-        map.animateCamera(CameraUpdateFactory.newLatLng(location));
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 10));
+        if(location != null){
+            if(marker == null){
+                initMarker(location);
+            }
+            marker.setPosition(location);
+            map.animateCamera(CameraUpdateFactory.newLatLng(location));
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 10));
+        }
+    }
+
+    private void onClickNext(View view) {
+        viewModel.decodeHangoutLocation(viewModel.getHangoutLocation().getValue());
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.homeFragmentContainer, new CreateHangoutFragment())
+                .addToBackStack("")
+                .commit();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(LocationUtils.checkLocationPermissions(getContext())){
+            initMapFragment();
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

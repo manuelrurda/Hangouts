@@ -6,14 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".homeScreen.fragments.CreateHangoutFragment">
 
+    <TextView
+        android:id="@+id/tvCreateFragmentLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/roboto_bold"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        tools:text="Menlo Park" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/itCreateFragmentLayoutAlias"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/content_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/tvCreateFragmentLocation">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/itCreateFragmentAlias"
@@ -24,32 +38,13 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/itCreateFragmentLayoutLocation"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        app:layout_constraintEnd_toEndOf="@+id/itCreateFragmentLayoutAlias"
-        app:layout_constraintStart_toStartOf="@+id/itCreateFragmentLayoutAlias"
-        app:layout_constraintTop_toBottomOf="@+id/itCreateFragmentLayoutAlias">
-
-        <fragment
-            android:id="@+id/autocompleteFragment"
-            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/itCreateFragmentLayoutDate"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="@+id/itCreateFragmentLayoutAlias"
         app:layout_constraintStart_toStartOf="@+id/itCreateFragmentLayoutAlias"
-        app:layout_constraintTop_toBottomOf="@+id/itCreateFragmentLayoutLocation">
+        app:layout_constraintTop_toBottomOf="@+id/itCreateFragmentLayoutAlias">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/itCreateFragmentDate"
@@ -85,5 +80,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/itCreateFragmentLayoutTime" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="@dimen/content_margin"
+        android:src="@drawable/ic_location_icon"
+        app:layout_constraintStart_toStartOf="@+id/itCreateFragmentLayoutAlias"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
