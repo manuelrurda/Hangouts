@@ -9,4 +9,5 @@
     <dimen name="drag_drop_card_container">120dp</dimen>
     <dimen name="button_padding_horizontal">25dp</dimen>
     <dimen name="button_padding_vertical">10dp</dimen>
+    <dimen name="content_margin">20dp</dimen>
 </resources>
