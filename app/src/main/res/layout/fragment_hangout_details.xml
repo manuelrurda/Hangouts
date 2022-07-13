@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".homeScreen.fragments.HangoutDetailsFragment">
+
+    <TextView
+        android:id="@+id/tvHangoutDetailsAlias"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/content_margin"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/roboto_bold"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Dinner with friends" />
+
+    <TextView
+        android:id="@+id/tvHangoutDetailsLocation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/roboto"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/tvHangoutDetailsAlias"
+        app:layout_constraintStart_toStartOf="@+id/tvHangoutDetailsAlias"
+        app:layout_constraintTop_toBottomOf="@+id/tvHangoutDetailsAlias"
+        tools:text="Menlo Park" />
+
+    <TextView
+        android:id="@+id/tvHangoutDetailsDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/tvHangoutDetailsLocation"
+        app:layout_constraintStart_toStartOf="@+id/tvHangoutDetailsLocation"
+        app:layout_constraintTop_toBottomOf="@+id/tvHangoutDetailsLocation"
+        tools:text="Mon, 16 Aug, 2022" />
+
+    <TextView
+        android:id="@+id/tvHangoutDetailsTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/tvHangoutDetailsDate"
+        app:layout_constraintStart_toStartOf="@+id/tvHangoutDetailsDate"
+        app:layout_constraintTop_toBottomOf="@+id/tvHangoutDetailsDate"
+        tools:text="16:15" />
+
+    <fragment
+        android:id="@+id/detailsMapFragment"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="0dp"
+        android:layout_height="350dp"
+        android:layout_marginTop="@dimen/content_margin"
+        android:elevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvHangoutDetailsTime"
+        tools:context=".homeScreen.fragments.HangoutDetailsFragment" />
+
+
+    <TextView
+        android:id="@+id/tvHangoutDetailsHangoutCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_margin"
+        android:fontFamily="@font/roboto_bold"
+        android:textColor="@color/black"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="@+id/detailsMapFragment"
+        app:layout_constraintStart_toStartOf="@+id/detailsMapFragment"
+        app:layout_constraintTop_toBottomOf="@+id/detailsMapFragment"
+        tools:text="ABCDE1234" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

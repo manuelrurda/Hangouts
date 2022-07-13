@@ -18,8 +18,10 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.hangouts.R;
 import com.example.hangouts.databinding.FragmentCreateHangoutBinding;
-import com.example.hangouts.homeScreen.fragments.CreateHangoutViewModel.Actions;
+import com.example.hangouts.homeScreen.fragments.CreateHangoutViewModel.Errors;
+import com.example.hangouts.models.Hangout;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.SimpleDateFormat;
@@ -81,7 +83,8 @@ public class CreateHangoutFragment extends Fragment {
         viewModel.hangoutLocationDecoded.observe(requireActivity(), this::setLocationText);
         viewModel.hangoutDate.observe(requireActivity(), this::updateDateFieldText);
         viewModel.hangoutTime.observe(requireActivity(), this::updateTimeFieldText);
-        viewModel.actions.observe(requireActivity(), this::handleActions);
+        viewModel.errors.observe(requireActivity(), this::handleError);
+        viewModel.newHangout.observe(requireActivity(), this::onHangoutCreated);
 
         itCreateFragmentAlias = binding.itCreateFragmentAlias;
         itCreateFragmentDate = binding.itCreateFragmentDate;
@@ -93,8 +96,8 @@ public class CreateHangoutFragment extends Fragment {
 
     }
 
-    private void handleActions(Actions actions) {
-        switch (actions){
+    private void handleError(Errors errors) {
+        switch (errors){
             case ERROR_LOCATION_DECODING_FAILED:
                 Toast.makeText(getContext(), "Failed to decode location", Toast.LENGTH_SHORT).show();
                 break;
@@ -104,9 +107,18 @@ public class CreateHangoutFragment extends Fragment {
             case ERROR_SAVING_HANGOUT:
                 Toast.makeText(getContext(), "Network Error", Toast.LENGTH_SHORT).show();
                 break;
-            case SUCCESS_SAVING_HANGOUT:
-                Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void onHangoutCreated(Hangout hangout) {
+        goHangoutDetailsFragment(hangout);
+    }
+
+    private void goHangoutDetailsFragment(Hangout hangout) {
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.homeFragmentContainer, HangoutDetailsFragment.newInstance(hangout))
+                .addToBackStack("")
+                .commit();
     }
 
     private void setLocationText(String locationText) {
