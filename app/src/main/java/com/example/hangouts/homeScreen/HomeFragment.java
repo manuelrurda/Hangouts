@@ -43,15 +43,14 @@ public class HomeFragment extends Fragment {
                 currentUser.getName(),
                 currentUser.getLastInitial()));
 
-        binding.btnHomeCreate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getParentFragmentManager().beginTransaction()
-                        .replace(R.id.homeFragmentContainer, new HangoutLocationSelectionMapFragment())
-                        .addToBackStack("")
-                        .commit();
-            }
-        });
+        binding.btnHomeCreate.setOnClickListener(this::onClickCreate);
+    }
+
+    private void onClickCreate(View view) {
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.homeFragmentContainer, new HangoutLocationSelectionMapFragment())
+                .addToBackStack("")
+                .commit();
     }
 
     @Override

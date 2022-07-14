@@ -19,8 +19,6 @@ public class OnboardingActivity extends AppCompatActivity {
         binding = ActivityOnboardingBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-
-
     }
 
     // Temporary logout
