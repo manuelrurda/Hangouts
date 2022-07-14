@@ -3,8 +3,10 @@ package com.example.hangouts;
 import android.app.Application;
 import android.util.Log;
 
+import com.example.hangouts.models.Hangout;
 import com.example.hangouts.models.User;
 import com.parse.Parse;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 public class ParseApplication extends Application {
@@ -16,6 +18,7 @@ public class ParseApplication extends Application {
         super.onCreate();
 
         ParseUser.registerSubclass(User.class);
+        ParseObject.registerSubclass(Hangout.class);
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId(BuildConfig.PARSE_APP_ID)
                 .clientKey(BuildConfig.PARSE_CLIENT_KEY)
@@ -23,4 +26,6 @@ public class ParseApplication extends Application {
                 .build()
         );
     }
+
+
 }

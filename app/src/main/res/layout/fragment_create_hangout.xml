@@ -6,17 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".homeScreen.fragments.CreateHangoutFragment">
 
+    <ImageView
+        android:id="@+id/ivLocationIcon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/ic_location_icon"
+        app:layout_constraintStart_toStartOf="@+id/itCreateFragmentLayoutAlias"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/tvCreateFragmentLocation"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:fontFamily="@font/roboto_bold"
         android:textColor="@color/black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:layout_constraintBottom_toBottomOf="@+id/ivLocationIcon"
+        app:layout_constraintEnd_toEndOf="@+id/itCreateFragmentLayoutAlias"
+        app:layout_constraintStart_toEndOf="@+id/ivLocationIcon"
+        app:layout_constraintTop_toTopOf="@+id/ivLocationIcon"
         tools:text="Menlo Park" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -33,7 +43,7 @@
             android:id="@+id/itCreateFragmentAlias"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Hangout Alias" />
+            android:hint="@string/hangout_alias_label" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -42,6 +52,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_margin"
         app:layout_constraintEnd_toEndOf="@+id/itCreateFragmentLayoutAlias"
         app:layout_constraintStart_toStartOf="@+id/itCreateFragmentLayoutAlias"
         app:layout_constraintTop_toBottomOf="@+id/itCreateFragmentLayoutAlias">
@@ -50,7 +61,11 @@
             android:id="@+id/itCreateFragmentDate"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="mm/dd/yyyy" />
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:hint="@string/date_format_label" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -59,6 +74,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_margin"
         app:layout_constraintEnd_toEndOf="@+id/itCreateFragmentLayoutAlias"
         app:layout_constraintStart_toStartOf="@+id/itCreateFragmentLayoutAlias"
         app:layout_constraintTop_toBottomOf="@+id/itCreateFragmentLayoutDate">
@@ -67,27 +83,27 @@
             android:id="@+id/itCreateFragmentTime"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="hh:mm" />
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:hint="@string/time_format_label" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnCreateFragmentCreate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:layout_marginTop="@dimen/content_margin"
+        android:paddingHorizontal="@dimen/button_padding_horizontal"
+        android:paddingVertical="@dimen/button_padding_vertical"
+        android:text="@string/create_label"
         android:textColor="@color/white"
+        android:textSize="@dimen/button_font_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itCreateFragmentLayoutTime" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="@dimen/content_margin"
-        android:src="@drawable/ic_location_icon"
-        app:layout_constraintStart_toStartOf="@+id/itCreateFragmentLayoutAlias"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/itCreateFragmentLayoutTime"
+        app:rippleColor="@color/midnight_blue" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
