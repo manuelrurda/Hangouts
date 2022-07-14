@@ -34,13 +34,6 @@ public class HangoutDetailsFragment extends Fragment {
     private FragmentHangoutDetailsBinding binding;
     private Hangout hangout;
 
-    private TextView tvHangoutDetailsAlias;
-    private TextView tvHangoutDetailsLocation;
-    private TextView tvHangoutDetailsDate;
-    private TextView tvHangoutDetailsTime;
-    private TextView tvHangoutDetailsHangoutCode;
-    private ImageButton btnCopyClipboard;
-
     public HangoutDetailsFragment() {
     }
 
@@ -70,17 +63,12 @@ public class HangoutDetailsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        btnCopyClipboard = binding.btnCopyClipboard;
-        tvHangoutDetailsDate = binding.tvHangoutDetailsDate;
-        tvHangoutDetailsTime = binding.tvHangoutDetailsTime;
-        tvHangoutDetailsAlias = binding.tvHangoutDetailsAlias;
-        tvHangoutDetailsLocation = binding.tvHangoutDetailsLocation;
-        tvHangoutDetailsHangoutCode = binding.tvHangoutDetailsHangoutCode;
+
         setDateTimeTextViews();
-        tvHangoutDetailsAlias.setText(hangout.getAlias());
-        tvHangoutDetailsHangoutCode.setText(hangout.getObjectId());
-        btnCopyClipboard.setOnClickListener(this::onClipboardClick);
-        tvHangoutDetailsLocation.setText(hangout.getLocationString());
+        binding.tvHangoutDetailsAlias.setText(hangout.getAlias());
+        binding.tvHangoutDetailsHangoutCode.setText(hangout.getObjectId());
+        binding.btnCopyClipboard.setOnClickListener(this::onClipboardClick);
+        binding.tvHangoutDetailsLocation.setText(hangout.getLocationString());
         initMapFragment();
     }
 
@@ -95,8 +83,8 @@ public class HangoutDetailsFragment extends Fragment {
 
     private void setDateTimeTextViews() {
         Date deadline = hangout.getDeadline();
-        tvHangoutDetailsDate.setText(DateTimeUtil.getDateString(deadline));
-        tvHangoutDetailsTime.setText(DateTimeUtil.getTimeString(deadline));
+        binding.tvHangoutDetailsDate.setText(DateTimeUtil.getDateString(deadline));
+        binding.tvHangoutDetailsTime.setText(DateTimeUtil.getTimeString(deadline));
     }
 
     private void initMapFragment() {

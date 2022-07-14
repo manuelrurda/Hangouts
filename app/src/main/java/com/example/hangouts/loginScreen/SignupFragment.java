@@ -28,13 +28,6 @@ public class SignupFragment extends Fragment {
     private static final String TAG = "SignupFragment";
     FragmentSignupBinding binding;
 
-    private TextInputEditText itName;
-    private TextInputEditText itLastName;
-    private TextInputEditText itUsername;
-    private TextInputEditText itPassword;
-
-    private Button btnSignup;
-
     public SignupFragment() {}
 
     @Override
@@ -49,20 +42,13 @@ public class SignupFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ParseUser.logOutInBackground();
-
-        itName = binding.itName;
-        itLastName = binding.itLastName;
-        itUsername = binding.itSignupUsername;
-        itPassword = binding.itSignupPassword;
-
-        btnSignup = binding.btnSignup;
-        btnSignup.setOnClickListener(new View.OnClickListener() {
+        binding.btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String name = itName.getText().toString();
-                final String lastName = itLastName.getText().toString();
-                final String username = itUsername.getText().toString();
-                final String password = itPassword.getText().toString();
+                final String name = binding.itName.getText().toString();
+                final String lastName = binding.itLastName.getText().toString();
+                final String username = binding.itSignupUsername.getText().toString();
+                final String password = binding.itSignupPassword.getText().toString();
                 if(name.isEmpty() || lastName.isEmpty() ||
                         username.isEmpty() || password.isEmpty()){
                     Toast.makeText(

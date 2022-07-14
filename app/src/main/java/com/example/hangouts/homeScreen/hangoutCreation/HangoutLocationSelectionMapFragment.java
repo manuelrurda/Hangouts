@@ -52,7 +52,6 @@ public class HangoutLocationSelectionMapFragment extends Fragment implements OnM
     private static final String US_COUNTRY_CODE = "US";
 
     private FragmentHangoutLocationSelectionMapBinding binding;
-    private Button btnMapFragmentNext;
     private CreateHangoutViewModel viewModel;
 
     private FusedLocationProviderClient fusedLocationClient;
@@ -88,8 +87,7 @@ public class HangoutLocationSelectionMapFragment extends Fragment implements OnM
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        btnMapFragmentNext = binding.btnMapFragmentNext;
-        btnMapFragmentNext.setOnClickListener(this::onClickNext);
+        binding.btnMapFragmentNext.setOnClickListener(this::onClickNext);
         initAutocompleteFragment();
     }
 

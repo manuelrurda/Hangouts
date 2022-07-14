@@ -31,11 +31,6 @@ public class LoginFragment extends Fragment {
     private static final String TAG = "LoginFragment";
     private FragmentLoginBinding binding;
 
-    private TextInputEditText itLoginUsername;
-    private TextInputEditText itLoginPassword;
-    private Button btnLogin;
-    private TextView tvLoginSignup;
-
     public LoginFragment() {}
 
     @Override
@@ -50,12 +45,7 @@ public class LoginFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ParseUser.logOutInBackground();
-
-        itLoginUsername = binding.itLoginUsername;
-        itLoginPassword = binding.itLoginPassword;
-
-        tvLoginSignup = binding.tvLoginSignup;
-        tvLoginSignup.setOnClickListener(new View.OnClickListener() {
+        binding.tvLoginSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getParentFragmentManager().beginTransaction()
@@ -64,13 +54,11 @@ public class LoginFragment extends Fragment {
                         .commit();
             }
         });
-
-        btnLogin = binding.btnLogin;
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+        binding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String username = itLoginUsername.getText().toString();
-                final String password = itLoginPassword.getText().toString();
+                final String username = binding.itLoginUsername.getText().toString();
+                final String password = binding.itLoginPassword.getText().toString();
                 loginUser(username, password);
             }
         });

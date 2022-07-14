@@ -24,10 +24,6 @@ public class DragDropTutorialFragment extends Fragment {
 
     private FragmentDragDropTutorialBinding binding;
 
-    private ImageView ivPreferenceCard;
-    private ImageView ivHand;
-    private Button btnTutorialNext;
-
     public DragDropTutorialFragment() {}
 
     @Override
@@ -41,14 +37,9 @@ public class DragDropTutorialFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ivPreferenceCard = binding.ivPreferenceCard;
-        ivHand = binding.ivHand;
-
-        moveAnimation(ivPreferenceCard, Animation.ABSOLUTE, -500);
-        moveAnimation(ivHand, Animation.ABSOLUTE, -500);
-
-        btnTutorialNext = binding.btnTutorialNext;
-        btnTutorialNext.setOnClickListener(new View.OnClickListener() {
+        moveAnimation(binding.ivPreferenceCard, Animation.ABSOLUTE, -500);
+        moveAnimation(binding.ivHand, Animation.ABSOLUTE, -500);
+        binding.btnTutorialNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getParentFragmentManager().beginTransaction()

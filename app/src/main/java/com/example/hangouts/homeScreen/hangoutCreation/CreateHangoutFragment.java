@@ -39,11 +39,6 @@ public class CreateHangoutFragment extends Fragment {
     private TimePickerDialog.OnTimeSetListener timeSetListener;
 
     private CreateHangoutViewModel viewModel;
-    private TextView tvCreateFragmentLocation;
-    private TextInputEditText itCreateFragmentDate;
-    private TextInputEditText itCreateFragmentTime;
-    private TextInputEditText itCreateFragmentAlias;
-    private Button btnCreateFragmentCreate;
 
     public CreateHangoutFragment() {}
 
@@ -57,7 +52,6 @@ public class CreateHangoutFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        tvCreateFragmentLocation = binding.tvCreateFragmentLocation;
 
         dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -68,7 +62,6 @@ public class CreateHangoutFragment extends Fragment {
                 viewModel.setHangoutDate(calendar.getTime());
             }
         };
-
         timeSetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -77,21 +70,15 @@ public class CreateHangoutFragment extends Fragment {
                 viewModel.setHangoutTime(calendar.getTime());
             }
         };
-
         viewModel = new ViewModelProvider(requireActivity()).get(CreateHangoutViewModel.class);
         viewModel.hangoutLocationDecoded.observe(requireActivity(), this::setLocationText);
         viewModel.hangoutDate.observe(requireActivity(), this::updateDateFieldText);
         viewModel.hangoutTime.observe(requireActivity(), this::updateTimeFieldText);
         viewModel.errors.observe(requireActivity(), this::handleError);
         viewModel.newHangout.observe(requireActivity(), this::onHangoutCreated);
-
-        itCreateFragmentAlias = binding.itCreateFragmentAlias;
-        itCreateFragmentDate = binding.itCreateFragmentDate;
-        itCreateFragmentDate.setOnClickListener(this::onDateFieldClick);
-        itCreateFragmentTime = binding.itCreateFragmentTime;
-        itCreateFragmentTime.setOnClickListener(this::onTimeFieldClick);
-        btnCreateFragmentCreate = binding.btnCreateFragmentCreate;
-        btnCreateFragmentCreate.setOnClickListener(this::onCreateClick);
+        binding.itCreateFragmentDate.setOnClickListener(this::onDateFieldClick);
+        binding.itCreateFragmentTime.setOnClickListener(this::onTimeFieldClick);
+        binding.btnCreateFragmentCreate.setOnClickListener(this::onCreateClick);
 
     }
 
@@ -121,15 +108,15 @@ public class CreateHangoutFragment extends Fragment {
     }
 
     private void setLocationText(String locationText) {
-        tvCreateFragmentLocation.setText(locationText);
+        binding.tvCreateFragmentLocation.setText(locationText);
     }
 
     private void updateDateFieldText(Date date) {
-        itCreateFragmentDate.setText(DateTimeUtil.getDateString(date));
+        binding.itCreateFragmentDate.setText(DateTimeUtil.getDateString(date));
     }
 
     private void updateTimeFieldText(Date date) {
-        itCreateFragmentTime.setText(DateTimeUtil.getTimeString(date));
+        binding.itCreateFragmentTime.setText(DateTimeUtil.getTimeString(date));
     }
 
     private void onDateFieldClick(View view) {
@@ -146,7 +133,7 @@ public class CreateHangoutFragment extends Fragment {
     }
 
     private void onCreateClick(View view) {
-        viewModel.setHangoutAlias(itCreateFragmentAlias.getText().toString());
+        viewModel.setHangoutAlias(binding.itCreateFragmentAlias.getText().toString());
         viewModel.onCreateClick();
     }
 

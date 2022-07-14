@@ -23,9 +23,6 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private final UserUiModel currentUser;
 
-    private TextView tvUserName;
-    private Button btnHomeCreate;
-
     public HomeFragment() {
         currentUser = new UserUiModel(ParseUser.getCurrentUser());
     }
@@ -42,13 +39,11 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        tvUserName = binding.tvUserName;
-        tvUserName.setText(String.format("%s %s.",
+        binding.tvUserName.setText(String.format("%s %s.",
                 currentUser.getName(),
                 currentUser.getLastInitial()));
 
-        btnHomeCreate = binding.btnHomeCreate;
-        btnHomeCreate.setOnClickListener(new View.OnClickListener() {
+        binding.btnHomeCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getParentFragmentManager().beginTransaction()
@@ -57,8 +52,6 @@ public class HomeFragment extends Fragment {
                         .commit();
             }
         });
-
-
     }
 
     @Override
