@@ -11,5 +11,11 @@
     <dimen name="button_padding_vertical">10dp</dimen>
     <dimen name="button_font_size">20sp</dimen>
     <dimen name="hangout_details_font_size">18sp</dimen>
+    <dimen name="hangout_details_line_separation">8dp</dimen>
     <dimen name="content_margin">20dp</dimen>
+    <dimen name="rv_item_line_separation">5dp</dimen>
+    <dimen name="rv_item_detail_horizonal_separation">10dp</dimen>
+    <dimen name="rv_item_detail_font_size">14sp</dimen>
+    <dimen name="rv_item_vertical_separation">15dp</dimen>
+    <dimen name="rv_item_horizonal_margin">10dp</dimen>
 </resources>

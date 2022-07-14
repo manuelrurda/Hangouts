@@ -27,7 +27,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/content_margin"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="@dimen/content_margin"
                 android:fontFamily="@font/roboto_bold"
                 android:textColor="@color/black"
                 android:textSize="24sp"
@@ -37,25 +37,27 @@
 
             <TextView
                 android:id="@+id/tvHangoutDetailsTime"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
                 android:textColor="@color/black"
                 android:textSize="@dimen/hangout_details_font_size"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView5"
                 app:layout_constraintStart_toStartOf="@+id/tvHangoutDetailsDate"
-                app:layout_constraintTop_toBottomOf="@+id/tvHangoutDetailsDate"
+                app:layout_constraintTop_toTopOf="@+id/imageView5"
                 tools:text="16:15" />
 
             <TextView
                 android:id="@+id/tvHangoutDetailsLocation"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginStart="@dimen/hangout_details_line_separation"
                 android:fontFamily="@font/roboto"
                 android:textColor="@color/black"
                 android:textSize="@dimen/hangout_details_font_size"
-                app:layout_constraintStart_toStartOf="@+id/tvHangoutDetailsAlias"
-                app:layout_constraintTop_toBottomOf="@+id/tvHangoutDetailsAlias"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="@+id/imageView"
                 tools:text="Menlo Park" />
 
             <fragment
@@ -82,13 +84,14 @@
 
             <TextView
                 android:id="@+id/tvHangoutDetailsDate"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
                 android:textColor="@color/black"
                 android:textSize="@dimen/hangout_details_font_size"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView4"
                 app:layout_constraintStart_toStartOf="@+id/tvHangoutDetailsLocation"
-                app:layout_constraintTop_toBottomOf="@+id/tvHangoutDetailsLocation"
+                app:layout_constraintTop_toTopOf="@+id/imageView4"
                 tools:text="Mon, 16 Aug, 2022" />
 
             <TextView
@@ -118,6 +121,36 @@
                 app:layout_constraintStart_toStartOf="@+id/btnCopyClipboard"
                 app:layout_constraintTop_toBottomOf="@+id/btnCopyClipboard"
                 app:rippleColor="@color/midnight_blue" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="@dimen/hangout_details_line_separation"
+                android:src="@drawable/ic_location_icon"
+                app:layout_constraintStart_toStartOf="@+id/tvHangoutDetailsAlias"
+                app:layout_constraintTop_toBottomOf="@+id/tvHangoutDetailsAlias" />
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="18dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="@dimen/hangout_details_line_separation"
+                android:src="@drawable/ic_calendar_icon"
+                app:layout_constraintEnd_toEndOf="@+id/imageView"
+                app:layout_constraintStart_toStartOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="17dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="@dimen/hangout_details_line_separation"
+                android:src="@drawable/ic_clock_icon"
+                app:layout_constraintEnd_toEndOf="@+id/imageView4"
+                app:layout_constraintStart_toStartOf="@+id/imageView4"
+                app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
