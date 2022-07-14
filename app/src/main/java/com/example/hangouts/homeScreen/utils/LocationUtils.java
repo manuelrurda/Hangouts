@@ -1,4 +1,4 @@
-package com.example.hangouts.homeScreen.fragments;
+package com.example.hangouts.homeScreen.utils;
 
 import android.Manifest;
 import android.app.Activity;
@@ -30,20 +30,20 @@ import java.security.Permissions;
  */
 public class LocationUtils {
 
-    static boolean isLocationEnabled(Context context) {
+    public static boolean isLocationEnabled(Context context) {
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
                 || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
 
-    static boolean checkLocationPermissions(Context context) {
+    public static boolean checkLocationPermissions(Context context) {
         return ActivityCompat.checkSelfPermission(context,
                 Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(context,
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
     }
 
-    static LocationRequest getLocationRequest(){
+    public static LocationRequest getLocationRequest(){
         LocationRequest locationRequest = LocationRequest.create();
         locationRequest.setPriority(Priority.PRIORITY_HIGH_ACCURACY);
         locationRequest.setInterval(100);

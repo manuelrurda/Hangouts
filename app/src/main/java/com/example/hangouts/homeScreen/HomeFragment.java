@@ -1,4 +1,4 @@
-package com.example.hangouts.homeScreen.fragments;
+package com.example.hangouts.homeScreen;
 
 import android.os.Bundle;
 
@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.hangouts.R;
 import com.example.hangouts.databinding.FragmentHomeBinding;
 import com.example.hangouts.homeScreen.UserUiModel;
+import com.example.hangouts.homeScreen.hangoutCreation.HangoutLocationSelectionMapFragment;
 import com.parse.ParseUser;
 
 public class HomeFragment extends Fragment {

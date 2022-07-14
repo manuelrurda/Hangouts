@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ic_sun_tornado_background"
-    tools:context=".homeScreen.fragments.HangoutDetailsFragment">
+    tools:context=".homeScreen.hangoutCreation.HangoutDetailsFragment">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -69,7 +69,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvHangoutDetailsTime"
-                tools:context=".homeScreen.fragments.HangoutDetailsFragment" />
+                tools:context=".homeScreen.hangoutCreation.HangoutDetailsFragment" />
 
             <ImageButton
                 android:id="@+id/btnCopyClipboard"

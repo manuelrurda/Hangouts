@@ -1,4 +1,4 @@
-package com.example.hangouts.homeScreen.fragments;
+package com.example.hangouts.homeScreen.hangoutCreation;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -20,14 +20,13 @@ import android.widget.Toast;
 
 import com.example.hangouts.R;
 import com.example.hangouts.databinding.FragmentCreateHangoutBinding;
-import com.example.hangouts.homeScreen.fragments.CreateHangoutViewModel.Errors;
+import com.example.hangouts.homeScreen.utils.DateTimeUtil;
+import com.example.hangouts.homeScreen.hangoutCreation.CreateHangoutViewModel.Errors;
 import com.example.hangouts.models.Hangout;
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 
 public class CreateHangoutFragment extends Fragment {

@@ -1,4 +1,4 @@
-package com.example.hangouts.homeScreen.fragments;
+package com.example.hangouts.homeScreen.hangoutCreation;
 
 import android.util.Log;
 
