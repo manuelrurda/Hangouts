@@ -126,15 +126,11 @@ public class CreateHangoutFragment extends Fragment {
     }
 
     private void updateDateFieldText(Date date) {
-        String myFormat="MM/dd/yy";
-        SimpleDateFormat dateFormat=new SimpleDateFormat(myFormat, Locale.US);
-        itCreateFragmentDate.setText(dateFormat.format(date));
+        itCreateFragmentDate.setText(DateTimeUtil.getDateString(date));
     }
 
     private void updateTimeFieldText(Date date) {
-        String myFormat="HH:mm";
-        SimpleDateFormat dateFormat=new SimpleDateFormat(myFormat, Locale.US);
-        itCreateFragmentTime.setText(dateFormat.format(date));
+        itCreateFragmentTime.setText(DateTimeUtil.getTimeString(date));
     }
 
     private void onDateFieldClick(View view) {

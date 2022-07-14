@@ -161,7 +161,7 @@
         android:paddingVertical="@dimen/button_padding_vertical"
         android:text="@string/sign_up_label"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="@dimen/button_font_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/itSignupLayoutPassword"
         app:layout_constraintStart_toStartOf="@+id/itSignupLayoutPassword"

@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="@dimen/hangout_details_font_size"
                 app:layout_constraintStart_toStartOf="@+id/tvHangoutDetailsDate"
                 app:layout_constraintTop_toBottomOf="@+id/tvHangoutDetailsDate"
                 tools:text="16:15" />
@@ -53,7 +53,7 @@
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/roboto"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="@dimen/hangout_details_font_size"
                 app:layout_constraintStart_toStartOf="@+id/tvHangoutDetailsAlias"
                 app:layout_constraintTop_toBottomOf="@+id/tvHangoutDetailsAlias"
                 tools:text="Menlo Park" />
@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="@dimen/hangout_details_font_size"
                 app:layout_constraintStart_toStartOf="@+id/tvHangoutDetailsLocation"
                 app:layout_constraintTop_toBottomOf="@+id/tvHangoutDetailsLocation"
                 tools:text="Mon, 16 Aug, 2022" />
@@ -112,7 +112,7 @@
                 android:paddingVertical="@dimen/button_padding_vertical"
                 android:text="@string/next_label"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="@dimen/button_font_size"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/btnCopyClipboard"
                 app:layout_constraintStart_toStartOf="@+id/btnCopyClipboard"

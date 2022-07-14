@@ -100,7 +100,7 @@
         android:paddingVertical="@dimen/button_padding_vertical"
         android:text="@string/create_label"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="@dimen/button_font_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/itCreateFragmentLayoutTime"

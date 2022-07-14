@@ -41,7 +41,7 @@
         android:paddingVertical="@dimen/button_padding_vertical"
         android:text="@string/next_label"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="@dimen/button_font_size"
         android:visibility="gone"
         app:iconTint="@color/midnight_blue"
         app:layout_constraintBottom_toBottomOf="parent"

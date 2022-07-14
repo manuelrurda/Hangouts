@@ -98,12 +98,8 @@ public class HangoutDetailsFragment extends Fragment {
 
     private void setDateTimeTextViews() {
         Date deadline = hangout.getDeadline();
-        String dateFormat = "MM/dd/yy";
-        String timeFormat = "HH:mm";
-        SimpleDateFormat dateSimpleFormat = new SimpleDateFormat(dateFormat, Locale.US);
-        SimpleDateFormat timeSimpleformat = new SimpleDateFormat(timeFormat, Locale.US);
-        tvHangoutDetailsDate.setText(dateSimpleFormat.format(deadline));
-        tvHangoutDetailsTime.setText(timeSimpleformat.format(deadline));
+        tvHangoutDetailsDate.setText(DateTimeUtil.getDateString(deadline));
+        tvHangoutDetailsTime.setText(DateTimeUtil.getTimeString(deadline));
     }
 
     private void initMapFragment() {
