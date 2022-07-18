@@ -92,6 +92,7 @@ public class LoginFragment extends Fragment {
         Intent intent = new Intent(getContext(), MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+        getActivity().finish();
     }
 
     @Override
