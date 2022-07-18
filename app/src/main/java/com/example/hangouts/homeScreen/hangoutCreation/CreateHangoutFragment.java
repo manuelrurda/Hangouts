@@ -12,18 +12,16 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.hangouts.R;
 import com.example.hangouts.databinding.FragmentCreateHangoutBinding;
+import com.example.hangouts.homeScreen.HangoutDetailsFragment;
 import com.example.hangouts.homeScreen.utils.DateTimeUtil;
 import com.example.hangouts.homeScreen.hangoutCreation.CreateHangoutViewModel.Errors;
 import com.example.hangouts.models.Hangout;
-import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -79,7 +77,6 @@ public class CreateHangoutFragment extends Fragment {
         binding.itCreateFragmentDate.setOnClickListener(this::onDateFieldClick);
         binding.itCreateFragmentTime.setOnClickListener(this::onTimeFieldClick);
         binding.btnCreateFragmentCreate.setOnClickListener(this::onCreateClick);
-
     }
 
     private void handleError(Errors errors) {

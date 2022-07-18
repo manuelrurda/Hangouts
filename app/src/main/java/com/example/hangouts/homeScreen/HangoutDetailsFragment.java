@@ -1,4 +1,4 @@
-package com.example.hangouts.homeScreen.hangoutCreation;
+package com.example.hangouts.homeScreen;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -8,12 +8,11 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hangouts.R;
@@ -68,8 +67,22 @@ public class HangoutDetailsFragment extends Fragment {
         binding.tvHangoutDetailsAlias.setText(hangout.getAlias());
         binding.tvHangoutDetailsHangoutCode.setText(hangout.getObjectId());
         binding.btnCopyClipboard.setOnClickListener(this::onClipboardClick);
+        binding.btnDetailsOk.setOnClickListener(this::onOkClick);
         binding.tvHangoutDetailsLocation.setText(hangout.getLocationString());
         initMapFragment();
+    }
+
+    private void onOkClick(View view) {
+
+        FragmentManager fm = getParentFragmentManager();
+        for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+            fm.popBackStack();
+        }
+
+        fm.beginTransaction()
+                .replace(R.id.homeFragmentContainer, new HomeFragment())
+                .addToBackStack("")
+                .commit();
     }
 
     private void onClipboardClick(View view) {

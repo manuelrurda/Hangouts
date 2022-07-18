@@ -122,6 +122,7 @@ public class CreateHangoutViewModel extends ViewModel {
         hangout.put(Hangout.KEY_LOCATION, location);
         hangout.put(Hangout.KEY_LOCATION_STRING, hangoutLocationDecoded.getValue());
         hangout.put(Hangout.KEY_MEMBERS, jsonArray);
+        hangout.put(Hangout.KEY_HOST, ParseUser.getCurrentUser());
 
         hangout.saveInBackground(new SaveCallback() {
 
