@@ -6,6 +6,7 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.Date;
 
@@ -47,5 +48,4 @@ public class Hangout extends ParseObject {
     public ParseUser getHost() {
         return getParseUser(KEY_HOST);
     }
-
 }

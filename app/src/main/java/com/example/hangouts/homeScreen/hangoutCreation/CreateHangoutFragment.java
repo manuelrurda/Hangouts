@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
@@ -69,11 +70,11 @@ public class CreateHangoutFragment extends Fragment {
             }
         };
         viewModel = new ViewModelProvider(requireActivity()).get(CreateHangoutViewModel.class);
-        viewModel.hangoutLocationDecoded.observe(requireActivity(), this::setLocationText);
-        viewModel.hangoutDate.observe(requireActivity(), this::updateDateFieldText);
-        viewModel.hangoutTime.observe(requireActivity(), this::updateTimeFieldText);
-        viewModel.errors.observe(requireActivity(), this::handleError);
-        viewModel.newHangout.observe(requireActivity(), this::onHangoutCreated);
+        viewModel.hangoutLocationDecoded.observe(getViewLifecycleOwner(), this::setLocationText);
+        viewModel.hangoutDate.observe(getViewLifecycleOwner(), this::updateDateFieldText);
+        viewModel.hangoutTime.observe(getViewLifecycleOwner(), this::updateTimeFieldText);
+        viewModel.errors.observe(getViewLifecycleOwner(), this::handleError);
+        viewModel.newHangout.observe(getViewLifecycleOwner(), this::onHangoutCreated);
         binding.itCreateFragmentDate.setOnClickListener(this::onDateFieldClick);
         binding.itCreateFragmentTime.setOnClickListener(this::onTimeFieldClick);
         binding.btnCreateFragmentCreate.setOnClickListener(this::onCreateClick);
@@ -95,12 +96,16 @@ public class CreateHangoutFragment extends Fragment {
 
     private void onHangoutCreated(Hangout hangout) {
         goHangoutDetailsFragment(hangout);
+        getActivity().getViewModelStore().clear();
     }
 
     private void goHangoutDetailsFragment(Hangout hangout) {
-        getParentFragmentManager().beginTransaction()
+        FragmentManager fm = getParentFragmentManager();
+        for(int i = 0; i < fm.getBackStackEntryCount()-1; ++i) {
+            fm.popBackStack();
+        }
+        fm.beginTransaction()
                 .replace(R.id.homeFragmentContainer, HangoutDetailsFragment.newInstance(hangout))
-                .addToBackStack("")
                 .commit();
     }
 
@@ -137,6 +142,7 @@ public class CreateHangoutFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        viewModel.newHangout.removeObservers(getViewLifecycleOwner());
         binding = null;
     }
 }
