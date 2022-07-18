@@ -5,16 +5,15 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.example.hangouts.R;
 import com.example.hangouts.databinding.FragmentHomeBinding;
-import com.example.hangouts.homeScreen.UserUiModel;
+import com.example.hangouts.models.UserUiModel;
 import com.example.hangouts.homeScreen.hangoutCreation.HangoutLocationSelectionMapFragment;
 import com.parse.ParseUser;
 
@@ -44,6 +43,19 @@ public class HomeFragment extends Fragment {
                 currentUser.getLastInitial()));
 
         binding.btnHomeCreate.setOnClickListener(this::onClickCreate);
+
+        initActiveHangoutsRV();
+        initPastHangoutsRV();
+    }
+
+    private void initActiveHangoutsRV(){
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        binding.rvActiveHangouts.setLayoutManager(linearLayoutManager);
+    }
+
+    private void initPastHangoutsRV(){
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        binding.rvPastHangouts.setLayoutManager(linearLayoutManager);
     }
 
     private void onClickCreate(View view) {
