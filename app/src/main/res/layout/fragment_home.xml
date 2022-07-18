@@ -21,8 +21,8 @@
             android:id="@+id/tvUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginStart="@dimen/content_margin"
+            android:layout_marginTop="@dimen/content_margin"
             android:fontFamily="@font/roboto_bold"
             android:textColor="@color/black"
             android:textSize="34sp"
@@ -84,14 +84,16 @@
         android:elevation="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnHomeJoin">
+        app:layout_constraintTop_toBottomOf="@+id/btnHomeJoin"
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/tvActiveHangoutLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_top_login_backcard_content"
+            android:layout_margin="@dimen/content_margin"
             android:fontFamily="@font/roboto_bold"
             android:text="@string/active_hangouts_label"
             android:textColor="@color/black"
@@ -99,25 +101,62 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvActiveHangouts"
-            android:layout_width="0dp"
-            android:layout_height="240dp"
+        <TextView
+            android:id="@+id/tvActiveHangoutsEmptyLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="20dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/nothing_to_show_label"
+            android:textColor="@color/black_50"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvActiveHangoutLabel" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvActiveHangouts"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:minHeight="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvActiveHangoutLabel"
+            tools:listitem="@layout/hangout_rv_item" />
 
         <TextView
             android:id="@+id/tvPastHangoutLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_top_login_backcard_content"
+            android:layout_margin="@dimen/content_margin"
             android:fontFamily="@font/roboto_bold"
             android:text="@string/past_hangouts_label"
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rvActiveHangouts" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPastHangouts"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:minHeight="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvPastHangoutLabel" />
+
+        <TextView
+            android:id="@+id/tvPastHangoutsEmptyLabe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="20dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/nothing_to_show_label"
+            android:textColor="@color/black_50"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvPastHangoutLabel" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
