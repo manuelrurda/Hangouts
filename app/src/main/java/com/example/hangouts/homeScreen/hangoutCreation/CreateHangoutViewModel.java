@@ -1,6 +1,7 @@
 package com.example.hangouts.homeScreen.hangoutCreation;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -11,9 +12,13 @@ import com.codepath.asynchttpclient.RequestParams;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.hangouts.BuildConfig;
 import com.example.hangouts.models.Hangout;
+import com.example.hangouts.models.User;
 import com.google.android.gms.maps.model.LatLng;
+import com.parse.GetCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -21,6 +26,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.security.cert.PKIXParameters;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -68,6 +74,7 @@ public class CreateHangoutViewModel extends ViewModel {
     }
 
     public void decodeHangoutLocation(LatLng hangoutLocation) {
+        Log.d(TAG, "decodeHangoutLocation: Trying to decodelocation");
         String decodedLocation = "";
         String latLngString = String.format("%s,%s", String.valueOf(hangoutLocation.latitude),
                 String.valueOf(hangoutLocation.longitude));
@@ -79,6 +86,7 @@ public class CreateHangoutViewModel extends ViewModel {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
                 try {
+                    Log.d(TAG, "onSuccess: trying to decodelocation");
                     JSONObject plusCode = json.jsonObject.getJSONObject("plus_code");
                     String compoundCode = plusCode.getString("compound_code");
                     String decodedLocation = compoundCode.substring(
@@ -91,6 +99,7 @@ public class CreateHangoutViewModel extends ViewModel {
             @Override
             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
                 errors.postValue(Errors.ERROR_LOCATION_DECODING_FAILED);
+                Log.d(TAG, "onFailure: Failed to decode location");
             }
         });
     }
@@ -111,11 +120,9 @@ public class CreateHangoutViewModel extends ViewModel {
         JSONArray jsonArray = new JSONArray();
         jsonArray.put(ParseUser.getCurrentUser());
         Date deadline = getDeadline();
-
         LatLng latLngLocation = hangoutLocation.getValue();
         ParseGeoPoint location = new ParseGeoPoint(
                 latLngLocation.latitude, latLngLocation.longitude);
-
         Hangout hangout = new Hangout();
         hangout.put(Hangout.KEY_ALIAS, hangoutAlias);
         hangout.put(Hangout.KEY_DEADLINE, deadline);
@@ -123,20 +130,39 @@ public class CreateHangoutViewModel extends ViewModel {
         hangout.put(Hangout.KEY_LOCATION_STRING, hangoutLocationDecoded.getValue());
         hangout.put(Hangout.KEY_MEMBERS, jsonArray);
         hangout.put(Hangout.KEY_HOST, ParseUser.getCurrentUser());
-
         hangout.saveInBackground(new SaveCallback() {
-
             @Override
             public void done(ParseException e) {
                 if(e != null){
                     errors.postValue(Errors.ERROR_SAVING_HANGOUT);
                     Log.e(TAG, "done: Error saving hangout on Parse", e);
                 }else{
+                    addHangoutToUser(hangout);
                     newHangout.postValue(hangout);
-                    Log.d(TAG, "done: " + hangout.getObjectId());
                 }
             }
         });
+    }
+
+    private void addHangoutToUser(Hangout hangout) {
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser != null){
+            JSONArray activeHangouts = currentUser.getJSONArray(User.KEY_ACTIVEHANGOUTS);
+            if(activeHangouts == null){
+                activeHangouts = new JSONArray();
+            }
+            activeHangouts.put(hangout);
+            currentUser.put(User.KEY_ACTIVEHANGOUTS, activeHangouts);
+            currentUser.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if(e != null){
+                        Log.e(TAG, "Error updating user: ", e);
+                        errors.postValue(Errors.ERROR_SAVING_HANGOUT);
+                    }
+                }
+            });
+        }
     }
 
     private Date getDeadline() {

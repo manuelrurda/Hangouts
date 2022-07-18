@@ -81,7 +81,6 @@ public class HangoutDetailsFragment extends Fragment {
 
         fm.beginTransaction()
                 .replace(R.id.homeFragmentContainer, new HomeFragment())
-                .addToBackStack("")
                 .commit();
     }
 
@@ -123,4 +122,9 @@ public class HangoutDetailsFragment extends Fragment {
     };
 
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }

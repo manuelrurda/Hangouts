@@ -5,14 +5,17 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.hangouts.HomeViewModel;
 import com.example.hangouts.R;
 import com.example.hangouts.databinding.FragmentHomeBinding;
+import com.example.hangouts.homeScreen.hangoutCreation.CreateHangoutViewModel;
 import com.example.hangouts.models.UserUiModel;
 import com.example.hangouts.homeScreen.hangoutCreation.HangoutLocationSelectionMapFragment;
 import com.parse.ParseUser;
@@ -21,6 +24,7 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     private final UserUiModel currentUser;
+    private HomeViewModel homeViewModel;
 
     public HomeFragment() {
         currentUser = new UserUiModel(ParseUser.getCurrentUser());
@@ -38,6 +42,8 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
+        homeViewModel.getActiveHangouts();
         binding.tvUserName.setText(String.format("%s %s.",
                 currentUser.getName(),
                 currentUser.getLastInitial()));
