@@ -3,6 +3,7 @@ package com.example.hangouts.models;
 import com.parse.ParseClassName;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 import org.json.JSONArray;
 
@@ -17,29 +18,34 @@ public class Hangout extends ParseObject {
     public static final String KEY_LOCATION_STRING = "locationString";
     public static final String KEY_MEMBERS = "members";
     public static final String KEY_ISACTIVE = "isActive";
+    public static final String KEY_HOST = "host";
 
-    public String getAlias(){
+    public String getAlias() {
         return getString(KEY_ALIAS);
     }
 
-    public Date getDeadline(){
+    public Date getDeadline() {
         return getDate(KEY_DEADLINE);
     }
 
-    public ParseGeoPoint getLocation(){
+    public ParseGeoPoint getLocation() {
         return getParseGeoPoint(KEY_LOCATION);
     }
 
-    public String getLocationString(){
+    public String getLocationString() {
         return getString(KEY_LOCATION_STRING);
     }
 
-    public JSONArray getMembers(){
+    public JSONArray getMembers() {
         return getJSONArray(KEY_MEMBERS);
     }
 
-    public Boolean getIsActive(){
+    public Boolean getIsActive() {
         return getBoolean(KEY_ISACTIVE);
+    }
+
+    public ParseUser getHost() {
+        return getParseUser(KEY_HOST);
     }
 
 }
