@@ -48,11 +48,11 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        initActiveHangoutsRV();
+        initActiveHangoutsRV();
         initPastHangoutsRV();
         homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         homeViewModel.getActiveHangouts();
-//        homeViewModel.activeHangouts.observe(requireActivity(), this::updateActiveHangouts);
+        homeViewModel.activeHangouts.observe(requireActivity(), this::updateActiveHangouts);
         binding.tvUserName.setText(String.format("%s %s.",
                 currentUser.getName(),
                 currentUser.getLastInitial()));
@@ -61,15 +61,15 @@ public class HomeFragment extends Fragment {
     }
 
     private void updateActiveHangouts(List<Hangout> hangouts) {
+        activeHangoutsAdapter = new ActiveHangoutsAdapter();
+        binding.rvActiveHangouts.setAdapter(activeHangoutsAdapter);
         activeHangoutsAdapter.setActiveHangouts(hangouts);
     }
 
-//    private void initActiveHangoutsRV(){
-//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-//        binding.rvActiveHangouts.setLayoutManager(linearLayoutManager);
-//        activeHangoutsAdapter = new ActiveHangoutsAdapter();
-//        binding.rvActiveHangouts.setAdapter(activeHangoutsAdapter);
-//    }
+    private void initActiveHangoutsRV(){
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        binding.rvActiveHangouts.setLayoutManager(linearLayoutManager);
+    }
 
     private void initPastHangoutsRV(){
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
