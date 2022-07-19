@@ -20,9 +20,4 @@ public class OnboardingActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
     }
-
-    // Temporary logout
-    public void onClickLogout(View view){
-        ParseUser.logOutInBackground();
-    }
 }

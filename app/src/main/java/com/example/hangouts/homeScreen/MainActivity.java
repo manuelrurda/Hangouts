@@ -19,9 +19,4 @@ public class MainActivity extends AppCompatActivity {
 
         Places.initialize(getApplicationContext(), BuildConfig.GOOGLE_CLOUD_API_KEY);
     }
-
-    // Temporary logout
-    public void onClickLogout(View view){
-        ParseUser.logOutInBackground();
-    }
 }

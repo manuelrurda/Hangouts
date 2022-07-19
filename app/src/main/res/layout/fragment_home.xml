@@ -43,6 +43,18 @@
             app:layout_constraintTop_toBottomOf="@+id/tvUserName"
             tools:text="Rate Food" />
 
+        <ImageButton
+            android:id="@+id/btnHomeLogout"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="@dimen/content_margin"
+            android:backgroundTint="@color/transparent"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_logout_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button

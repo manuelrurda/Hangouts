@@ -1,5 +1,6 @@
 package com.example.hangouts.homeScreen;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,14 +14,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.hangouts.HomeViewModel;
 import com.example.hangouts.R;
 import com.example.hangouts.databinding.FragmentHomeBinding;
 import com.example.hangouts.homeScreen.hangoutCreation.CreateHangoutViewModel;
+import com.example.hangouts.loginScreen.LoginActivity;
 import com.example.hangouts.models.Hangout;
 import com.example.hangouts.models.UserUiModel;
 import com.example.hangouts.homeScreen.hangoutCreation.HangoutLocationSelectionMapFragment;
+import com.parse.LogOutCallback;
+import com.parse.Parse;
+import com.parse.ParseException;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
@@ -59,6 +65,24 @@ public class HomeFragment extends Fragment {
                 currentUser.getLastInitial()));
 
         binding.btnHomeCreate.setOnClickListener(this::onClickCreate);
+        binding.btnHomeLogout.setOnClickListener(this::logoutCurrentUser);
+    }
+
+    private void logoutCurrentUser(View view) {
+        ParseUser.logOutInBackground(new LogOutCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e != null){
+                    Toast.makeText(getContext(), "Error Logging Out", Toast.LENGTH_SHORT)
+                            .show();
+                }else{
+                    Intent intent = new Intent(getContext(), LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    getActivity().finish();
+                }
+            }
+        });
     }
 
     private void updateActiveHangouts(List<Hangout> hangouts) {

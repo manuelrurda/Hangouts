@@ -44,7 +44,6 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ParseUser.logOutInBackground();
         binding.tvLoginSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
