@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
@@ -52,7 +53,7 @@ public class HomeFragment extends Fragment {
         initPastHangoutsRV();
         homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         homeViewModel.getActiveHangouts();
-        homeViewModel.activeHangouts.observe(requireActivity(), this::updateActiveHangouts);
+        homeViewModel.activeHangouts.observe(getViewLifecycleOwner(), this::updateActiveHangouts);
         binding.tvUserName.setText(String.format("%s %s.",
                 currentUser.getName(),
                 currentUser.getLastInitial()));
@@ -69,6 +70,9 @@ public class HomeFragment extends Fragment {
     private void initActiveHangoutsRV(){
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         binding.rvActiveHangouts.setLayoutManager(linearLayoutManager);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding
+                .rvActiveHangouts.getContext(), linearLayoutManager.getOrientation());
+        binding.rvActiveHangouts.addItemDecoration(dividerItemDecoration);
     }
 
     private void initPastHangoutsRV(){
@@ -79,7 +83,7 @@ public class HomeFragment extends Fragment {
     private void onClickCreate(View view) {
         getParentFragmentManager().beginTransaction()
                 .replace(R.id.homeFragmentContainer, new HangoutLocationSelectionMapFragment())
-                .addToBackStack("")
+                .addToBackStack("home")
                 .commit();
     }
 
