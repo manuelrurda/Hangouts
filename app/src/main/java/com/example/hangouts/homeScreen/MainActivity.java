@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         Places.initialize(getApplicationContext(), BuildConfig.GOOGLE_CLOUD_API_KEY);
 
         List<Double> italian = Arrays.asList(1.0, 1.0, 2.0, 0.0, 0.0, 0.0);
-        double rating = BayesianRating.getBayesianRating(italian, 0.95hdreevnviggij);
+        double rating = BayesianRating.getBayesianRating(italian, 0.95);
         Log.d(TAG, "onCreate: " + String.valueOf(rating));
         Toast.makeText(this, String.valueOf(rating), Toast.LENGTH_SHORT).show();
     }
