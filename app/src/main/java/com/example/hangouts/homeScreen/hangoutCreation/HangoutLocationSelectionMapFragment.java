@@ -1,6 +1,5 @@
-package com.example.hangouts.homeScreen.fragments;
+package com.example.hangouts.homeScreen.hangoutCreation;
 
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -20,12 +19,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.hangouts.BuildConfig;
 import com.example.hangouts.R;
 import com.example.hangouts.databinding.FragmentHangoutLocationSelectionMapBinding;
-import com.example.hangouts.loginScreen.SignupFragment;
+import com.example.hangouts.homeScreen.utils.LocationUtils;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -54,7 +52,6 @@ public class HangoutLocationSelectionMapFragment extends Fragment implements OnM
     private static final String US_COUNTRY_CODE = "US";
 
     private FragmentHangoutLocationSelectionMapBinding binding;
-    private Button btnMapFragmentNext;
     private CreateHangoutViewModel viewModel;
 
     private FusedLocationProviderClient fusedLocationClient;
@@ -90,8 +87,7 @@ public class HangoutLocationSelectionMapFragment extends Fragment implements OnM
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        btnMapFragmentNext = binding.btnMapFragmentNext;
-        btnMapFragmentNext.setOnClickListener(this::onClickNext);
+        binding.btnMapFragmentNext.setOnClickListener(this::onClickNext);
         initAutocompleteFragment();
     }
 

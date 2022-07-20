@@ -9,4 +9,6 @@ public class User extends ParseUser {
     public static final String KEY_LASTNAME = "lastName";
     public static final String KEY_CUSINEPREFERENCE = "cuisinePreference";
     public static final String KEY_ONBOARDINGCOMPLETED = "onboardingCompleted";
+    public static final String KEY_ACTIVEHANGOUTS = "activeHangouts";
+    public static final String KEY_PASTHANGOUTS = "pastHangouts";
 }

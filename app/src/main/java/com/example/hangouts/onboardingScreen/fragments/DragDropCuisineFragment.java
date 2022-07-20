@@ -46,14 +46,8 @@ public class DragDropCuisineFragment extends Fragment {
     public static final String TAG = "DnDFragment";
 
     private FragmentDragDropCuisineBinding binding;
-    private ConstraintLayout clParentLayout;
     private DragDropCuisineViewModel dragDropCuisineViewModel;
-    private FrameLayout flPreferenceCardContainer;
-    private Button btnNext;
-
-    private RecyclerView rvDropZones;
     private DropZoneAdapter dropZoneAdapter;
-
     private List<DropZone> dropZones;
 
     public DragDropCuisineFragment() {}
@@ -71,11 +65,7 @@ public class DragDropCuisineFragment extends Fragment {
         initDropZoneArray();
         initViewModel();
         initDropZoneRV();
-
-        flPreferenceCardContainer = binding.flPreferenceCardContainer;
-
-        clParentLayout = binding.clParentLayout;
-        clParentLayout.setOnDragListener((v, event) ->{
+        binding.clParentLayout.setOnDragListener((v, event) ->{
             switch (event.getAction()){
                 case DragEvent.ACTION_DRAG_STARTED:
                     return event.getClipDescription().hasMimeType(
@@ -91,16 +81,13 @@ public class DragDropCuisineFragment extends Fragment {
             }
             return true;
         });
-
-        btnNext = binding.btnNext;
-        btnNext.setOnClickListener(new View.OnClickListener() {
+        binding.btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goMainActivity();
                 setUserPreferences();
             }
         });
-
     }
 
     private void setUserPreferences() {
@@ -130,8 +117,8 @@ public class DragDropCuisineFragment extends Fragment {
     // TODO: handle drag and drop between dropzones
     private void restoreCard() {
         PreferenceCard preferenceCard = dragDropCuisineViewModel.getTopCard();
-        flPreferenceCardContainer.removeViewAt(0);
-        flPreferenceCardContainer.addView(new PreferenceCardView(getContext(), preferenceCard.getValue()));
+        binding.flPreferenceCardContainer.removeViewAt(0);
+        binding.flPreferenceCardContainer.addView(new PreferenceCardView(getContext(), preferenceCard.getValue()));
     }
 
     // TODO: this should probably be in viewmodel
@@ -146,11 +133,10 @@ public class DragDropCuisineFragment extends Fragment {
     }
 
     private void initDropZoneRV() {
-        rvDropZones = binding.rvDropZones;
-        rvDropZones.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        rvDropZones.setHasFixedSize(true);
+        binding.rvDropZones.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        binding.rvDropZones.setHasFixedSize(true);
         dropZoneAdapter = new DropZoneAdapter(getContext(), dropZones, dragDropCuisineViewModel);
-        rvDropZones.setAdapter(dropZoneAdapter);
+        binding.rvDropZones.setAdapter(dropZoneAdapter);
     }
 
     private void initViewModel() {
@@ -165,7 +151,7 @@ public class DragDropCuisineFragment extends Fragment {
                             showNextButton();
                         }else{
                             PreferenceCard nextCard = preferenceCards.get(0);
-                            flPreferenceCardContainer.addView(new PreferenceCardView(getContext(),
+                            binding.flPreferenceCardContainer.addView(new PreferenceCardView(getContext(),
                                     nextCard.getValue()));
                         }
                     }
@@ -179,8 +165,8 @@ public class DragDropCuisineFragment extends Fragment {
         int animDurationMs = 200;
         anim.setDuration(animDurationMs);
         anim.setFillAfter(true);
-        btnNext.startAnimation(anim);
-        btnNext.setVisibility(View.VISIBLE);
+        binding.btnNext.startAnimation(anim);
+        binding.btnNext.setVisibility(View.VISIBLE);
     }
 
 

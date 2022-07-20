@@ -1,4 +1,4 @@
-package com.example.hangouts.homeScreen.fragments;
+package com.example.hangouts.homeScreen.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

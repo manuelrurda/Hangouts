@@ -1,4 +1,4 @@
-package com.example.hangouts.homeScreen.fragments;
+package com.example.hangouts.homeScreen;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -8,41 +8,30 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hangouts.R;
 import com.example.hangouts.databinding.FragmentHangoutDetailsBinding;
+import com.example.hangouts.homeScreen.utils.DateTimeUtil;
 import com.example.hangouts.models.Hangout;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 public class HangoutDetailsFragment extends Fragment {
 
     private FragmentHangoutDetailsBinding binding;
     private Hangout hangout;
-
-    private TextView tvHangoutDetailsAlias;
-    private TextView tvHangoutDetailsLocation;
-    private TextView tvHangoutDetailsDate;
-    private TextView tvHangoutDetailsTime;
-    private TextView tvHangoutDetailsHangoutCode;
-    private ImageButton btnCopyClipboard;
 
     public HangoutDetailsFragment() {
     }
@@ -73,18 +62,26 @@ public class HangoutDetailsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        btnCopyClipboard = binding.btnCopyClipboard;
-        tvHangoutDetailsDate = binding.tvHangoutDetailsDate;
-        tvHangoutDetailsTime = binding.tvHangoutDetailsTime;
-        tvHangoutDetailsAlias = binding.tvHangoutDetailsAlias;
-        tvHangoutDetailsLocation = binding.tvHangoutDetailsLocation;
-        tvHangoutDetailsHangoutCode = binding.tvHangoutDetailsHangoutCode;
+
         setDateTimeTextViews();
-        tvHangoutDetailsAlias.setText(hangout.getAlias());
-        tvHangoutDetailsHangoutCode.setText(hangout.getObjectId());
-        btnCopyClipboard.setOnClickListener(this::onClipboardClick);
-        tvHangoutDetailsLocation.setText(hangout.getLocationString());
+        binding.tvHangoutDetailsAlias.setText(hangout.getAlias());
+        binding.tvHangoutDetailsHangoutCode.setText(hangout.getObjectId());
+        binding.btnCopyClipboard.setOnClickListener(this::onClipboardClick);
+        binding.btnDetailsOk.setOnClickListener(this::onOkClick);
+        binding.tvHangoutDetailsLocation.setText(hangout.getLocationString());
         initMapFragment();
+    }
+
+    private void onOkClick(View view) {
+
+        FragmentManager fm = getParentFragmentManager();
+        for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+            fm.popBackStack();
+        }
+
+        fm.beginTransaction()
+                .replace(R.id.homeFragmentContainer, new HomeFragment())
+                .commit();
     }
 
     private void onClipboardClick(View view) {
@@ -98,8 +95,8 @@ public class HangoutDetailsFragment extends Fragment {
 
     private void setDateTimeTextViews() {
         Date deadline = hangout.getDeadline();
-        tvHangoutDetailsDate.setText(DateTimeUtil.getDateString(deadline));
-        tvHangoutDetailsTime.setText(DateTimeUtil.getTimeString(deadline));
+        binding.tvHangoutDetailsDate.setText(DateTimeUtil.getDateString(deadline));
+        binding.tvHangoutDetailsTime.setText(DateTimeUtil.getTimeString(deadline));
     }
 
     private void initMapFragment() {
@@ -125,4 +122,9 @@ public class HangoutDetailsFragment extends Fragment {
     };
 
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }

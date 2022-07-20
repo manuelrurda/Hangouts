@@ -1,4 +1,4 @@
-package com.example.hangouts.homeScreen;
+package com.example.hangouts.models;
 
 import com.example.hangouts.models.User;
 import com.parse.ParseUser;
