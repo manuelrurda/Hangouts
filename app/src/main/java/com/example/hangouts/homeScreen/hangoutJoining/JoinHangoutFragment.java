@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.text.Editable;
@@ -13,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.hangouts.R;
+import com.example.hangouts.homeScreen.HangoutDetailsFragment;
 import com.example.hangouts.homeScreen.hangoutJoining.JoinHangoutViewModel.Errors;
 import com.example.hangouts.databinding.FragmentJoinHangoutBinding;
 import com.example.hangouts.models.Hangout;
@@ -36,27 +39,47 @@ public class JoinHangoutFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()).get(JoinHangoutViewModel.class);
         viewModel.errors.observe(getViewLifecycleOwner(), this::handleError);
-        viewModel.toJoinHangout.observe(getViewLifecycleOwner(), this::joinHangout);
+        viewModel.toJoinHangout.observe(getViewLifecycleOwner(), this::hangoutFound);
+        viewModel.joinedHangout.observe(getViewLifecycleOwner(), this::joinedHanogut);
         binding.btnOkJoinHangout.setOnClickListener(this::findHanogut);
     }
 
-    private void joinHangout(Hangout hangout) {
+    private void joinedHanogut(Hangout hangout) {
+        FragmentManager fm = getParentFragmentManager();
+        for(int i = 0; i < fm.getBackStackEntryCount()-1; ++i) {
+            fm.popBackStack();
+        }
+        fm.beginTransaction()
+                .replace(R.id.homeFragmentContainer, HangoutDetailsFragment.newInstance(hangout))
+                .commit();
+    }
+
+    private void hangoutFound(Hangout hangout) {
         viewModel.joinHangout(hangout);
     }
 
     private void handleError(Errors error) {
         switch (error){
-            case EMPTY_HANGOUTID_STRING:
+            case ERROR_EMPTY_HANGOUTID_STRING:
                 Toast.makeText(getContext(), "CODE CAN NOT BE EMPTY", Toast.LENGTH_SHORT)
                         .show();
             break;
-            case HANGOUT_NOT_FOUND:
+            case ERROR_HANGOUT_NOT_FOUND:
                 Toast.makeText(getContext(), "HANGOUT NOT FOUND", Toast.LENGTH_SHORT)
                         .show();
             break;
-            case USER_ALREADY_IN_HANGOUT:
+            case ERROR_USER_ALREADY_IN_HANGOUT:
                 Toast.makeText(getContext(), "USER ALREADY IN HANGOUT", Toast.LENGTH_SHORT)
                         .show();
+            break;
+            case ERROR_UPDATING_HANGOUT:
+                Toast.makeText(getContext(), "ERROR JOINING HANGOUT", Toast.LENGTH_SHORT)
+                        .show();
+            break;
+            case ERROR_ADDING_HANGOUT_TO_USER:
+                Toast.makeText(getContext(), "ERROR UPDATING USER", Toast.LENGTH_SHORT)
+                        .show();
+            break;
         }
     }
 
