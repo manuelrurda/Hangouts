@@ -15,7 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.hangouts.R;
 import com.example.hangouts.databinding.ItemActiveHangoutBinding;
 import com.example.hangouts.models.Hangout;
+import com.parse.GetCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,14 +61,14 @@ public class ActiveHangoutsAdapter extends RecyclerView.Adapter<ActiveHangoutsAd
         }
 
         public void bind(Hangout hangout) {
-            try{
-                hangout = hangout.fetchIfNeeded();
-            }catch (ParseException e){
-                e.printStackTrace();
-            }
-            binding.tvItemAlias.setText(hangout.getAlias());
-            binding.tvItemLocation.setText(hangout.getLocationString());
-            binding.tvItemMembers.setText(String.valueOf(hangout.getMembers().length()));
+            hangout.fetchIfNeededInBackground(new GetCallback<Hangout>() {
+                @Override
+                public void done(Hangout fetchedHangout, ParseException e) {
+                    binding.tvItemAlias.setText(fetchedHangout.getAlias());
+                    binding.tvItemLocation.setText(fetchedHangout.getLocationString());
+                    binding.tvItemMembers.setText(String.valueOf(fetchedHangout.getMembers().length()));
+                }
+            });
         }
 
         @Override
