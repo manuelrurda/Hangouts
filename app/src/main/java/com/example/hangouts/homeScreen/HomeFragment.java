@@ -85,7 +85,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void updateActiveHangouts(List<Hangout> hangouts) {
-        activeHangoutsAdapter = new ActiveHangoutsAdapter();
+        activeHangoutsAdapter = new ActiveHangoutsAdapter(getContext());
         binding.rvActiveHangouts.setAdapter(activeHangoutsAdapter);
         activeHangoutsAdapter.setActiveHangouts(hangouts);
     }

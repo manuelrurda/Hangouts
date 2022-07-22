@@ -5,8 +5,8 @@ import java.util.Date;
 import java.util.Locale;
 
 public class DateTimeUtil {
-    public static final String DATE_FORMAT="MM/dd/yy";
-    public static final String TIME_FORMAT="HH:mm";
+    private static final String DATE_FORMAT="MM/dd/yy";
+    private static final String TIME_FORMAT="HH:mm";
 
     public static String getDateString(Date date){
         SimpleDateFormat dateFormat=new SimpleDateFormat(DATE_FORMAT, Locale.US);

@@ -14,18 +14,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hangouts.R;
 import com.example.hangouts.databinding.ItemActiveHangoutBinding;
+import com.example.hangouts.homeScreen.utils.DateTimeUtil;
 import com.example.hangouts.models.Hangout;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ActiveHangoutsAdapter extends RecyclerView.Adapter<ActiveHangoutsAdapter.ViewHolder> {
 
     private Context context;
     private List<Hangout> activeHangouts = new ArrayList<>();
+
+    public ActiveHangoutsAdapter(Context context){
+        this.context = context;
+    }
 
     @NonNull
     @Override
@@ -66,7 +72,14 @@ public class ActiveHangoutsAdapter extends RecyclerView.Adapter<ActiveHangoutsAd
                 public void done(Hangout fetchedHangout, ParseException e) {
                     binding.tvItemAlias.setText(fetchedHangout.getAlias());
                     binding.tvItemLocation.setText(fetchedHangout.getLocationString());
-                    binding.tvItemMembers.setText(String.valueOf(fetchedHangout.getMembers().length()));
+                    String stringNumber = String.valueOf(fetchedHangout.getMembers().length());
+                    binding.tvItemMembers.setText(context.getResources()
+                            .getString(R.string.hangout_rv_members_label, stringNumber));
+                    Date deadlineDate = fetchedHangout.getDeadline();
+                    binding.tvItemDate.setText(DateTimeUtil
+                            .getDateString(deadlineDate));
+                    binding.tvItemTime.setText(DateTimeUtil
+                            .getTimeString(deadlineDate));
                 }
             });
         }
