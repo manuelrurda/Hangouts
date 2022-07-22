@@ -5,6 +5,7 @@ import org.apache.commons.math3.util.FastMath;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class BayesianRating {
@@ -13,6 +14,7 @@ public class BayesianRating {
     final static int standardStdDeviation = 1;
 
     private static double getPpf(double x) {
+        System.out.println(inverseCumulativeProbability(x));
         return inverseCumulativeProbability(x);
     }
 
@@ -84,32 +86,41 @@ public class BayesianRating {
     /***
      * Approximating the inverse error function with the Taylor Finite Series method,
      * first 23 terms.
+     *
+     * Terms are obtained with the Taylor Power Series as described in: https://dlmf.nist.gov/7.17
      */
+    private static final List<Double> TAYLOR_EXPANSION_TERMS = Arrays
+            .asList(0.8862269254527579,
+                    0.23201366653465444,
+                    0.12755617530559793,
+                    0.08655212924154752,
+                    0.0649596177453854,
+                    0.051731281984616365,
+                    0.04283672065179733,
+                    0.03646592930853161,
+                    0.03168900502160544,
+                    0.027980632964995214,
+                    0.025022275841198347,
+                    0.02260986331889757,
+                    0.020606780379058987,
+                    0.01891821725077884,
+                    0.017476370562856534,
+                    0.01623150098768524,
+                    0.015146315063247798,
+                    0.014192316002509954,
+                    0.013347364197421288,
+                    0.012594004871332063,
+                    0.011918295936392034,
+                    0.011308970105922531,
+                    0.010756825303317953,
+                    0.010254274081853464,
+                    0.009795005770071162);
+
     private static double inverseErrorFunction(double x) {
-        return 0.8862269254527579 * x
-                + 0.23201366653465444 *  FastMath.pow(x,3)
-                + 0.12755617530559793 *  FastMath.pow(x,5)
-                + 0.08655212924154752 *  FastMath.pow(x,7)
-                + 0.0649596177453854 *  FastMath.pow(x,9)
-                + 0.051731281984616365 *  FastMath.pow(x,11)
-                + 0.04283672065179733 *  FastMath.pow(x,13)
-                + 0.03646592930853161 *  FastMath.pow(x,15)
-                + 0.03168900502160544 *  FastMath.pow(x,17)
-                + 0.027980632964995214 *  FastMath.pow(x,19)
-                + 0.025022275841198347 *  FastMath.pow(x,21)
-                + 0.02260986331889757 *  FastMath.pow(x,23)
-                + 0.020606780379058987 *  FastMath.pow(x,25)
-                + 0.01891821725077884 *  FastMath.pow(x,27)
-                + 0.017476370562856534 *  FastMath.pow(x,29)
-                + 0.01623150098768524 *  FastMath.pow(x,31)
-                + 0.015146315063247798 *  FastMath.pow(x,33)
-                + 0.014192316002509954 *  FastMath.pow(x,35)
-                + 0.013347364197421288 *  FastMath.pow(x,37)
-                + 0.012594004871332063 *  FastMath.pow(x,39)
-                + 0.011918295936392034 *  FastMath.pow(x,41)
-                + 0.011308970105922531 *  FastMath.pow(x,43)
-                + 0.010756825303317953 *  FastMath.pow(x,45)
-                + 0.010254274081853464 *  FastMath.pow(x,47)
-                + 0.009795005770071162 *  FastMath.pow(x,49);
+        double result = TAYLOR_EXPANSION_TERMS.get(0) * x;
+        for(int i = 1; i < TAYLOR_EXPANSION_TERMS.size(); i++){
+            result += TAYLOR_EXPANSION_TERMS.get(i) * FastMath.pow(x, 2*i+1);
+        }
+        return result;
     }
 }
