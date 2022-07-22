@@ -26,4 +26,5 @@
     <string name="ok_label">Ok</string>
     <string name="enter_hangout_code">Enter Hangout Code</string>
     <string name="code_hint">Code</string>
+    <string name="hangout_rv_members_label">Members: %s</string>
 </resources>
