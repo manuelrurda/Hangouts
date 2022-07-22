@@ -6,7 +6,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,17 +18,15 @@ import android.widget.Toast;
 import com.example.hangouts.HomeViewModel;
 import com.example.hangouts.R;
 import com.example.hangouts.databinding.FragmentHomeBinding;
-import com.example.hangouts.homeScreen.hangoutCreation.CreateHangoutViewModel;
+import com.example.hangouts.homeScreen.hangoutJoining.JoinHangoutFragment;
 import com.example.hangouts.loginScreen.LoginActivity;
 import com.example.hangouts.models.Hangout;
 import com.example.hangouts.models.UserUiModel;
 import com.example.hangouts.homeScreen.hangoutCreation.HangoutLocationSelectionMapFragment;
 import com.parse.LogOutCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
@@ -65,10 +62,11 @@ public class HomeFragment extends Fragment {
                 currentUser.getLastInitial()));
 
         binding.btnHomeCreate.setOnClickListener(this::onClickCreate);
-        binding.btnHomeLogout.setOnClickListener(this::logoutCurrentUser);
+        binding.btnHomeJoin.setOnClickListener(this::onClickJoin);
+        binding.btnHomeLogout.setOnClickListener(this::onClickLogout);
     }
 
-    private void logoutCurrentUser(View view) {
+    private void onClickLogout(View view) {
         ParseUser.logOutInBackground(new LogOutCallback() {
             @Override
             public void done(ParseException e) {
@@ -107,6 +105,13 @@ public class HomeFragment extends Fragment {
     private void onClickCreate(View view) {
         getParentFragmentManager().beginTransaction()
                 .replace(R.id.homeFragmentContainer, new HangoutLocationSelectionMapFragment())
+                .addToBackStack("home")
+                .commit();
+    }
+
+    private void onClickJoin(View view) {
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.homeFragmentContainer, new JoinHangoutFragment())
                 .addToBackStack("home")
                 .commit();
     }
