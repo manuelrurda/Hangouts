@@ -2,6 +2,8 @@ package com.example.hangouts;
 
 import org.junit.Test;
 
+import com.example.hangouts.BayesianRating.*;
+
 import static org.junit.Assert.*;
 
 /**
