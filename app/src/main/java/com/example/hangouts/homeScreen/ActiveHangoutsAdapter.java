@@ -104,12 +104,13 @@ public class ActiveHangoutsAdapter extends RecyclerView.Adapter<ActiveHangoutsAd
                 }
 
                 private void onClickAccept(DialogInterface dialogInterface, int i) {
-                    Toast.makeText(context, "Accepted", Toast.LENGTH_SHORT).show();
+                    ((FragmentActivity) context).getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.homeFragmentContainer, HangoutDetailsFragment.newInstance(hangout))
+                            .addToBackStack("")
+                            .commit();
                 }
 
-                private void onClickCancel(DialogInterface dialogInterface, int i) {
-                    Toast.makeText(context, "Canceled", Toast.LENGTH_SHORT).show();
-                }
+                private void onClickCancel(DialogInterface dialogInterface, int i) {}
             });
         }
 
