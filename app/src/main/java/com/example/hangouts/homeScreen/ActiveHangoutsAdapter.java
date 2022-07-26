@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hangouts.R;
 import com.example.hangouts.databinding.ItemActiveHangoutBinding;
+import com.example.hangouts.homeScreen.hangoutResults.HangoutResultsFragment;
 import com.example.hangouts.homeScreen.utils.DateTimeUtil;
 import com.example.hangouts.models.Hangout;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -105,7 +106,7 @@ public class ActiveHangoutsAdapter extends RecyclerView.Adapter<ActiveHangoutsAd
 
                 private void onClickAccept(DialogInterface dialogInterface, int i) {
                     ((FragmentActivity) context).getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.homeFragmentContainer, HangoutDetailsFragment.newInstance(hangout))
+                            .replace(R.id.homeFragmentContainer, new HangoutResultsFragment())
                             .addToBackStack("")
                             .commit();
                 }
