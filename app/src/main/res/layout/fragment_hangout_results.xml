@@ -10,13 +10,14 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_top_login_backcard_content"
         app:cardCornerRadius="@dimen/backcard_corner_radius"
+        app:cardElevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -28,11 +29,65 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/content_margin"
                 android:fontFamily="@font/roboto_bold"
-                android:text="Based on your preferences"
+                android:text="@string/based_on_your_preferences_label"
                 android:textColor="@color/black"
-                android:textSize="24sp"
+                android:textSize="25sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvResultsFrist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_margin"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/black"
+                android:textSize="@dimen/results_first_place"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2"
+                tools:text="Italian" />
+
+            <TextView
+                android:id="@+id/tvResultsSecond"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/results_places_margin"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/black"
+                android:textSize="@dimen/results_second_place"
+                app:layout_constraintEnd_toEndOf="@+id/tvResultsFrist"
+                app:layout_constraintStart_toStartOf="@+id/tvResultsFrist"
+                app:layout_constraintTop_toBottomOf="@+id/tvResultsFrist"
+                tools:text="Mexican" />
+
+            <TextView
+                android:id="@+id/tvResultsThird"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/results_places_margin"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/black"
+                android:textSize="@dimen/results_third_place"
+                app:layout_constraintEnd_toEndOf="@+id/tvResultsSecond"
+                app:layout_constraintStart_toStartOf="@+id/tvResultsSecond"
+                app:layout_constraintTop_toBottomOf="@+id/tvResultsSecond"
+                tools:text="Chinese" />
+
+            <Button
+                android:id="@+id/tvResultsNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/content_margin"
+                android:text="@string/next_label"
+                android:textColor="@color/white"
+                android:textSize="@dimen/button_font_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/tvResultsThird"
+                app:layout_constraintStart_toStartOf="@+id/tvResultsThird"
+                app:layout_constraintTop_toBottomOf="@+id/tvResultsThird"
+                app:rippleColor="@color/midnight_blue" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
