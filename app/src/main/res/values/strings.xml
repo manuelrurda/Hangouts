@@ -27,4 +27,9 @@
     <string name="enter_hangout_code">Enter Hangout Code</string>
     <string name="code_hint">Code</string>
     <string name="hangout_rv_members_label">Members: %s</string>
+    <string name="close_label">Close</string>
+    <string name="close_hangout_dialog_title">Close Hangout</string>
+    <string name="close_hangout_dialog_text">This action cannot be undone.</string>
+    <string name="close_hangout_dialog_cancel">Cancel</string>
+    <string name="close_hangout_dialog_accept">Accept</string>
 </resources>
