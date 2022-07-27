@@ -92,4 +92,14 @@ public class HangoutResultsViewModel extends ViewModel {
         Collections.sort(scores, Collections.reverseOrder());
         scoreList.postValue(scores);
     }
+
+    public void queryReccomendations() {
+        HashMap<Double, String> cuisineRatingMap = getCuisineRatingMap();
+        List<Double> scoreList = this.scoreList.getValue();
+        String firstPlace = cuisineRatingMap.get(scoreList.get(0));
+        String secondPlace = cuisineRatingMap.get(scoreList.get(1));
+        String thirdsPlace = cuisineRatingMap.get(scoreList.get(2));
+
+
+    }
 }

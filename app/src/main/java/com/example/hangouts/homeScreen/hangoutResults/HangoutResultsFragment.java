@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
@@ -60,6 +61,14 @@ public class HangoutResultsFragment extends Fragment {
         viewModel.frequencyMap.observe(getViewLifecycleOwner(), this::onFrequencyMapGenerated);
         viewModel.scoreList.observe(getViewLifecycleOwner(), this::onScoreListGenerated);
         viewModel.generateFrequencyMatrix(hangout);
+        binding.btnResultsNext.setOnClickListener(this::onClickNext);
+    }
+
+    private void onClickNext(View view) {
+        ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction()
+                .replace(R.id.homeFragmentContainer, new HangoutResultsMapFragment())
+                .addToBackStack("")
+                .commit();
     }
 
     private void onScoreListGenerated(List<Double> scores) {
