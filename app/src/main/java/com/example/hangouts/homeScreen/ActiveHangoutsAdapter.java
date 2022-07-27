@@ -1,7 +1,9 @@
 package com.example.hangouts.homeScreen;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,15 +16,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hangouts.R;
 import com.example.hangouts.databinding.ItemActiveHangoutBinding;
+import com.example.hangouts.homeScreen.hangoutResults.HangoutResultsFragment;
 import com.example.hangouts.homeScreen.utils.DateTimeUtil;
 import com.example.hangouts.models.Hangout;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class ActiveHangoutsAdapter extends RecyclerView.Adapter<ActiveHangoutsAdapter.ViewHolder> {
 
@@ -80,7 +86,32 @@ public class ActiveHangoutsAdapter extends RecyclerView.Adapter<ActiveHangoutsAd
                             .getDateString(deadlineDate));
                     binding.tvItemTime.setText(DateTimeUtil
                             .getTimeString(deadlineDate));
+                    if(Objects.equals(hangout.getHost().getObjectId(), ParseUser.getCurrentUser().getObjectId())){
+                        binding.btnCloseHangout.setVisibility(View.VISIBLE);
+                        binding.btnCloseHangout.setOnClickListener(this::onClickClose);
+                    }
                 }
+
+                private void onClickClose(View view) {
+                    Resources resources = context.getResources();
+                    new MaterialAlertDialogBuilder(context)
+                            .setTitle(resources.getString(R.string.close_hangout_dialog_title))
+                            .setMessage(resources.getString(R.string.close_hangout_dialog_text))
+                            .setNegativeButton(resources.getString(R.string.close_hangout_dialog_cancel),
+                                    this::onClickCancel)
+                            .setPositiveButton(resources.getString(R.string.close_hangout_dialog_accept),
+                                    this::onClickAccept)
+                            .show();
+                }
+
+                private void onClickAccept(DialogInterface dialogInterface, int i) {
+                    ((FragmentActivity) context).getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.homeFragmentContainer, new HangoutResultsFragment())
+                            .addToBackStack("")
+                            .commit();
+                }
+
+                private void onClickCancel(DialogInterface dialogInterface, int i) {}
             });
         }
 

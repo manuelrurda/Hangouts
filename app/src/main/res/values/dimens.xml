@@ -20,4 +20,11 @@
     <dimen name="rv_item_detail_font_size">14sp</dimen>
     <dimen name="rv_item_vertical_separation">15dp</dimen>
     <dimen name="rv_item_horizonal_margin">10dp</dimen>
+    <dimen name="hangout_close_button_padding_horizontal">15dp</dimen>
+    <dimen name="hangout_close_button_padding_vertical">5dp</dimen>
+    <dimen name="hangout_close_button_font_size">16sp</dimen>
+    <dimen name="results_first_place">22sp</dimen>
+    <dimen name="results_second_place">20sp</dimen>
+    <dimen name="results_third_place">18sp</dimen>
+    <dimen name="results_places_margin">10sp</dimen>
 </resources>
