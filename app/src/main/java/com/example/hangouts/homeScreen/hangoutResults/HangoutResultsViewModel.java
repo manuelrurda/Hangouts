@@ -119,7 +119,7 @@ public class HangoutResultsViewModel extends ViewModel {
         ParseGeoPoint parseGeoPoint = hangout.getLocation();
         String latSting = String.valueOf(parseGeoPoint.getLatitude());
         String lngSting = String.valueOf(parseGeoPoint.getLongitude());
-        String url = String.format("%s?location=%s%%2C%s&radius=10000&type=restaurant&keyword=%s&key=%s",
+        String url = String.format("%s?location=%s%%2C%s&radius=25000&type=restaurant&keyword=%s&key=%s",
                 GOOGLE_PLACES_SEARCH_ENDPOINT,
                 latSting,
                 lngSting,

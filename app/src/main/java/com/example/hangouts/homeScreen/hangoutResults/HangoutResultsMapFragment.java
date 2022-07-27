@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
@@ -28,6 +29,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -72,6 +75,7 @@ public class HangoutResultsMapFragment extends Fragment implements OnMapReadyCal
         viewModel.recommendationResults.observe(getViewLifecycleOwner(), this::onRecommendationsQueried);
     }
 
+    @SuppressLint("ResourceType")
     private void onRecommendationsQueried(JSONArray results) {
         for (int i = 0; i < results.length(); i++) {
             try {
@@ -82,12 +86,21 @@ public class HangoutResultsMapFragment extends Fragment implements OnMapReadyCal
                 double longitude = location.getDouble("lng");
                 map.addMarker(new MarkerOptions()
                         .position(new LatLng(latitude, longitude))
-                        .title(name));
+                        .title(name)
+                        .icon(getMarkerIcon(getContext().getResources().getString(
+                                R.color.gold
+                        ))));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
         }
+    }
+
+    private BitmapDescriptor getMarkerIcon(String color) {
+        float[] hsv = new float[3];
+        Color.colorToHSV(Color.parseColor(color), hsv);
+        return BitmapDescriptorFactory.defaultMarker(hsv[0]);
     }
 
     private void populateMap() {
