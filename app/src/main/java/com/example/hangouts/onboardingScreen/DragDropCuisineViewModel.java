@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.hangouts.onboardingScreen.models.DropZone;
 import com.example.hangouts.onboardingScreen.models.PreferenceCard;
 
 import java.util.List;
@@ -15,13 +14,13 @@ public class DragDropCuisineViewModel extends ViewModel {
 
 
     private MutableLiveData<List<PreferenceCard>> cuisinePreferenceCards;
-    private CuisinePreferenceCardRepository repo;
+    private CuisinePreferenceRepository repo;
 
     public void init(){
         if(cuisinePreferenceCards != null){
             return;
         }
-        repo = CuisinePreferenceCardRepository.getInstance();
+        repo = CuisinePreferenceRepository.getInstance();
         cuisinePreferenceCards = repo.getPreferenceCards();
     }
 
