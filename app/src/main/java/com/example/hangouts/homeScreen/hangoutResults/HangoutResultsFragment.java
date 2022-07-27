@@ -58,6 +58,7 @@ public class HangoutResultsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()).get(HangoutResultsViewModel.class);
+        viewModel.setHangout(hangout);
         viewModel.frequencyMap.observe(getViewLifecycleOwner(), this::onFrequencyMapGenerated);
         viewModel.scoreList.observe(getViewLifecycleOwner(), this::onScoreListGenerated);
         viewModel.generateFrequencyMatrix(hangout);

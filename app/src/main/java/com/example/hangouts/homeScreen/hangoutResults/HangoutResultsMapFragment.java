@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
@@ -19,7 +20,9 @@ import com.example.hangouts.databinding.FragmentHangoutResultsMapBinding;
 import com.example.hangouts.homeScreen.hangoutCreation.CreateHangoutViewModel;
 import com.example.hangouts.homeScreen.utils.LocationUtils;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -28,6 +31,11 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.parse.ParseGeoPoint;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.List;
@@ -54,19 +62,35 @@ public class HangoutResultsMapFragment extends Fragment implements OnMapReadyCal
         super.onCreate(savedInstanceState);
         fusedLocationClient = LocationServices
                 .getFusedLocationProviderClient(getActivity());
-        viewModel = new ViewModelProvider(requireActivity()).get(HangoutResultsViewModel.class);
-        getCurrentLocation();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initMapFragment();
-        populateMap();
+        viewModel = new ViewModelProvider(requireActivity()).get(HangoutResultsViewModel.class);
+        viewModel.recommendationResults.observe(getViewLifecycleOwner(), this::onRecommendationsQueried);
+    }
+
+    private void onRecommendationsQueried(JSONArray results) {
+        for (int i = 0; i < results.length(); i++) {
+            try {
+                JSONObject restaurant = results.getJSONObject(i);
+                String name = restaurant.getString("name");
+                JSONObject location = restaurant.getJSONObject("geometry").getJSONObject("location");
+                double latitude = location.getDouble("lat");
+                double longitude = location.getDouble("lng");
+                map.addMarker(new MarkerOptions()
+                        .position(new LatLng(latitude, longitude))
+                        .title(name));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 
     private void populateMap() {
-
         viewModel.queryReccomendations();
     }
 
@@ -78,26 +102,6 @@ public class HangoutResultsMapFragment extends Fragment implements OnMapReadyCal
         }
     }
 
-    @SuppressLint("MissingPermission")
-    private void getCurrentLocation() {
-        if (LocationUtils.isLocationEnabled(getContext())) {
-            fusedLocationClient.getLastLocation()
-                    .addOnCompleteListener(location -> {
-                        if(location.getResult() != null){
-                            LatLng latLngLocation = new LatLng(location.getResult().getLatitude(),
-                                    location.getResult().getLongitude());
-                            map.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                                    latLngLocation, 10));
-                        }
-                    })
-                    .addOnFailureListener(e -> {
-                        e.printStackTrace();
-                    });
-        } else {
-            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-            startActivity(intent);
-        }
-    }
 
     @SuppressLint("MissingPermission")
     @Override
@@ -105,6 +109,10 @@ public class HangoutResultsMapFragment extends Fragment implements OnMapReadyCal
         map = googleMap;
         map.setMyLocationEnabled(true);
         map.getUiSettings().setMyLocationButtonEnabled(true);
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(0, 0), 10));
+        ParseGeoPoint hangoutLocation = viewModel.getHangout().getLocation();
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(
+                hangoutLocation.getLatitude(),
+                hangoutLocation.getLongitude()), 10));
+        populateMap();
     }
 }
