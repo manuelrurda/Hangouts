@@ -18,6 +18,9 @@ import com.example.hangouts.homeScreen.HangoutDetailsFragment;
 import com.example.hangouts.homeScreen.hangoutCreation.CreateHangoutViewModel;
 import com.example.hangouts.models.Hangout;
 
+import java.util.HashMap;
+import java.util.List;
+
 public class HangoutResultsFragment extends Fragment {
 
     private FragmentHangoutResultsBinding binding;
@@ -54,7 +57,20 @@ public class HangoutResultsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()).get(HangoutResultsViewModel.class);
+        viewModel.frequencyMap.observe(getViewLifecycleOwner(), this::onFrequencyMapGenerated);
+        viewModel.scoreList.observe(getViewLifecycleOwner(), this::onScoreListGenerated);
         viewModel.generateFrequencyMatrix(hangout);
+    }
+
+    private void onScoreListGenerated(List<Double> scores) {
+        HashMap<Double, String> cuisineRatingMap = viewModel.getCuisineRatingMap();
+        binding.tvResultsFrist.setText(cuisineRatingMap.get(scores.get(0)));
+        binding.tvResultsSecond.setText(cuisineRatingMap.get(scores.get(1)));
+        binding.tvResultsThird.setText(cuisineRatingMap.get(scores.get(2)));
+    }
+
+    private void onFrequencyMapGenerated(HashMap<String, List<Double>> frequencyMap) {
+        viewModel.getScores(frequencyMap);
     }
 
     @Override

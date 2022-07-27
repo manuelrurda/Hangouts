@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.hangouts.BayesianRating;
 import com.example.hangouts.models.Hangout;
 import com.example.hangouts.models.User;
 import com.example.hangouts.onboardingScreen.CuisinePreferenceRepository;
@@ -17,9 +18,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class HangoutResultsViewModel extends ViewModel {
 
@@ -27,7 +31,13 @@ public class HangoutResultsViewModel extends ViewModel {
 
     private final int MAX_RATING = 5;
 
+    private HashMap<Double, String> cuisineRatingMap = new HashMap<>();
     public MutableLiveData<HashMap<String, List<Double>>> frequencyMap = new MutableLiveData<>();
+    public MutableLiveData<List<Double>> scoreList = new MutableLiveData<>();
+
+    public HashMap<Double, String> getCuisineRatingMap() {
+        return cuisineRatingMap;
+    }
 
     public void generateFrequencyMatrix(Hangout hangout) {
         ParseQuery<Hangout> query = ParseQuery.getQuery(Hangout.class);
@@ -70,5 +80,16 @@ public class HangoutResultsViewModel extends ViewModel {
             zeroMap.put(cuisine, Arrays.asList(zeroArray));
         }
         return zeroMap;
+    }
+
+    public void getScores(HashMap<String, List<Double>> frequencyMap) {
+        List<Double> scores = new ArrayList<>();
+        for (Map.Entry<String, List<Double>> set : frequencyMap.entrySet()) {
+            double score = BayesianRating.getBayesianRating(set.getValue(), 0.95);
+            cuisineRatingMap.put(score, set.getKey());
+            scores.add(score);
+        }
+        Collections.sort(scores, Collections.reverseOrder());
+        scoreList.postValue(scores);
     }
 }
