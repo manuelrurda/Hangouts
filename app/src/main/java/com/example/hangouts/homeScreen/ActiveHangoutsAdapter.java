@@ -106,7 +106,7 @@ public class ActiveHangoutsAdapter extends RecyclerView.Adapter<ActiveHangoutsAd
 
                 private void onClickAccept(DialogInterface dialogInterface, int i) {
                     ((FragmentActivity) context).getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.homeFragmentContainer, new HangoutResultsFragment())
+                            .replace(R.id.homeFragmentContainer, HangoutResultsFragment.newInstance(hangout))
                             .addToBackStack("")
                             .commit();
                 }

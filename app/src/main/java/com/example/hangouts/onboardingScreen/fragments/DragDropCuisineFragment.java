@@ -37,6 +37,8 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,12 +93,18 @@ public class DragDropCuisineFragment extends Fragment {
     }
 
     private void setUserPreferences() {
-        JSONArray preferenceJsonArray = new JSONArray();
+        JSONObject cuisinePreferences = new JSONObject();
         for(DropZone dropZone : dropZones){
-            preferenceJsonArray.put(dropZone.getContent());
+            for (String cuisine : dropZone.getContent()){
+                try {
+                    cuisinePreferences.put(cuisine, dropZone.getDropValue());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         ParseUser currentUser = ParseUser.getCurrentUser();
-        currentUser.put(User.KEY_CUSINEPREFERENCE, preferenceJsonArray);
+        currentUser.put(User.KEY_CUSINEPREFERENCES, cuisinePreferences);
         currentUser.put(User.KEY_ONBOARDINGCOMPLETED, true);
         currentUser.saveInBackground(new SaveCallback() {
             @Override
@@ -121,7 +129,6 @@ public class DragDropCuisineFragment extends Fragment {
         binding.flPreferenceCardContainer.addView(new PreferenceCardView(getContext(), preferenceCard.getValue()));
     }
 
-    // TODO: this should probably be in viewmodel
     private void initDropZoneArray() {
         dropZones = new ArrayList<>();
         dropZones.add(new DropZone(0, new ArrayList<>()));
