@@ -2,6 +2,9 @@ package com.example.hangouts.loginScreen;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentContainerView;
+import androidx.transition.TransitionInflater;
+
+import com.example.hangouts.R;
 import com.example.hangouts.databinding.ActivityLoginBinding;
 import com.example.hangouts.homeScreen.MainActivity;
 import com.example.hangouts.models.User;
@@ -18,6 +21,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
 
         if(ParseUser.getCurrentUser() != null &&
                 ParseUser.getCurrentUser().getBoolean(User.KEY_ONBOARDINGCOMPLETED)){

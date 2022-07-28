@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.transition.TransitionInflater;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +41,14 @@ public class CreateHangoutFragment extends Fragment {
     private CreateHangoutViewModel viewModel;
 
     public CreateHangoutFragment() {}
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        TransitionInflater inflater = TransitionInflater.from(requireContext());
+        setExitTransition(inflater.inflateTransition(R.transition.slide_left));
+        setEnterTransition(inflater.inflateTransition(R.transition.slide_right));
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

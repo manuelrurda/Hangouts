@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.transition.TransitionInflater;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,6 +33,14 @@ public class LoginFragment extends Fragment {
     private FragmentLoginBinding binding;
 
     public LoginFragment() {}
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        TransitionInflater inflater = TransitionInflater.from(requireContext());
+        setExitTransition(inflater.inflateTransition(R.transition.slide_left));
+        setEnterTransition(inflater.inflateTransition(R.transition.slide_right));
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
