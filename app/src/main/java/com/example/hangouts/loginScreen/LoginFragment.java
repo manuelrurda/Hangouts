@@ -1,5 +1,6 @@
 package com.example.hangouts.loginScreen;
 
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -56,6 +57,7 @@ public class LoginFragment extends Fragment {
         binding.tvLoginSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 getParentFragmentManager().beginTransaction()
                         .replace(R.id.loginFragmentContainer, new SignupFragment())
                         .addToBackStack("")
@@ -70,7 +72,9 @@ public class LoginFragment extends Fragment {
                 loginUser(username, password);
             }
         });
+
     }
+
 
     private void loginUser(String username, String password) {
         ParseUser.logInInBackground(username, password, new LogInCallback() {
