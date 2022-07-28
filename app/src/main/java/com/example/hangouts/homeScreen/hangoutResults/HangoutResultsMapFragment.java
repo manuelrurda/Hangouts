@@ -172,7 +172,6 @@ public class HangoutResultsMapFragment extends Fragment implements OnMapReadyCal
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        viewModel.clear();
         binding = null;
     }
 
