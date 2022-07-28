@@ -14,7 +14,6 @@ public class BayesianRating {
     final static int standardStdDeviation = 1;
 
     private static double getPpf(double x) {
-        System.out.println(inverseCumulativeProbability(x));
         return inverseCumulativeProbability(x);
     }
 

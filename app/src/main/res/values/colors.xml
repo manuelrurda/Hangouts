@@ -12,5 +12,8 @@
     <color name="yellow">#FDBF50</color>
     <color name="midnight_blue">#2A2C41</color>
     <color name="hyperlink_blue">#2196F3</color>
+    <color name="gold">#E4BD45</color>
+    <color name="silver">#9C9C9C</color>
+    <color name="copper">#855F27</color>
     <color name="transparent">#00FFFFFF</color>
 </resources>

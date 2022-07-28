@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
@@ -17,6 +18,9 @@ import com.example.hangouts.databinding.FragmentJoinHangoutBinding;
 import com.example.hangouts.homeScreen.HangoutDetailsFragment;
 import com.example.hangouts.homeScreen.hangoutCreation.CreateHangoutViewModel;
 import com.example.hangouts.models.Hangout;
+
+import java.util.HashMap;
+import java.util.List;
 
 public class HangoutResultsFragment extends Fragment {
 
@@ -54,12 +58,39 @@ public class HangoutResultsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()).get(HangoutResultsViewModel.class);
+        viewModel.setHangout(hangout);
+        viewModel.frequencyMap.observe(getViewLifecycleOwner(), this::onFrequencyMapGenerated);
+        viewModel.scoreList.observe(getViewLifecycleOwner(), this::onScoreListGenerated);
         viewModel.generateFrequencyMatrix(hangout);
+        binding.btnResultsNext.setOnClickListener(this::onClickNext);
+    }
+
+    private void onClickNext(View view) {
+        ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction()
+                .replace(R.id.homeFragmentContainer, HangoutResultsMapFragment.newInstance(
+                        hangout,
+                        viewModel.scoreList.getValue(),
+                        viewModel.getCuisineRatingMap()))
+                .addToBackStack("")
+                .commit();
+    }
+
+    private void onScoreListGenerated(List<Double> scores) {
+        HashMap<Double, String> cuisineRatingMap = viewModel.getCuisineRatingMap();
+        binding.tvResultsFrist.setText(cuisineRatingMap.get(scores.get(0)));
+        binding.tvResultsSecond.setText(cuisineRatingMap.get(scores.get(1)));
+        binding.tvResultsThird.setText(cuisineRatingMap.get(scores.get(2)));
+    }
+
+    private void onFrequencyMapGenerated(HashMap<String, List<Double>> frequencyMap) {
+        viewModel.getScores(frequencyMap);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        viewModel.frequencyMap.removeObservers(getViewLifecycleOwner());
+        viewModel.scoreList.removeObservers(getViewLifecycleOwner());
         binding = null;
     }
 
