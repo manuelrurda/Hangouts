@@ -20,7 +20,7 @@
         tools:context=".homeScreen.hangoutResults.HangoutResultsMapFragment" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnResultsOk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"

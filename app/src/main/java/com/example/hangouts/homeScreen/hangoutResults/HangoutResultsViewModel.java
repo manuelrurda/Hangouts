@@ -35,16 +35,12 @@ import okhttp3.Headers;
 public class HangoutResultsViewModel extends ViewModel {
 
     public static final String TAG = "ResultsViewModel";
-    public static final String GOOGLE_PLACES_SEARCH_ENDPOINT = "https://maps.googleapis.com/maps/api/place/nearbysearch/json";
     private final int MAX_RATING = 5;
-
-    private final AsyncHttpClient client = new AsyncHttpClient();
 
     private Hangout hangout;
     private HashMap<Double, String> cuisineRatingMap = new HashMap<>();
     public MutableLiveData<HashMap<String, List<Double>>> frequencyMap = new MutableLiveData<>();
     public MutableLiveData<List<Double>> scoreList = new MutableLiveData<>();
-    public MutableLiveData<JSONArray> recommendationResults = new MutableLiveData<>();
 
     public HashMap<Double, String> getCuisineRatingMap() {
         return cuisineRatingMap;
@@ -110,36 +106,5 @@ public class HangoutResultsViewModel extends ViewModel {
         }
         Collections.sort(scores, Collections.reverseOrder());
         scoreList.postValue(scores);
-    }
-
-    public void queryReccomendations() {
-        HashMap<Double, String> cuisineRatingMap = getCuisineRatingMap();
-        List<Double> scoreList = this.scoreList.getValue();
-        String firstPlace = cuisineRatingMap.get(scoreList.get(0));
-        ParseGeoPoint parseGeoPoint = hangout.getLocation();
-        String latSting = String.valueOf(parseGeoPoint.getLatitude());
-        String lngSting = String.valueOf(parseGeoPoint.getLongitude());
-        String url = String.format("%s?location=%s%%2C%s&radius=25000&type=restaurant&keyword=%s&key=%s",
-                GOOGLE_PLACES_SEARCH_ENDPOINT,
-                latSting,
-                lngSting,
-                firstPlace,
-                BuildConfig.GOOGLE_CLOUD_API_KEY);
-        client.get(url, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Headers headers, JSON json) {
-                try {
-                    JSONArray results = json.jsonObject.getJSONArray("results");
-                    recommendationResults.postValue(results);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-            @Override
-            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-
-            }
-        });
-
     }
 }

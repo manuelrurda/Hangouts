@@ -67,7 +67,10 @@ public class HangoutResultsFragment extends Fragment {
 
     private void onClickNext(View view) {
         ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction()
-                .replace(R.id.homeFragmentContainer, new HangoutResultsMapFragment())
+                .replace(R.id.homeFragmentContainer, HangoutResultsMapFragment.newInstance(
+                        hangout,
+                        viewModel.scoreList.getValue(),
+                        viewModel.getCuisineRatingMap()))
                 .addToBackStack("")
                 .commit();
     }
@@ -86,6 +89,8 @@ public class HangoutResultsFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        viewModel.frequencyMap.removeObservers(getViewLifecycleOwner());
+        viewModel.scoreList.removeObservers(getViewLifecycleOwner());
         binding = null;
     }
 
