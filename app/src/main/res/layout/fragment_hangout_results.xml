@@ -91,14 +91,34 @@
 
             <ImageView
                 android:id="@+id/imageView2"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="10dp"
-                android:src="@drawable/ic_medal"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginEnd="@dimen/results_medal_margin_end"
+                android:src="@drawable/ic_golden_medal"
                 app:layout_constraintBottom_toBottomOf="@+id/tvResultsFrist"
                 app:layout_constraintEnd_toStartOf="@+id/tvResultsFrist"
-                app:layout_constraintTop_toTopOf="@+id/tvResultsFrist"
-                app:layout_constraintVertical_bias="0.487" />
+                app:layout_constraintTop_toTopOf="@+id/tvResultsFrist" />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="@dimen/results_medal_margin_end"
+                android:src="@drawable/ic_silver_medal"
+                app:layout_constraintBottom_toBottomOf="@+id/tvResultsSecond"
+                app:layout_constraintEnd_toStartOf="@+id/tvResultsSecond"
+                app:layout_constraintTop_toTopOf="@+id/tvResultsSecond" />
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="@dimen/results_medal_margin_end"
+                android:src="@drawable/ic_copper_medal"
+                app:layout_constraintBottom_toBottomOf="@+id/tvResultsThird"
+                app:layout_constraintEnd_toStartOf="@+id/tvResultsThird"
+                app:layout_constraintTop_toTopOf="@+id/tvResultsThird" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
