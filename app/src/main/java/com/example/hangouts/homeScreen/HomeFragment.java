@@ -66,6 +66,7 @@ public class HomeFragment extends Fragment {
         initActiveHangoutsRV();
         initPastHangoutsRV();
         homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
+        homeViewModel.init();
         homeViewModel.getActiveHangouts();
         homeViewModel.activeHangouts.observe(getViewLifecycleOwner(), this::updateActiveHangouts);
         binding.tvUserName.setText(String.format("%s %s.",
