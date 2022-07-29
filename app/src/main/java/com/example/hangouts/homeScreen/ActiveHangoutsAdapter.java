@@ -48,6 +48,7 @@ public class ActiveHangoutsAdapter extends RecyclerView.Adapter<ActiveHangoutsAd
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ItemActiveHangoutBinding binding = ItemActiveHangoutBinding.inflate(LayoutInflater
                 .from(parent.getContext()), parent, false);
+        Toast.makeText(context, "BINDING PAST", Toast.LENGTH_SHORT).show();
         return new ViewHolder(binding);
     }
 
