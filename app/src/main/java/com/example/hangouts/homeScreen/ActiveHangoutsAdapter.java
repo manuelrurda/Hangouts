@@ -12,8 +12,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.hangouts.HomeViewModel;
 import com.example.hangouts.R;
 import com.example.hangouts.databinding.ItemActiveHangoutBinding;
 import com.example.hangouts.homeScreen.hangoutResults.HangoutResultsFragment;
@@ -33,9 +35,11 @@ import java.util.Objects;
 public class ActiveHangoutsAdapter extends RecyclerView.Adapter<ActiveHangoutsAdapter.ViewHolder> {
 
     private Context context;
+    private HomeViewModel homeViewModel;
     private List<Hangout> activeHangouts = new ArrayList<>();
 
     public ActiveHangoutsAdapter(Context context){
+        homeViewModel = new ViewModelProvider((FragmentActivity) context).get(HomeViewModel.class);
         this.context = context;
     }
 
@@ -76,6 +80,7 @@ public class ActiveHangoutsAdapter extends RecyclerView.Adapter<ActiveHangoutsAd
             hangout.fetchIfNeededInBackground(new GetCallback<Hangout>() {
                 @Override
                 public void done(Hangout fetchedHangout, ParseException e) {
+                    homeViewModel.setHangout(fetchedHangout);
                     binding.tvItemAlias.setText(fetchedHangout.getAlias());
                     binding.tvItemLocation.setText(fetchedHangout.getLocationString());
                     String stringNumber = String.valueOf(fetchedHangout.getMembers().length());
@@ -105,6 +110,7 @@ public class ActiveHangoutsAdapter extends RecyclerView.Adapter<ActiveHangoutsAd
                 }
 
                 private void onClickAccept(DialogInterface dialogInterface, int i) {
+                    homeViewModel.closeHangout();
                     ((FragmentActivity) context).getSupportFragmentManager().beginTransaction()
                             .replace(R.id.homeFragmentContainer, HangoutResultsFragment.newInstance(hangout))
                             .addToBackStack("")

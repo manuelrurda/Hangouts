@@ -135,6 +135,8 @@ public class HomeFragment extends Fragment {
                 .commit();
     }
 
+
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
