@@ -25,6 +25,7 @@ import com.example.hangouts.loginScreen.LoginActivity;
 import com.example.hangouts.models.Hangout;
 import com.example.hangouts.models.UserUiModel;
 import com.example.hangouts.homeScreen.hangoutCreation.HangoutLocationSelectionMapFragment;
+import com.example.hangouts.onboardingScreen.fragments.DragDropCuisineFragment;
 import com.parse.LogOutCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -74,6 +75,14 @@ public class HomeFragment extends Fragment {
         binding.btnHomeCreate.setOnClickListener(this::onClickCreate);
         binding.btnHomeJoin.setOnClickListener(this::onClickJoin);
         binding.btnHomeLogout.setOnClickListener(this::onClickLogout);
+        binding.tvRateFood.setOnClickListener(this::onClickRateFood);
+    }
+
+    private void onClickRateFood(View view) {
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.homeFragmentContainer, new DragDropCuisineFragment())
+                .addToBackStack("home")
+                .commit();
     }
 
     private void onClickLogout(View view) {
