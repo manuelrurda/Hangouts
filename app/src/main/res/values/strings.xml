@@ -20,10 +20,8 @@
     <string name="date_format_label">Date (MM/dd/yy)</string>
     <string name="time_format_label">Time (HH:mm)</string>
     <string name="hangout_alias_label">Hangout Alias</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="nothing_to_show_label">Nothing to show</string>
-    <string name="ok_label">Ok</string>
+    <string name="ok_label">OK</string>
     <string name="enter_hangout_code">Enter Hangout Code</string>
     <string name="code_hint">Code</string>
     <string name="hangout_rv_members_label">Members: %s</string>
@@ -33,4 +31,5 @@
     <string name="close_hangout_dialog_cancel">Cancel</string>
     <string name="close_hangout_dialog_accept">Accept</string>
     <string name="based_on_your_preferences_label">Based on your preferences</string>
+    <string name="rate_food_label"><u>Rate Food</u></string>
 </resources>

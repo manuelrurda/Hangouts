@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.transition.TransitionInflater;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.hangouts.R;
 import com.example.hangouts.databinding.FragmentSignupBinding;
 import com.example.hangouts.homeScreen.MainActivity;
 import com.example.hangouts.models.User;
@@ -29,6 +31,14 @@ public class SignupFragment extends Fragment {
     FragmentSignupBinding binding;
 
     public SignupFragment() {}
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        TransitionInflater inflater = TransitionInflater.from(requireContext());
+        setExitTransition(inflater.inflateTransition(R.transition.slide_left));
+        setEnterTransition(inflater.inflateTransition(R.transition.slide_right));
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

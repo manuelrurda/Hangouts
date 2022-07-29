@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.transition.TransitionInflater;
 
 import android.util.Log;
 import android.view.DragEvent;
@@ -24,6 +25,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.example.hangouts.R;
 import com.example.hangouts.databinding.FragmentDragDropCuisineBinding;
 import com.example.hangouts.homeScreen.MainActivity;
 import com.example.hangouts.models.User;
@@ -53,6 +55,14 @@ public class DragDropCuisineFragment extends Fragment {
     private List<DropZone> dropZones;
 
     public DragDropCuisineFragment() {}
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        TransitionInflater inflater = TransitionInflater.from(requireContext());
+        setExitTransition(inflater.inflateTransition(R.transition.slide_left));
+        setEnterTransition(inflater.inflateTransition(R.transition.slide_right));
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

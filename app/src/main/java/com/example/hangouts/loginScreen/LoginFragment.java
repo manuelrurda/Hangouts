@@ -1,5 +1,6 @@
 package com.example.hangouts.loginScreen;
 
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.transition.TransitionInflater;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,6 +36,14 @@ public class LoginFragment extends Fragment {
     public LoginFragment() {}
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        TransitionInflater inflater = TransitionInflater.from(requireContext());
+        setExitTransition(inflater.inflateTransition(R.transition.slide_left));
+        setEnterTransition(inflater.inflateTransition(R.transition.slide_right));
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentLoginBinding.inflate(getLayoutInflater());
@@ -47,6 +57,7 @@ public class LoginFragment extends Fragment {
         binding.tvLoginSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 getParentFragmentManager().beginTransaction()
                         .replace(R.id.loginFragmentContainer, new SignupFragment())
                         .addToBackStack("")
@@ -61,7 +72,9 @@ public class LoginFragment extends Fragment {
                 loginUser(username, password);
             }
         });
+
     }
+
 
     private void loginUser(String username, String password) {
         ParseUser.logInInBackground(username, password, new LogInCallback() {

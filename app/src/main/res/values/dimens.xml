@@ -27,4 +27,5 @@
     <dimen name="results_second_place">23sp</dimen>
     <dimen name="results_third_place">18sp</dimen>
     <dimen name="results_places_margin">20dp</dimen>
+    <dimen name="results_medal_margin_end">10dp</dimen>
 </resources>

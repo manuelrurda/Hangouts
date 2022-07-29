@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.transition.TransitionInflater;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -79,6 +80,11 @@ public class HangoutResultsMapFragment extends Fragment implements OnMapReadyCal
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        TransitionInflater inflater = TransitionInflater.from(requireContext());
+        setExitTransition(inflater.inflateTransition(R.transition.slide_left));
+        setEnterTransition(inflater.inflateTransition(R.transition.slide_right));
+
         if (!getArguments().isEmpty()) {
             hangout = getArguments().getParcelable(Hangout.FRAGMENT_ARGUMENT_ID);
             scoreList = (List<Double>) getArguments().getSerializable(SCORE_LIST_ID);
