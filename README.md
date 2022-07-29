@@ -156,7 +156,7 @@ Hangouts is an event/social planner app that allows users to create events or "H
 - Location Selection
   - Google Maps API to select location or place pin on map
 - Event details Screen
-  - Yelp API call to fetch restaurants depending on suggestions output.
+  - Google Places call to fetch restaurants depending on suggestions output.
 - [Create basic snippets for each Parse network request]
 
 ### Dependencies and API's
@@ -164,7 +164,8 @@ Hangouts is an event/social planner app that allows users to create events or "H
 * Glide: image loading. https://bumptech.github.io/glide/
 * Parse: Database. https://www.back4app.com/docs/get-started/welcome
 * SwipeCards: Third party card view with swiping capabilities. https://github.com/Diolor/Swipecards
-* Yelp API: Api for fetching millions of businesses reviews and content. https://www.yelp.com/developers/documentation/v3/get_started
+* Google Maps API: Google service to display location on map. https://developers.google.com/maps/documentation/android-sdk
+* Google Places API: Google service to fetch data from millions of businesses. https://developers.google.com/maps/documentation/places/android-sdk
 
 ## Weekly Plan
 
@@ -180,18 +181,18 @@ Plan:
 - [x] Dashboard
 
 #### W3
-- [x] Event creation -> In progress
-- [ ] Location selection
+- [x] Event creation
+- [x] Location selection
 
 #### W4
-- [ ] Ranking screen
-- [ ] Event Detail screen
+- [x] Ranking screen
+- [x] Event Detail screen
 
 #### W5
-- [ ] Suggestions algo
-- [ ] Final results screen
+- [x] Suggestions algo
+- [x] Final results screen
 
-#### W6
+#### W6 - Stretch Goals
 - [ ] Store prev events
 - [ ] Offline capabilities(stretch goal)
 - [ ] decision/voting screen
