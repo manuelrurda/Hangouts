@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.transition.TransitionInflater;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,7 @@ public class HomeFragment extends Fragment {
     private final UserUiModel currentUser;
     private HomeViewModel homeViewModel;
     private ActiveHangoutsAdapter activeHangoutsAdapter;
+    private PastHangoutsAdapter pastHangoutsAdapter;
 
     public HomeFragment() {
         currentUser = new UserUiModel(ParseUser.getCurrentUser());
@@ -66,8 +68,11 @@ public class HomeFragment extends Fragment {
         initActiveHangoutsRV();
         initPastHangoutsRV();
         homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
+        homeViewModel.init();
         homeViewModel.getActiveHangouts();
+        homeViewModel.getPastHangouts();
         homeViewModel.activeHangouts.observe(getViewLifecycleOwner(), this::updateActiveHangouts);
+        homeViewModel.pastHangouts.observe(getViewLifecycleOwner(), this::updatePastHangouts);
         binding.tvUserName.setText(String.format("%s %s.",
                 currentUser.getName(),
                 currentUser.getLastInitial()));
@@ -103,9 +108,19 @@ public class HomeFragment extends Fragment {
     }
 
     private void updateActiveHangouts(List<Hangout> hangouts) {
+        int emptyLabelVisibility = (hangouts.size() > 0) ? View.GONE : View.VISIBLE;
+        binding.tvActiveHangoutsEmptyLabel.setVisibility(emptyLabelVisibility);
         activeHangoutsAdapter = new ActiveHangoutsAdapter(getContext());
         binding.rvActiveHangouts.setAdapter(activeHangoutsAdapter);
         activeHangoutsAdapter.setActiveHangouts(hangouts);
+    }
+
+    private void updatePastHangouts(List<Hangout> hangouts) {
+        int emptyLabelVisibility = (hangouts.size() > 0) ? View.GONE : View.VISIBLE;
+        binding.tvPastHangoutsEmptyLabe.setVisibility(emptyLabelVisibility);
+        pastHangoutsAdapter = new PastHangoutsAdapter(getContext());
+        binding.rvPastHangouts.setAdapter(pastHangoutsAdapter);
+        pastHangoutsAdapter.setPastHangouts(hangouts);
     }
 
     private void initActiveHangoutsRV(){
@@ -119,6 +134,9 @@ public class HomeFragment extends Fragment {
     private void initPastHangoutsRV(){
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         binding.rvPastHangouts.setLayoutManager(linearLayoutManager);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding
+                .rvPastHangouts.getContext(), linearLayoutManager.getOrientation());
+        binding.rvPastHangouts.addItemDecoration(dividerItemDecoration);
     }
 
     private void onClickCreate(View view) {
@@ -134,6 +152,8 @@ public class HomeFragment extends Fragment {
                 .addToBackStack("home")
                 .commit();
     }
+
+
 
     @Override
     public void onDestroyView() {

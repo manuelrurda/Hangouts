@@ -73,6 +73,10 @@ public class HangoutDetailsFragment extends Fragment {
         binding.btnCopyClipboard.setOnClickListener(this::onClipboardClick);
         binding.btnDetailsOk.setOnClickListener(this::onOkClick);
         binding.tvHangoutDetailsLocation.setText(hangout.getLocationString());
+        if (!hangout.getIsActive()){
+            binding.btnCopyClipboard.setVisibility(View.GONE);
+            binding.btnDetailsSeeResults.setVisibility(View.VISIBLE);
+        }
         initMapFragment();
     }
 

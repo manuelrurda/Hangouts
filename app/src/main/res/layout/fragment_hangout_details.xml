@@ -111,15 +111,16 @@
                 android:id="@+id/btnDetailsOk"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:paddingHorizontal="@dimen/button_padding_horizontal"
                 android:paddingVertical="@dimen/button_padding_vertical"
                 android:text="@string/ok_label"
                 android:textColor="@color/white"
                 android:textSize="@dimen/button_font_size"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/btnCopyClipboard"
-                app:layout_constraintStart_toStartOf="@+id/btnCopyClipboard"
-                app:layout_constraintTop_toBottomOf="@+id/btnCopyClipboard"
+                app:layout_constraintEnd_toEndOf="@+id/tvHangoutDetailsHangoutCode"
+                app:layout_constraintStart_toStartOf="@+id/tvHangoutDetailsHangoutCode"
+                app:layout_constraintTop_toTopOf="@+id/btnCopyClipboard"
                 app:rippleColor="@color/midnight_blue" />
 
             <ImageView
@@ -150,6 +151,22 @@
                 app:layout_constraintEnd_toEndOf="@+id/imageView4"
                 app:layout_constraintStart_toStartOf="@+id/imageView4"
                 app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+            <Button
+                android:id="@+id/btnDetailsSeeResults"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingHorizontal="@dimen/button_padding_horizontal"
+                android:paddingVertical="@dimen/button_padding_vertical"
+                android:text="@string/see_results_label"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/btnDetailsOk"
+                app:layout_constraintStart_toStartOf="@+id/btnDetailsOk"
+                app:layout_constraintTop_toBottomOf="@+id/btnDetailsOk" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
