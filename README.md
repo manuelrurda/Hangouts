@@ -23,6 +23,32 @@ Hangouts is an event/social planner app that allows users to create events or "H
 - **Scope:** MVP: Users can sign-up, create a hangout, share it and join hangouts. The app will make basic recommendations based on user data and display a map view with places to go to. V2: Better recommendations, better ui, Facebook signup.
 - **Complexity Aspects:** Algorithm for suggestions: Input -> user preferences on one category (give categories weight)(e.g Cousine: Italian, Chinese, Japanese, Mexican etc. Type of food: Non-vegan, vegan, vegetarian, non-vegetarian) -> [algorithm] -> Output -> a list of restaurants that will satisfy the group's preference on a certain level and display them on a map.
 
+## Demo
+
+### Signup / Onboarding
+
+<p align="center">
+<img src="https://github.com/manuelrurda/Hangouts/blob/main/demogifs/Signup_Onboarding.gif" alt="Signup and Onboarding" width="200"/>
+</p>
+
+### Create Hangout
+
+<p align="center">
+<img src="https://github.com/manuelrurda/Hangouts/blob/main/demogifs/CreateHangout.gif" alt="Create Hangout" width="200"/>
+</p>
+
+### Join Hangout
+
+<p align="center">
+<img src="https://github.com/manuelrurda/Hangouts/blob/main/demogifs/JoinHangout.gif" alt="Join Hangout" width="200"/>
+</p>
+
+### Close Hangout and Results
+
+<p align="center">
+<img src="https://github.com/manuelrurda/Hangouts/blob/main/demogifs/CloseHangout1.gif" alt="Close Hangout" width="200"/>
+</p>
+
 ## Product Spec
 
 ### 1. User Stories (Required and Optional)
