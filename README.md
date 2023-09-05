@@ -222,3 +222,7 @@ Plan:
 - [ ] Store prev events
 - [ ] Offline capabilities(stretch goal)
 - [ ] decision/voting screen
+
+
+
+![thumbnail](https://github.com/manuelrurda/Hangouts/assets/62727899/c7dc473d-6f19-415d-845f-99e792445142)
